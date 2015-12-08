@@ -2,7 +2,6 @@ openesdh-addo-ui
 ===================
 OpenESDH integration with Visma Addo UI
 
-openesdh-addo-ui
 ----------------
 To run project integrated with OpenESDH-UI:
 
