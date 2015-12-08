@@ -1,7 +1,7 @@
     angular
         .module('openeApp.cases.staff', ['openeApp.cases.common'])
         .config(config);
-    //
+    //aaa
     function config(caseCrudDialogServiceProvider){
         caseCrudDialogServiceProvider.caseCrudForm({
             type: 'staff:case',
