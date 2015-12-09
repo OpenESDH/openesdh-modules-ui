@@ -5,7 +5,7 @@
     function StaffCaseDialogController($controller, contactsService, userService, caseInfo) {
         angular.extend(this, $controller('CaseCommonDialogController', {caseInfo: caseInfo}));
         var vm = this;
-        vm.formTemplateUrl = 'app/src/staff/view/staffCaseCrudForm.html';
+        vm.formTemplateUrl = 'app/src/modules/staff/view/staffCaseCrudForm.html';
         vm.employeeSearchText = '';
         
         vm.initCommonCasePropsForEdit = vm.initCasePropsForEdit;
