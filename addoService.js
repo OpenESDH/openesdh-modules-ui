@@ -14,7 +14,7 @@ function addoService($http, $q) {
 
     function saveAddoUser(username, addoUsername, addoPassword) {
         if (addoUsername && addoPassword) {
-            return $http.post('/alfresco/s/api/openesdh/addo/' + encodeURIComponent(username) + '/save', null,
+            return $http.post('/api/openesdh/addo/' + encodeURIComponent(username) + '/save', null,
                     {params: {
                             'addoUsername': addoUsername,
                             'addoPassword': addoPassword
@@ -28,24 +28,24 @@ function addoService($http, $q) {
     }
 
     function getSigningTemplates() {
-        return $http.get('/alfresco/s/api/openesdh/addo/SigningTemplates').then(function(response) {
+        return $http.get('/api/openesdh/addo/SigningTemplates').then(function(response) {
             return response.data.SigningTemplateItems.SigningTemplate;
         });
     }
 
     function initiateSigning(data) {
-        return $http.post('/alfresco/s/api/openesdh/addo/InitiateSigning', data).then(function(response) {
+        return $http.post('/api/openesdh/addo/InitiateSigning', data).then(function(response) {
             return response.data;
         });
     }
 
     function getAddoUserProperties(username) {
-        return $http.get('/alfresco/s/api/openesdh/addo/' + username + '/props').then(function(response) {
+        return $http.get('/api/openesdh/addo/' + username + '/props').then(function(response) {
             return response.data;
         });
     }
     function isAddoAccountConfigured() {
-        return $http.get('/alfresco/s/api/openesdh/addo/props').then(function(response) {
+        return $http.get('/api/openesdh/addo/props').then(function(response) {
             return response.data.configured;
         });
     }
