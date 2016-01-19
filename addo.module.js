@@ -6,5 +6,5 @@ function config(caseDocumentsSendItemsServiceProvider, languageFilesProvider) {
     //case menu item
     caseDocumentsSendItemsServiceProvider.addMenuItem('ADDO.DOCUMENT.SEND_FOR_SIGNING', 'sendToAddoService');
     //translations
-    languageFilesProvider.addFile('/app/src/modules/addo/i18n/','-addo.json');
+    languageFilesProvider.addFile('app/src/modules/addo/i18n/','-addo.json');
 }
