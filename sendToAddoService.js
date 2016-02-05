@@ -13,21 +13,10 @@ function SendToAddoService($stateParams, $mdDialog, $filter, $q, $translate, not
     function execute() {
         var data = {
             templates: [],
-            parties: [],
             documents: []
         };
         var pTempl = addoService.getSigningTemplates().then(function(templates) {
             data.templates = templates;
-        });
-
-        var pParties = casePartiesService.getCaseParties($stateParams.caseId).then(function(parties) {
-            data.parties = $filter('filter')(parties, function(party) {
-                return party.contactType === 'PERSON';
-            }).map(function(party) {
-                party._displayname = angular.lowercase(party.displayName);
-                party._email = angular.lowercase(party.contactId);
-                return party;
-            });
         });
 
         var pDocs = caseDocumentsService.getCaseDocumentsWithAttachments($stateParams.caseId).then(function(documents) {
@@ -35,7 +24,7 @@ function SendToAddoService($stateParams, $mdDialog, $filter, $q, $translate, not
         });
 
         //proceed when all promises are resolved
-        $q.all([pTempl, pDocs, pParties]).then(function() {
+        $q.all([pTempl, pDocs]).then(function() {
             showDialog(data);
         }, function(){
             notificationUtilsService.alert($translate.instant('ADDO.DOCUMENT.CANT_INITIALIZE'));
@@ -56,11 +45,10 @@ function SendToAddoService($stateParams, $mdDialog, $filter, $q, $translate, not
             clickOutsideToClose: true,
             locals: data
         }).then(function(response) {
-            console.log('ADDO!');
         });
     }
 
-    function AddoDialogController($mdDialog, templates, parties, documents) {
+    function AddoDialogController($mdDialog, contactsService, templates, documents) {
         var addoCtrl = this;
         addoCtrl.model = {
             caseId: $stateParams.caseId,
@@ -79,7 +67,6 @@ function SendToAddoService($stateParams, $mdDialog, $filter, $q, $translate, not
         addoCtrl.querySearch = contactsQuerySearch;
         //data
         addoCtrl.templates = templates;
-        addoCtrl.parties = parties;
         addoCtrl.documents = documents;
 
         addoCtrl.toggleDocument = toggleDocument;
@@ -125,22 +112,9 @@ function SendToAddoService($stateParams, $mdDialog, $filter, $q, $translate, not
             if (!query){
                 return [];
             }
-            return addoCtrl.parties.filter(createFilterFor(query));
-        }
-
-        /*
-         * Create filter function for a query string
-         */
-        function createFilterFor(query) {
-            var lowercaseQuery = angular.lowercase(query);
-            var usedIds = [];
-            for (var i = 0; i < addoCtrl.model.receivers.length; i++) {
-                usedIds.push(addoCtrl.model.receivers[i].nodeRef);
-            }
-            return function filterFn(party) {
-                return usedIds.indexOf(party.nodeRef) === -1 && 
-                        (party._displayname.indexOf(lowercaseQuery) >= 0 || party._email.indexOf(lowercaseQuery) >= 0);
-            };
+            return contactsService.getPersons(query).then(function(response){
+                return response.items;
+            });
         }
     }
 }
