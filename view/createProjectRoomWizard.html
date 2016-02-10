@@ -1,7 +1,7 @@
 <md-dialog class="dialog-large" aria-label="">
     <md-toolbar layout>
         <div class="md-toolbar-tools">
-            <h2>{{'CASE.CREATE_PROJECT_ROOM' | translate}}</h2>
+            <h2>{{'PROJECT_ROOM.CREATE_PROJECT_ROOM' | translate}}</h2>
         </div>
     </md-toolbar>
     
@@ -11,104 +11,83 @@
             <form name="projectRoomForm">
                 <div ng-init="dlg.appendForm(projectRoomForm)" layout="column">
                     <md-input-container>
-                        <label>* {{'CASE.PROJECT_ROOM.SHORT_NAME' | translate}}</label>
+                        <label>* {{'PROJECT_ROOM.SHORT_NAME' | translate}}</label>
                         <input name="shortName" type="text" ng-model="dlg.caseSite.shortName" required uniquesite></input>
                         <div ng-messages="projectRoomForm.shortName.$error">
                             <div ng-message="uniquesite">
-                              {{'CASE.PROJECT_ROOM.DUPLICATE_SHORT_NAME' | translate}}
+                              {{'PROJECT_ROOM.DUPLICATE_SHORT_NAME' | translate}}
                             </div>
                         </div>
                     </md-input-container>
                     <md-input-container>
-                        <label>* {{'CASE.PROJECT_ROOM.NAME' | translate}}</label>
+                        <label>* {{'PROJECT_ROOM.NAME' | translate}}</label>
                         <input name="title" type="text" ng-model="dlg.caseSite.title" required></input>
                     </md-input-container>
                     <md-input-container>
-                        <label>{{'CASE.PROJECT_ROOM.DESCRIPTION' | translate}}</label>
+                        <label>{{'PROJECT_ROOM.DESCRIPTION' | translate}}</label>
                         <textarea ng-model="dlg.caseSite.description"></textarea>
                     </md-input-container>
                 </div>
             </form>
         </mt-wz-step>
         
-        <mt-wz-step class="workflowWizardStep">
-            <div layout="column">
-                <md-autocomplete
-                    md-selected-item="dlg.participantSelectedItem"
-                    md-search-text="dlg.participantSearchText"
-                    md-items="item in dlg.searchParticipant()"
-                    md-item-text="item.name"
-                    md-no-cache="true"
-                    md-icon=""
-                    placeholder="{{ 'CASE.PROJECT_ROOM.ADD_PARTICIPANT'| translate }}"
-                    inform-item-selected-then-clear="dlg.participantSelected()">
-                  <span md-highlight-text="dlg.participantSearchText">{{item.name}}</span>
-                </md-autocomplete>
-                <h3>{{ 'CASE.PROJECT_ROOM.PARTICIPANTS'| translate }}</h3>
-                <table>
-                    <tr ng-repeat="participant in dlg.selectedParticipants">
-                        <td>{{participant.name}}</td>
-                        <td>
-                            <md-select placeholder="{{'CASE.PROJECT_ROOM.CHOOSE_PARTICIPANT_ROLE' | translate}}" ng-model="participant.role">
-                                <md-option ng-value="role" ng-repeat="role in dlg.participantRoles">{{'CASE.PROJECT_ROOM.PARTICIPANT_ROLES.' + role | translate}}</md-option>
-                            </md-select>
-                        </td>
-                        <td><md-button class="md-primary" ng-click="dlg.removeParticipant($index)">{{ 'COMMON.DELETE' | translate }}</md-button></td>
-                    </tr>
-                </table>
-            </div>
-            
-            <h3>{{"DOCUMENT.DOCUMENTS" | translate}}</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>{{'COMMON.TITLE' | translate}}</th>
-                        <th>{{'COMMON.NO' | translate}}</th>
-                        <th>{{'COMMON.TYPE' | translate}}</th>
-                        <th>{{'COMMON.CATEGORY' | translate}}</th>
-                        <th>{{'COMMON.STATE' | translate}}</th>
-                        <th>{{'COMMON.OWNER' | translate}}</th>
-                        <th>{{'COMMON.CREATED' | translate}}</th>
-                        <th>{{'COMMON.MODIFIED' | translate}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat-start="doc in dlg.documents">
-                        <td>
-                            <span ng-if="doc.attachments.length > 0 && doc.expanded" ng-click="doc.expanded = false" class="collapse"></span>
-                            <span ng-if="doc.attachments.length > 0 && !doc.expanded" ng-click="doc.expanded = true" class="expand"></span>
-                        </td>
-                        <td>
-                            <div style="display: inline-flex;">
-                                <md-checkbox ng-model="doc.selected" aria-label="checkbox" ng-change="dlg.onDocSelectionChanged()">{{doc.title}}</md-checkbox>
-                            </div>
-                        </td>
-                        <td></td>
-                        <td>{{doc.typeDisplayName}}</td>
-                        <td>{{doc.categoryDisplayName}}</td>
-                        <td>{{doc.status | docStatus}}</td>
-                        <td>{{doc.owner.firstName + " " + doc.owner.lastName}}</td>
-                        <td>{{doc.created | openeDate}}</td>
-                        <td>{{doc.modified | openeDate}}</td>
-                    </tr>
-                    <tr ng-if="doc.attachments.length > 0 && doc.expanded" ng-repeat-end="">
-                        <td style="padding-left: 50px;" colspan="9">
-                            <div ng-repeat="attachment in doc.attachments">
-                                <md-checkbox ng-model="attachment.selected" aria-label="checkbox" ng-change="dlg.onDocSelectionChanged()">
-                                    {{attachment.name}}
-                                </md-checkbox>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            
+        <mt-wz-step class="workflowWizardStep" style="overflow: auto">
+            <ng-form name="projectRoomParticipantsForm">
+                <div ng-init="dlg.appendForm(projectRoomParticipantsForm)" layout="column">
+                    <md-autocomplete
+                        md-selected-item="dlg.participantSelectedItem"
+                        md-search-text="dlg.participantSearchText"
+                        md-items="item in dlg.searchParticipant()"
+                        md-item-text="item.displayName"
+                        md-no-cache="true"
+                        md-icon=""
+                        placeholder="{{ 'PROJECT_ROOM.ADD_PARTICIPANT'| translate }}"
+                        inform-item-selected-then-clear="dlg.participantSelected()">
+                      <span md-highlight-text="dlg.participantSearchText">{{item.displayName}}</span>
+                    </md-autocomplete>
+                    <h3>{{ 'PROJECT_ROOM.PARTICIPANTS'| translate }}</h3>
+                    <table>
+                        <tr ng-repeat="participant in dlg.selectedParticipants">
+                            <td>{{participant.displayName}}</td>
+                            <td>
+                                <md-select name="partRole{{$index}}" placeholder="{{'PROJECT_ROOM.CHOOSE_PARTICIPANT_ROLE' | translate}}" 
+                                    ng-model="participant.role" required>
+                                    <md-option ng-value="role" ng-repeat="role in dlg.participantRoles">{{'PROJECT_ROOM.PARTICIPANT_ROLES.' + role | translate}}</md-option>
+                                </md-select>
+                            </td>
+                            <td><md-button class="md-primary" ng-click="dlg.removeParticipant($index)">{{ 'COMMON.DELETE' | translate }}</md-button></td>
+                        </tr>
+                    </table>
+                </div>
+            </ng-form>
+            <ng-include src="'app/src/cases/view/selectCaseDocuments.html'"></ng-include>
         </mt-wz-step>
         
         <mt-wz-step class="workflowWizardStep">
-            <div layout>
-                Project room summary
+            <div layout="column">
+                <h3>{{'COMMON.CONGRATULATIONS' | translate}}</h3>
+                <p>
+                    {{'PROJECT_ROOM.READY_TO_CREATE_PROJECT_ROOM' | translate}}
+                </p>
+                <p>
+                    {{'PROJECT_ROOM.DOCS_TO_COPY' | translate}}
+                    <ul>
+                       <li ng-repeat="doc in dlg.selectedDocuments">
+                           {{doc.title}}
+                           <ul>
+                               <li ng-repeat="attachment in doc.selectedAttachments">
+                                   {{attachment.name}}
+                               </li> 
+                           </ul>
+                       </li> 
+                    </ul>
+                </p>
+                <p>
+                    {{'PROJECT_ROOM.PARTICIPANTS_WILL_HAVE_ACCESS' | translate}}
+                    <ul>
+                        <li ng-repeat="participant in dlg.selectedParticipants">{{participant.displayName}}</li>
+                    </ul>
+                </p>
             </div>
         </mt-wz-step>
         

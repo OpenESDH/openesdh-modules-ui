@@ -1,0 +1,25 @@
+{
+    "PROJECT_ROOM": {
+        "CREATE_PROJECT_ROOM": "Create project room",
+        "PROJECT_ROOM": "Project room",
+        "SHORT_NAME": "Short name",
+        "DUPLICATE_SHORT_NAME": "A site with the specified name exists. Choose other short name.",
+        "NAME": "Project room name",
+        "DESCRIPTION": "Project room description of purpose",
+        "ADD_PARTICIPANT": "Add participant to project room",
+        "PARTICIPANTS": "Participants",
+        "CHOOSE_PARTICIPANT_ROLE": "Choose role",
+        "READY_TO_CREATE_PROJECT_ROOM": "You are now ready to create a project room and start collaborating with your colleagues and stakeholders.",
+        "DOCS_TO_COPY": "The following documents will be copied to the project room",
+        "PARTICIPANTS_WILL_HAVE_ACCESS": "The following participants will have access to the project room",
+        "CREATED": "The project room '{{shortName}}' created",
+        "PARTICIPANT_ROLES": {
+            "SiteConsumer": "Consumer",
+            "SiteContributor": "Contributor",
+            "SiteCoordinator": "Coordinator",
+            "SiteManager": "Manager"
+        },
+        "BACK_TO_PROJECT_ROOM": "Back to project room",
+        "LOCKED_FOR_PROJECT_ROOM": "Locked for project room"
+    }
+}

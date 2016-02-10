@@ -1,0 +1,48 @@
+<app-header></app-header>
+
+<md-content layout="column">
+
+    <div class="sub-toolbar">
+        <div layout="row" layout-align="space-between center" layout-padding>
+            <div layout="row" layout-align="start center">
+                <md-button ng-href="#/cases/case/{{prCtrl.room.caseId}}" ng-aria="{{ 'CASE.CASE' | translate }}">
+                    <i class="material-icons" style="vertical-align: middle;">arrow_back</i> {{ prCtrl.room.caseId }}
+                </md-button>
+                <h1 class="md-headline" layout-margin>
+                    {{ prCtrl.room.title }}
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div layout layout-wrap>
+        <div layout-xs="noshrink" flex-md="100" flex-gt-md="25" class="case-info-card">
+            <md-card>
+                <md-card-content>
+                    <div layout layout-align="space-between center">
+                        <h3 class="md-title">
+                            {{ 'PROJECT_ROOM.PROJECT_ROOM' | translate }}
+                        </h3>
+                    </div>
+                    <dl layout="row" layout-wrap>
+                      <dt flex="33">{{ 'COMMON.TITLE' | translate }}</dt><dd flex="66">{{ prCtrl.room.title }}</dd>
+                      <dt flex="33">{{ 'PROJECT_ROOM.SHORT_NAME' | translate }}</dt><dd flex="66">{{ prCtrl.room.shortName }}</dd>
+                      <dt flex="33">{{ 'COMMON.CREATEDBY' | translate }}</dt><dd flex="66">{{ prCtrl.room.creator.firstName + ' ' + prCtrl.room.creator.lastName}}</dd>
+                      <dt flex="33">{{ 'COMMON.CREATED' | translate }}</dt><dd flex="66">{{ prCtrl.room.createdDate | openeDate}}</dd>
+                      <dt flex="33">{{ 'COMMON.MODIFIED' | translate }}</dt><dd flex="66">{{ prCtrl.room.lastModifiedDate  | openeDate}}</dd>
+                      <dt flex="33">{{ 'COMMON.DESCRIPTION' | translate }}</dt><dd flex="66">{{ prCtrl.room.description }}</dd>
+                    </dl>
+                </md-card-content>
+                <div class="md-actions" layout="row" layout-gt-md="column"  layout-xs="column" layout-padding layout-align="start start" >
+                    <md-button class="md-primary">
+                        <i class="material-icons">mode_edit</i>{{ 'CASE.EDIT_INFORMATION' | translate }}</md-button>
+                </div>
+            </md-card>
+        </div>
+        <div layout-xs="noshrink" flex flex-md="100" class="case-info-card"
+             ng-include="'app/src/modules/projectRooms/view/projectRoomDocumentList.html'"></div>
+    </div>
+
+</md-content>
+
+<app-footer></app-footer>
