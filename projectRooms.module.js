@@ -1,7 +1,7 @@
     angular.module('openeApp.projectRooms', [])
         .config(config);
     
-    function config($stateProvider, languageFilesProvider, caseInfoExtrasServiceProvider){
+    function config($stateProvider, languageFilesProvider, caseInfoExtrasServiceProvider, caseDocumentDetailsExtrasServiceProvider){
         $stateProvider.state('projectRoom', {
             parent: 'site',
             url: '/project/room/:shortName',
@@ -33,6 +33,10 @@
         languageFilesProvider.addFile('app/src/modules/projectRooms/i18n/','-projectRooms.json');
         
         caseInfoExtrasServiceProvider.addExtra({
+            controller: 'CaseInfoProjectRoomController'
+        });
+        
+        caseDocumentDetailsExtrasServiceProvider.addExtra({
             controller: 'CaseInfoProjectRoomController'
         });
     }

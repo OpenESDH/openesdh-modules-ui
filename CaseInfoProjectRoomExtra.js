@@ -4,6 +4,7 @@
     
     function CaseInfoProjectRoomController($stateParams, projectRoomDialogService, projectRoomsService){
         var vm = this;
+        vm.docLockUrl = 'app/src/modules/projectRooms/view/caseDocDetailsLock.html';
         vm.caseInfoPropsUrl = 'app/src/modules/projectRooms/view/caseInfoProps.html';
         vm.caseInfoActionsUrl = 'app/src/modules/projectRooms/view/caseInfoActions.html';
         vm.hasProjectRoom = false;
