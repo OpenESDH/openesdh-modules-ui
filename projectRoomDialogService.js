@@ -48,7 +48,7 @@
                 caseMembersService.getCaseMembers(caseId).then(function(members){
                     var currentUser = sessionService.getUserInfo().user;
                     members = members.filter(function(item){
-                       item.authority != currentUser.userName; 
+                       return item.authority != currentUser.userName; 
                     });
                     casePartiesService.getCaseParties(caseId).then(function(parties){
                         vm.membersParties = members.concat(parties);
