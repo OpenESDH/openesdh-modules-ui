@@ -20,6 +20,7 @@
             "SiteManager": "Manager"
         },
         "BACK_TO_PROJECT_ROOM": "Back to project room",
-        "LOCKED_FOR_PROJECT_ROOM": "Locked for project room"
+        "LOCKED_FOR_PROJECT_ROOM": "Locked for project room",
+        "INVALID_SHORT_NAME": "Please enter a valid short name (min 3 letters, underscore allowed)"
     }
 }
