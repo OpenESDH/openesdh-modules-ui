@@ -12,8 +12,12 @@
                 <div ng-init="dlg.appendForm(projectRoomForm)" layout="column">
                     <md-input-container>
                         <label>* {{'PROJECT_ROOM.SHORT_NAME' | translate}}</label>
-                        <input name="shortName" type="text" ng-model="dlg.caseSite.shortName" required uniquesite></input>
+                        <input name="shortName" type="text" ng-model="dlg.caseSite.shortName" required 
+                            ng-pattern="/^[a-zA-Z_0-9]{3,}$/" uniquesite></input>
                         <div ng-messages="projectRoomForm.shortName.$error">
+                            <div ng-message="pattern">
+                                {{'PROJECT_ROOM.INVALID_SHORT_NAME' | translate}}
+                            </div>
                             <div ng-message="uniquesite">
                               {{'PROJECT_ROOM.DUPLICATE_SHORT_NAME' | translate}}
                             </div>
