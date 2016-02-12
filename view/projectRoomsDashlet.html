@@ -1,0 +1,13 @@
+<md-card ng-controller="ProjectRoomsListController as roomsCtrl" style="min-height: 350px;">
+  <md-card-content>
+    <h2 class="md-title">{{ 'PROJECT_ROOM.PROJECT_ROOMS' | translate }}</h2>
+    <md-list>
+      <md-list-item class="md-2-line" ng-repeat="room in roomsCtrl.rooms">
+        <md-button class="md-list-item-text task-btn" ui-sref="projectRoom({ shortName: room.shortName })">
+          <h3>{{room.title}}</h3>
+          <p>{{room.description}}</p>
+        </md-button>
+      </md-list-item>
+    </md-list>
+  </md-card-content>
+</md-card>

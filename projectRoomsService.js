@@ -7,6 +7,7 @@
         return {
             siteExists: siteExists,
             createSite: createSite,
+            getSites: getSites,
             getCaseSites: getCaseSites,
             getSite: getSite,
             getSiteDocuments: getSiteDocuments
@@ -16,6 +17,12 @@
             return $http.get('/api/openesdh/site/' + shortName + '/exists').then(function(response){
                 return response.data;
             });            
+        }
+        
+        function getSites(){
+            return $http.get('/api/openesdh/case/sites').then(function(response){
+                return response.data;
+            });
         }
         
         function createSite(caseSite){
