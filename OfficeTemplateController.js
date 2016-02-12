@@ -83,7 +83,7 @@ function OfficeTemplateController($mdDialog, $translate, officeTemplateService, 
         }
         return $mdDialog.show({
             controller: NewCaseDocumentDialogController,
-            templateUrl: 'app/src/officeTemplates/view/uploadDialog.html',
+            templateUrl: 'app/src/modules/doctemplates/view/uploadDialog.html',
             parent: angular.element(document.body),
             targetEvent: null,
             clickOutsideToClose: true,
