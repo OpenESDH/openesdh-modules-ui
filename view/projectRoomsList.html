@@ -1,0 +1,49 @@
+<app-header></app-header>
+<md-content layout="column">
+    <div class="sub-toolbar" layout="row" layout-align="space-between center" layout-padding>
+        <h3 class="md-headline" layout-margin>{{ 'PROJECT_ROOM.PROJECT_ROOMS' | translate }}</h3>
+    </div>
+    
+    <div layout="column">
+        <div class="tlist">
+            <div class="tlist__header" layout="row">
+                <div class="tlist__cell" flex="5"></div>
+                <div class="tlist__cell" flex="20">
+                    <div layout="row" layout-align="space-between center">
+                            {{ 'COMMON.TITLE' | translate }}
+                    </div>
+                </div>
+                <div class="tlist__cell" flex="20">
+                    <div layout="row" layout-align="space-between center">
+                            {{ 'COMMON.DESCRIPTION' | translate }}
+                    </div>
+                </div>
+                <div class="tlist__cell" flex="10">
+                    <div layout="row" layout-align="space-between center">
+                            {{ 'COMMON.CREATEDBY' | translate }}
+                    </div>
+                </div>
+                <div class="tlist__cell" flex="15">
+                    <div layout="row" layout-align="space-between center">
+                            {{ 'COMMON.CREATED' | translate }}
+                    </div>
+                </div>
+            </div>
+            
+            <md-virtual-repeat-container class="tlist__body" auto-height>
+                <div md-virtual-repeat="room in prCtrl.rooms" class="tlist__item" layout="column" flex>
+                    <a class="tlist__item__link"
+                       href="#/project/room/{{room.shortName}}"
+                       layout="row">
+                        <span class="tlist__cell tlist__cell_icon" flex="5"><i class="material-icons">thumbs_up_down</i></span>
+                        <span class="tlist__cell" flex="20">{{ room.title }}</span>
+                        <span class="tlist__cell muted" flex="20">{{ room.description }}</span>
+                        <span class="tlist__cell muted" flex="15">{{ room.creator.firstName + ' ' + room.creator.lastName }}</span>
+                        <span class="tlist__cell muted" flex="15">{{ room.createdDate | openeDate }}</span>
+                    </a>
+                </div>
+            </md-virtual-repeat-container>
+        </div>
+    </div>
+</md-content>
+<app-footer></app-footer>

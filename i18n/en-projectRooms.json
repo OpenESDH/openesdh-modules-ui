@@ -2,6 +2,7 @@
     "PROJECT_ROOM": {
         "CREATE_PROJECT_ROOM": "Create project room",
         "PROJECT_ROOM": "Project room",
+        "PROJECT_ROOMS": "Project rooms",
         "SHORT_NAME": "Short name",
         "DUPLICATE_SHORT_NAME": "A site with the specified name exists. Choose other short name.",
         "NAME": "Project room name",

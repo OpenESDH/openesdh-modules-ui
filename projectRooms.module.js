@@ -1,7 +1,8 @@
     angular.module('openeApp.projectRooms', [])
         .config(config);
     
-    function config($stateProvider, languageFilesProvider, caseInfoExtrasServiceProvider, caseDocumentDetailsExtrasServiceProvider){
+    function config($stateProvider, languageFilesProvider, caseInfoExtrasServiceProvider, 
+            caseDocumentDetailsExtrasServiceProvider, dashboardServiceProvider, modulesMenuServiceProvider){
         $stateProvider.state('projectRoom', {
             parent: 'site',
             url: '/project/room/:shortName',
@@ -28,6 +29,19 @@
             data: {
                 authorizedRoles: []
             }
+        }).state('projectRooms', {
+            parent: 'site',
+            url: '/project/rooms',
+            views: {
+                'content@': {
+                    templateUrl : 'app/src/modules/projectRooms/view/projectRoomsList.html',
+                    controller : 'ProjectRoomsListController',
+                    controllerAs: 'prCtrl'
+                }
+            },
+            data: {
+                authorizedRoles: []
+            }
         });
         
         languageFilesProvider.addFile('app/src/modules/projectRooms/i18n/','-projectRooms.json');
@@ -38,5 +52,16 @@
         
         caseDocumentDetailsExtrasServiceProvider.addExtra({
             controller: 'CaseInfoProjectRoomController'
+        });
+        
+        dashboardServiceProvider.addDashlet({
+            templateUrl: 'app/src/modules/projectRooms/view/projectRoomsDashlet.html',
+            position: 'right',
+            order: 2
+        });
+        
+        modulesMenuServiceProvider.addItem({
+            templateUrl: 'app/src/modules/projectRooms/view/menuItem.html',
+            order: 2
         });
     }
