@@ -10,7 +10,10 @@
             getSites: getSites,
             getCaseSites: getCaseSites,
             getSite: getSite,
-            getSiteDocuments: getSiteDocuments
+            getSiteDocuments: getSiteDocuments,
+            getSiteDocumentsWithAttachments: getSiteDocumentsWithAttachments,
+            updateCaseSite: updateCaseSite,
+            closeSite: closeSite
         };
         
         function siteExists(shortName){
@@ -45,6 +48,24 @@
         
         function getSiteDocuments(shortName){
             return $http.get('/api/openesdh/sites/' + shortName + '/documents').then(function(response){
+                return response.data;
+            });
+        }
+        
+        function updateCaseSite(site){
+            return $http.put('/api/openesdh/case/sites', site).then(function(response){
+                return response;
+            });
+        }
+        
+        function getSiteDocumentsWithAttachments(shortName){
+            return $http.get('/api/openesdh/case/sites/' + shortName + '/documents').then(function(response){
+                return response.data;
+            });
+        }
+        
+        function closeSite(site){
+            return $http.post('/api/openesdh/case/sites/close', site).then(function(response){
                 return response.data;
             });
         }

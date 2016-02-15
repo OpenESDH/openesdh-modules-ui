@@ -10,7 +10,7 @@
         
         function createProjectRoom(caseId){
             return $mdDialog.show({
-                controller: ProjectRoomController,
+                controller: ProjectRoomDialogController,
                 controllerAs: 'dlg',
                 templateUrl: 'app/src/modules/projectRooms/view/createProjectRoomWizard.html',
                 parent: angular.element(document.body),
@@ -22,23 +22,21 @@
             });
         }
         
-        function ProjectRoomController($mdDialog, $controller, caseDocumentsService, caseMembersService, 
+        function ProjectRoomDialogController($mdDialog, $controller, caseDocumentsService, caseMembersService, 
                 casePartiesService, sessionService, projectRoomsService, notificationUtilsService, $translate, caseId){
             angular.extend(this, $controller('GenericWizardController', {}));
-            
+            angular.extend(this, $controller('ProjectRoomDocumentsSelector', {}));
             var vm = this;            
             vm.caseSite = {};
             vm.selectedParticipants = [];
             vm.participantRoles = ["SiteConsumer", "SiteContributor", "SiteCoordinator", "SiteManager"];
-            vm.selectedDocuments = [];
+            
             vm.documents = [];
             vm.submit = submit;
             vm.searchParticipant = searchParticipant;
             vm.participantSelected = participantSelected;
             vm.removeParticipant = removeParticipant;
-            vm.onDocSelectionChanged = onDocSelectionChanged;
-            vm.displaySelectedDocuments = displaySelectedDocuments;
-
+            
             init();
             
             function init(){
@@ -62,7 +60,7 @@
             function submit(){
                 var caseSite = vm.caseSite;
                 caseSite.caseId = caseId;
-                caseSite.siteDocuments = getSiteDocuments();
+                caseSite.siteDocuments = vm.getSiteDocuments();
                 caseSite.siteMembers = getSiteMembers();
                 caseSite.siteParties = getSiteParties();
                 projectRoomsService.createSite(caseSite).then(function(response){
@@ -97,51 +95,6 @@
                 vm.selectedParticipants.splice(index, 1);
             }
             
-            function onDocSelectionChanged(doc, parent){                
-                if(doc.selected === true){
-                    addSelectedDocument(doc, parent);
-                    return;
-                }
-                removeSelectedDocument(doc, parent);
-            }
-            
-            function addSelectedDocument(doc, parent){
-                if(parent === undefined){
-                    vm.selectedDocuments.push(doc);
-                    return;
-                }
-                if(parent.selectedAttachments === undefined){
-                    parent.selectedAttachments = [];
-                }
-                parent.selectedAttachments.push(doc);
-                if(!parent.selected){
-                    parent.selected = true;
-                    vm.selectedDocuments.push(parent);
-                }
-            }
-            
-            function removeSelectedDocument(doc, parent){
-                if(parent === undefined){
-                    if(doc.selectedAttachments != undefined){
-                        angular.forEach(doc.selectedAttachments, function(item){
-                            item.selected = false;
-                        });
-                    }
-                    doc.selectedAttachments = [];
-                    var index = vm.selectedDocuments.indexOf(doc);
-                    vm.selectedDocuments.splice(index, 1);
-                    return;
-                }
-                var index = parent.selectedAttachments.indexOf(doc);
-                parent.selectedAttachments.splice(index, 1);
-            }
-            
-            function displaySelectedDocuments(){
-                return vm.selectedDocuments.map(function(item){
-                    return item.name || item.title;
-                });
-            }
-            
             function getSiteMembers(){
                 return vm.selectedParticipants.filter(function(item){
                     return item.authority != undefined;
@@ -161,22 +114,6 @@
                         contactId: item.contactId,
                         nodeRef: item.nodeRef,
                         role: item.role
-                    };
-                });
-            }
-            
-            function getSiteDocuments(){
-                return vm.selectedDocuments.map(function(item){
-                    var attachments = item.selectedAttachments === undefined ? [] : 
-                        item.selectedAttachments.map(function(attachment){
-                            return {
-                                nodeRef: attachment.nodeRef
-                            };
-                    });
-                    return {
-                        nodeRef: item.nodeRef,
-                        mainDocNodeRef: item.mainDocNodeRef,
-                        attachments: attachments
                     };
                 });
             }

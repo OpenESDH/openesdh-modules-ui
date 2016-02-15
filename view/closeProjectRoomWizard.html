@@ -1,0 +1,34 @@
+<md-dialog class="dialog-large" aria-label="">
+    <md-toolbar layout>
+        <div class="md-toolbar-tools">
+            <h2>{{'PROJECT_ROOM.CLOSE_PROJECT_ROOM' | translate}}</h2>
+        </div>
+    </md-toolbar>
+    
+    <mt-wizard chevrons-always-visible="false" on-finish="dlg.submit()" on-cancel="dlg.cancel()" is-valid="dlg.isValid(currentStep)">
+        <mt-wz-step class="workflowWizardStep">
+            <form name="projectRoomForm">
+                <h3>{{'PROJECT_ROOM.SELECT_DOCUMENTS_TO_COPY_BACK_TO_CASE' | translate}}</h3>
+                <ng-include src="'app/src/cases/view/selectCaseDocuments.html'"></ng-include>
+            </form>
+        </mt-wz-step>
+        <mt-wz-step class="workflowWizardStep">
+            <p>
+                {{'PROJECT_ROOM.READY_TO_CLOSE_PROJECT_ROOM' | translate: {projectRoom:dlg.room.title, case:dlg.room.caseId} }}
+            </p>
+            <p>
+                {{'PROJECT_ROOM.DOCS_TO_COPY_BACK' | translate}}
+                <ul>
+                   <li ng-repeat="doc in dlg.selectedDocuments">
+                       {{doc.title}}
+                       <ul>
+                           <li ng-repeat="attachment in doc.selectedAttachments">
+                               {{attachment.name}}
+                           </li> 
+                       </ul>
+                   </li> 
+                </ul>
+            </p>
+        </mt-wz-step>
+    </mt-wizard>
+</md-dialog>
