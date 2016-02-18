@@ -1,0 +1,46 @@
+<md-dialog aria-label="{{ 'PROJECT_ROOM.INVITE_TO_PROJECT_ROOM' | translate }}}" style="min-width: 400px">
+    <form name="form">
+        <md-toolbar layout="row">
+            <div class="md-toolbar-tools">
+                <h2>{{ 'PROJECT_ROOM.INVITE_TO_PROJECT_ROOM' | translate }}</h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+                <div layout="column">
+                    <md-autocomplete
+                        md-selected-item="dlg.participantSelectedItem"
+                        md-search-text="dlg.participantSearchText"
+                        md-items="item in dlg.searchParticipant()"
+                        md-item-text="item.displayName"
+                        md-no-cache="true"
+                        md-icon=""
+                        placeholder="{{ 'PROJECT_ROOM.ADD_PARTICIPANT_TO_INVITE'| translate }}"
+                        inform-item-selected-then-clear="dlg.participantSelected()">
+                      <span md-highlight-text="dlg.participantSearchText">{{item.displayName}}</span>
+                    </md-autocomplete>
+                    <h3>{{ 'PROJECT_ROOM.PARTICIPANTS_TO_INVITE'| translate }}</h3>
+                    <table class="tlist">
+                        <tr ng-repeat="participant in dlg.selectedParticipants">
+                            <td>{{participant.displayName}}</td>
+                            <td>
+                                <md-select name="partRole{{$index}}" placeholder="{{'PROJECT_ROOM.CHOOSE_PARTICIPANT_ROLE' | translate}}" 
+                                    ng-model="participant.role" required>
+                                    <md-option ng-value="role" ng-repeat="role in dlg.participantRoles">{{role | participantRole}}</md-option>
+                                </md-select>
+                            </td>
+                            <td><md-button class="md-primary" ng-click="dlg.removeParticipant($index)">{{ 'COMMON.DELETE' | translate }}</md-button></td>
+                        </tr>
+                    </table>
+                </div>
+        </md-dialog-content>
+        
+        <md-dialog-actions>
+            <md-button type="submit" class="md-primary" ng-click="dlg.submit()" ng-disabled="dlg.isInvalid(form)">
+                {{ 'PROJECT_ROOM.INVITE' | translate }}
+            </md-button>
+            <md-button type="button" ng-click="dlg.cancel()">
+                {{ 'COMMON.CANCEL' | translate }}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

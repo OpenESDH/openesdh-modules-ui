@@ -1,8 +1,13 @@
     angular.module('openeApp.projectRooms', [])
         .config(config);
     
-    function config($stateProvider, languageFilesProvider, caseInfoExtrasServiceProvider, 
+    function config($urlRouterProvider, $stateProvider, languageFilesProvider, caseInfoExtrasServiceProvider, 
             caseDocumentDetailsExtrasServiceProvider, dashboardServiceProvider, modulesMenuServiceProvider){
+        
+        $urlRouterProvider
+        .when('/project/room/:shortName','/project/room/:shortName/info')
+        .otherwise('/');
+        
         $stateProvider.state('projectRoom', {
             parent: 'site',
             url: '/project/room/:shortName',
@@ -14,7 +19,45 @@
                 }
             },
             data: {
-                authorizedRoles: []
+                authorizedRoles: [],
+                selectedTab: 0
+            }
+        }).state('projectRoom.info', {
+            url: '/info',
+            views: {
+                'projectRoomInfo': {
+                    templateUrl: 'app/src/modules/projectRooms/view/projectRoomInfo.html',
+                }
+            },
+            data: {
+                authorizedRoles: [],
+                selectedTab: 0
+            }
+        }).state('projectRoom.members', {
+            url: '/members',
+            views: {
+                'projectRoomMembers': {
+                    templateUrl: 'app/src/modules/projectRooms/view/participants.html',
+                    controller: 'ProjectRoomParticipantsController',
+                    controllerAs: 'prm'
+                }
+            },
+            data: {
+                authorizedRoles: [],
+                selectedTab: 1
+            }
+        }).state('projectRoom.invites', {
+            url: '/invites',
+            views: {
+                'projectRoomInvites': {
+                    templateUrl: 'app/src/modules/projectRooms/view/invites.html',
+                    controller: 'ProjectRoomInvitesController',
+                    controllerAs: 'pri'
+                }
+            },
+            data: {
+                authorizedRoles: [],
+                selectedTab: 2
             }
         }).state('projectRoomDoc', {
             parent: 'site',
@@ -37,6 +80,19 @@
                     templateUrl : 'app/src/modules/projectRooms/view/projectRoomsList.html',
                     controller : 'ProjectRoomsListController',
                     controllerAs: 'prCtrl'
+                }
+            },
+            data: {
+                authorizedRoles: []
+            }
+        }).state('projectRoom.invite', {
+            parent: 'site',
+            url: '/project/room/:shortName/:action/invite/:inviteId/invitee/:invitee/ticket/:ticket',
+            views: {
+                'content@': {
+                    templateUrl : 'app/src/modules/projectRooms/view/inviteAcceptReject.html',
+                    controller : 'ProjectRoomsInviteController',
+                    controllerAs: 'vm'
                 }
             },
             data: {
