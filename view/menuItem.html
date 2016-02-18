@@ -1,1 +1,3 @@
-<a class="md-button global-tools__link" ui-sref="projectRooms"><i class="material-icons">thumbs_up_down</i> <span hide show-gt-md>{{ 'PROJECT_ROOM.PROJECT_ROOMS' | translate }}</span></a>
+<a class="md-button global-tools__link" ng-class="{active: toState == 'projectRooms'}" ui-sref="projectRooms">
+	<i class="material-icons">thumbs_up_down</i> <span hide show-gt-md>{{ 'PROJECT_ROOM.PROJECT_ROOMS' | translate }}</span>
+</a>
