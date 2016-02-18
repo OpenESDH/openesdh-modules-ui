@@ -1,0 +1,32 @@
+<md-card>
+    <md-card-content>
+        <div layout layout-align="space-between center">
+            <h2 class="md-title" flex>{{ 'PROJECT_ROOM.PENDING_INVITES' | translate }}</h2>
+        </div>
+        <div class="repeat-table">
+            <div class="repeat-header" layout>
+                <span layout="row" flex="95">
+                    <span class="r" flex="5"></span>
+                    <span class="r" flex="50">{{ 'PROJECT_ROOM.INVITE_TO' | translate }}</span>
+                    <span class="r" flex="15">{{ 'MEMBER.ROLE' | translate }}</span>
+                    <span class="r" flex="15">{{ 'PROJECT_ROOM.INVITE_SENT' | translate }}</span>
+                    <span class="r" flex="15">{{ 'COMMON.ACTION' | translate }}</span>
+                </span>
+                <span flex="5"></span>
+            </div>
+            <md-virtual-repeat-container md-auto-shrink style="height: 450px;">
+                <div md-virtual-repeat="invite in pri.invites" layout="row">
+                    <span class="r" flex="5"><i class="material-icons">card_membership</i></span>
+                    <span class="r" flex="50">{{invite.invitee.firstName + " " + invite.invitee.lastName}}</span>
+                    <span class="r muted" flex="15">{{invite.roleName | participantRole}}</span>
+                    <span class="r muted" flex="15">{{invite.sentInviteDate.iso8601 | openeDate}}</span>
+                    <span class="r muted" flex="15">
+                        <md-button class="md-primary" style="margin: 0;" ng-click="pri.cancelInvite(invite)" aria-label="Cancel invite">
+                            {{ 'COMMON.CANCEL' | translate }}
+                        </md-button>
+                    </span>
+                </div>
+            </md-virtual-repeat-container>
+        </div>
+    </md-card-content>
+</md-card>

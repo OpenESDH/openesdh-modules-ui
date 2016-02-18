@@ -17,7 +17,7 @@
         "PARTICIPANT_ROLES": {
             "SiteConsumer": "Consumer",
             "SiteContributor": "Contributor",
-            "SiteCoordinator": "Coordinator",
+            "SiteCollaborator": "Collaborator",
             "SiteManager": "Manager"
         },
         "BACK_TO_PROJECT_ROOM": "Back to project room",
@@ -29,6 +29,18 @@
         "READY_TO_CLOSE_PROJECT_ROOM": "You are now ready to close the project room \"{{projectRoom}}\" and return back to the case \"{{case}}\".",
         "SELECT_DOCUMENTS_TO_COPY_BACK_TO_CASE": "Select documents to copy back to the case",
         "DOCS_TO_COPY_BACK": "The following documents will be copied back to the case",
-        "CLOSED": "The project room '{{shortName}}' closed"
+        "CLOSED": "The project room '{{shortName}}' closed",
+        "PENDING_INVITES": "Pending invites",
+        "INVITE": "Invite",
+        "PARTICIPANTS_TO_INVITE": "Participants to invite",
+        "INVITE_TO_PROJECT_ROOM": "Invite to project room",
+        "ADD_PARTICIPANT_TO_INVITE": "Add participant to invite",
+        "PARTICIPANTS_SUCCESSFULLY_INVITED": "Participants successfully invited",
+        "INVITE_TO": "To",
+        "INVITE_SENT": "Sent",
+        "CONFIRM_CANCEL_INVITE": "Are you sure you want to cancel the invitation?",
+        "CONFIRM_REMOVE_PARTICIPANT": "Are you sure you want to remove this participant?",
+        "PARTICIPANT_ROLE_UPDATED": "Participant role successfully updated",
+        "CONFIRM_REJECT_INVITE": "Are you sure you want to reject the invitation from {{fromFirstName}} {{fromLastName}} to join the \"{{siteTitle}}\" project room?"
     }
 }

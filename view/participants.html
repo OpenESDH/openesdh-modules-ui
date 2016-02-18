@@ -1,0 +1,45 @@
+<md-card>
+    <md-card-content>
+        <div layout layout-align="space-between center">
+            <h2 class="md-title" flex>{{ 'PROJECT_ROOM.PARTICIPANTS' | translate }}</h2>
+        </div>
+        
+        <div class="repeat-table">
+            <div class="repeat-header" layout>
+                <span layout="row" flex="95">
+                    <span class="r" flex="5"></span>
+                    <span class="r" flex="50" sort-table="userName">{{ 'MEMBER.NAME' | translate }}</span>
+                    <span class="r" flex="15" sort-table="firstName">{{ 'MEMBER.ROLE' | translate }}</span>
+                    <span class="r" flex="15">{{ 'COMMON.ACTION' | translate }}</span>
+                </span>
+                <span flex="5"></span>
+            </div>
+            <md-virtual-repeat-container md-auto-shrink style="height: 450px;">
+                <div md-virtual-repeat="member in prm.members" layout="row">
+                    <span class="r" flex="5"><i class="material-icons">account_box</i></span>
+                    <span class="r" flex="50">{{member.authority.firstName + " " + member.authority.lastName}}</span>
+                    <span class="r muted" flex="15">
+                        <span ng-if="member.authority.fullName == prm.room.creator.userName">{{member.role | participantRole}}</span>
+                        
+                        <md-select ng-hide="member.authority.fullName == prm.room.creator.userName" ng-model="member.role" 
+                            ng-change="prm.changeParticipantRole(member)" style="margin: 0px" >
+                            <md-option ng-value="role" ng-repeat="role in prm.participantRoles">{{role | participantRole}}</md-option>
+                        </md-select>
+                    </span>
+                    <span class="r muted" flex="15">
+                        <md-button class="md-primary" style="margin: 0;" ng-if="member.authority.fullName != prm.room.creator.userName" 
+                            ng-click="prm.remove(member)" aria-label="Delete user">
+                            {{ 'COMMON.REMOVE' | translate }}
+                        </md-button>
+                    </span>
+                </div>
+            </md-virtual-repeat-container>
+        </div>
+    </md-card-content>
+
+    <div class="md-actions" layout>
+        <md-button class="md-primary" ng-click="prm.invite()" aria-label="Create new user">
+            {{ 'PROJECT_ROOM.INVITE' | translate }}
+        </md-button>
+    </div>
+</md-card>
