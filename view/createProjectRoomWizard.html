@@ -56,7 +56,7 @@
                             <td>
                                 <md-select name="partRole{{$index}}" placeholder="{{'PROJECT_ROOM.CHOOSE_PARTICIPANT_ROLE' | translate}}" 
                                     ng-model="participant.role" required>
-                                    <md-option ng-value="role" ng-repeat="role in dlg.participantRoles">{{'PROJECT_ROOM.PARTICIPANT_ROLES.' + role | translate}}</md-option>
+                                    <md-option ng-value="role" ng-repeat="role in dlg.participantRoles">{{role | participantRole}}</md-option>
                                 </md-select>
                             </td>
                             <td><md-button class="md-primary" ng-click="dlg.removeParticipant($index)">{{ 'COMMON.DELETE' | translate }}</md-button></td>
