@@ -3,27 +3,30 @@
         .module('openeApp.projectRooms')
         .factory('projectRoomDialogService', projectRoomDialogService);
     
-    function projectRoomDialogService($mdDialog){
+    function projectRoomDialogService($mdDialog, $q){
         return {
             createProjectRoom : createProjectRoom
         };
         
         function createProjectRoom(caseId){
-            return $mdDialog.show({
+            var deferred = $q.defer();
+            $mdDialog.show({
                 controller: ProjectRoomDialogController,
                 controllerAs: 'dlg',
                 templateUrl: 'app/src/modules/projectRooms/view/createProjectRoomWizard.html',
                 parent: angular.element(document.body),
                 targetEvent: null,
                 locals: {
-                    caseId: caseId
+                    caseId: caseId,
+                    deferred: deferred
                 },
                 focusOnOpen: false
             });
+            return deferred.promise;
         }
         
         function ProjectRoomDialogController($mdDialog, $controller, caseDocumentsService, caseMembersService, 
-                casePartiesService, sessionService, projectRoomsService, notificationUtilsService, $translate, caseId){
+                casePartiesService, sessionService, projectRoomsService, notificationUtilsService, $translate, caseId, deferred){
             angular.extend(this, $controller('GenericWizardController', {}));
             angular.extend(this, $controller('ProjectRoomDocumentsSelector', {}));
             angular.extend(this, $controller('InviteMembersSelector', {caseId: caseId}))
@@ -49,9 +52,10 @@
                 caseSite.siteDocuments = vm.getSiteDocuments();
                 caseSite.siteMembers = vm.getSiteMembers();
                 caseSite.siteParties = vm.getSiteParties();
+                $mdDialog.hide();
                 projectRoomsService.createSite(caseSite).then(function(response){
                     notificationUtilsService.notify($translate.instant('PROJECT_ROOM.CREATED', {shortName: caseSite.shortName}));
-                    $mdDialog.hide();
+                    deferred.resolve(response);
                 });
             }
         }
