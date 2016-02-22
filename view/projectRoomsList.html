@@ -21,6 +21,11 @@
                         </div>
                         <div class="tlist__cell" flex="15">
                             <div layout="row" layout-align="space-between center">
+                                {{ 'COMMON.ID' | translate }}
+                            </div>
+                        </div>
+                        <div class="tlist__cell" flex="15">
+                            <div layout="row" layout-align="space-between center">
                                 {{ 'COMMON.CREATEDBY' | translate }}
                             </div>
                         </div>
@@ -36,6 +41,7 @@
                                 <span class="tlist__cell tlist__cell_icon" flex="none"><i class="material-icons">thumbs_up_down</i></span>
                                 <span class="tlist__cell" flex>{{ room.title }}</span>
                                 <span class="tlist__cell muted" flex="30">{{ room.description }}</span>
+                                <span class="tlist__cell muted" flex="15">{{ room.caseId }}</span>
                                 <span class="tlist__cell muted" flex="15">{{ room.creator.firstName + ' ' + room.creator.lastName }}</span>
                                 <span class="tlist__cell muted" flex="15">{{ room.createdDate | openeDate }}</span>
                             </a>
