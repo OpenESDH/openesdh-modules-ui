@@ -21,7 +21,9 @@
             cancelInvite: cancelInvite,
             removeMember: removeMember,
             changeMemberRole: changeMemberRole,
-            getInvitationByTicket: getInvitationByTicket
+            getInvitationByTicket: getInvitationByTicket,
+            acceptInvite: acceptInvite,
+            rejectInvite: rejectInvite
         };
         
         function siteExists(shortName){
@@ -102,17 +104,17 @@
             });
         }
         
-        function acceptInvite(inviteId, inviteTicket, action){
+        function acceptInvite(inviteId, inviteTicket){
             return inviteResponse(inviteId, inviteTicket, 'accept');
         }
         
-        function declineInvite(){
+        function rejectInvite(inviteId, inviteTicket){
             return inviteResponse(inviteId, inviteTicket, 'reject');
         }
         
         function inviteResponse(inviteId, inviteTicket, action){
             return $http.put('/api/invite/' + inviteId + '/' + inviteTicket + '/' + action).then(function(response){
-                return response.data.data;
+                return response.data;
             });
         }
         

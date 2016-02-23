@@ -97,8 +97,8 @@
                     siteMembers: vm.getSiteMembers(),
                     siteParties: vm.getSiteParties()
                 };
+                $mdDialog.hide();
                 projectRoomsService.inviteParticipants(site).then(function(response){
-                    $mdDialog.hide();
                     notificationUtilsService.notify($translate.instant('PROJECT_ROOM.PARTICIPANTS_SUCCESSFULLY_INVITED'));
                 });
             }
