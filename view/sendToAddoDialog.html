@@ -64,7 +64,7 @@
                     <tr ng-if="doc.attachments.length > 0 && doc.expanded" ng-repeat-end="" ng-repeat="attachment in doc.attachments">
                         <td></td>
                         <td style="padding-left: 30px;">
-                            <div >
+                            <div>
                                 <md-checkbox ng-model="attachment.selected" aria-label="select document" ng-change="addoDialog.toggleDocument(attachment)">
                                     {{attachment.name}}
                                 </md-checkbox>

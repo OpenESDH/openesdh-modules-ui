@@ -26,15 +26,15 @@ function SendToAddoService($stateParams, $mdDialog, $filter, $q, $translate, not
         //proceed when all promises are resolved
         $q.all([pTempl, pDocs]).then(function() {
             showDialog(data);
-        }, function(){
+        }, function() {
             notificationUtilsService.alert($translate.instant('ADDO.DOCUMENT.CANT_INITIALIZE'));
         });
     }
-    
-    function isVisible(){
+
+    function isVisible() {
         return addoService.isAddoAccountConfigured();
     }
-    
+
     function showDialog(data) {
         $mdDialog.show({
             controller: AddoDialogController,
@@ -74,8 +74,11 @@ function SendToAddoService($stateParams, $mdDialog, $filter, $q, $translate, not
         addoCtrl.cancel = cancel;
 
         function send() {
+            if (!isValidModel()) {
+                return;
+            }
             addoCtrl.model.sequential = addoCtrl.model.sequential && addoCtrl.model.receivers.length > 1;
-            
+
             addoService.initiateSigning(addoCtrl.model).then(function() {
                 notificationUtilsService.notify($translate.instant('ADDO.DOCUMENT.SENT_SUCCESSFULLY'));
                 $mdDialog.hide();
@@ -109,12 +112,42 @@ function SendToAddoService($stateParams, $mdDialog, $filter, $q, $translate, not
         }
 
         function contactsQuerySearch(query) {
-            if (!query){
+            if (!query) {
                 return [];
             }
-            return contactsService.getPersons(query).then(function(response){
+            return contactsService.getPersons(query).then(function(response) {
                 return response.items;
             });
+        }
+
+        function isValidModel() {
+            //If distribution equal e-mail then e-mail is required
+            //If signing method equal NemID then CPR number is required
+            //If "Encrypt document" is chosen then CPR number is required
+            // - always true
+
+            //If distribution equal SMS then phone no. is required
+            //If "Validate by phone" is chosen then phone no. is required
+            if (addoCtrl.model.template.MessageType === 'Sms' ||
+                    addoCtrl.model.template.SmsVerification === true) {
+                return validateRecipientsWithPhones();
+            }
+            return true;
+        }
+
+        function validateRecipientsWithPhones() {
+            var noPhones = [];
+            for (var r in addoCtrl.model.receivers) {
+                var receiver = addoCtrl.model.receivers[r];
+                if (!receiver.phone) {
+                    noPhones.push(receiver.firstName + ' ' + receiver.lastName);
+                }
+            }
+            if (noPhones.length > 0) {
+                notificationUtilsService.alert($translate.instant('ADDO.ERROR.REQUIRED_PHONE_EMPTY_FOR_RECEIVERS', { 'receivers' : noPhones.join(', ')}));
+                return false;
+            }
+            return true;
         }
     }
 }

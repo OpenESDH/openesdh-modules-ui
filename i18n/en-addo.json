@@ -17,6 +17,9 @@
             "REQUEST_SIGNATURE": "Request signature",
             "SENT_SUCCESSFULLY": "Documents sent for signing successfully",
             "CANT_INITIALIZE": "Cannot initialize signing module"
+        },
+        "ERROR": {
+            "REQUIRED_PHONE_EMPTY_FOR_RECEIVERS": "Phone is required by signature template, but is not specified for: {{receivers}}"
         }
     }
 }
