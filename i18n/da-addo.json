@@ -17,6 +17,9 @@
             "REQUEST_SIGNATURE": "Indhent underskrift",
             "SENT_SUCCESSFULLY": "Documents sent for signing successfully",
             "CANT_INITIALIZE": "Cannot initialize signing module"
+        },
+        "ERROR": {
+            "REQUIRED_PHONE_EMPTY_FOR_RECEIVERS": "Telefon nummer er påkrævet men mangler for: {{receivers}}"
         }
     }
 }
