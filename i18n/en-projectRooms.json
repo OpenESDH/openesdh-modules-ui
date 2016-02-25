@@ -43,7 +43,7 @@
         "PARTICIPANT_ROLE_UPDATED": "Participant role successfully updated",
         "REJECT_INVITATION": "Reject invitation",
         "CONFIRM_REJECT_INVITE": "Are you sure you want to reject the invitation from {{fromFirstName}} {{fromLastName}} to join the \"{{siteTitle}}\" project room?",
-        "REJECT_INVITE_SUCCESS": "Your invitation to join the \"{{siteTitle}}\" project room has been successfully canceled.",
+        "REJECT_INVITE_SUCCESS": "Your invitation to join the \"{{siteTitle}}\" project room has been successfully declined.",
         "INVITE_FAILURE": "Failed to process the invitation. Perhaps it has been already accepted/declined or the inviter canceled it.",
         "INVITATION_ACCEPTED": "The invitation successfully accepted."
     }

@@ -19,7 +19,6 @@
         
         function loadSiteMembers(){
             projectRoomsService.getSiteMembers($stateParams.shortName).then(function(members){
-                console.log("members", members);
                 vm.members = members;
             });
         }
