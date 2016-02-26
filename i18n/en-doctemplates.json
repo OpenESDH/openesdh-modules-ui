@@ -11,6 +11,8 @@
             }
         },
         "DOWNLOAD_RENDERED_FROM_TEMPLATE": "Download rendered from template",
-        "SAVE_RENDERED_TEMPLATE_TO_CASE": "Save rendered template to case"
+        "SAVE_RENDERED_TEMPLATE_TO_CASE": "Save rendered template to case",
+        "EMAIL_RENDERED_FROM_TEMPLATE": "Email rendered template",
+        "SIGN_RENDERED_FROM_TEMPLATE": "Send rendered template for signing"
     }
 }
