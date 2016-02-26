@@ -81,10 +81,18 @@ function OfficeTemplateController($mdDialog, $translate, officeTemplateService, 
         });
     }
 
-    function NewCaseDocumentDialogController($scope, $mdDialog) {
+    function NewCaseDocumentDialogController($scope, $mdDialog, caseDocumentsService) {
+        caseDocumentsService.getCaseDocumentConstraints().then(function(documentConstraints) {
+            $scope.documentTypes = documentConstraints.documentTypes;
+            $scope.documentCategories = documentConstraints.documentCategories;
+        });
 
         $scope.templateProperties = {
-            majorVersion: "false"
+            majorVersion: "false",
+            title: null,
+            doc_type: null,
+            doc_category: null,
+            description: null
         };
 
         $scope.cancel = function() {

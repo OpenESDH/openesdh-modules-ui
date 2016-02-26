@@ -1,6 +1,6 @@
 <md-dialog class="dialog-small" aria-label="">
     <form name="uploadTemplateForm">
-        
+
         <md-toolbar layout>
             <div class="md-toolbar-tools">
                 <h2>{{ 'COMMON.UPLOAD' | translate }}</h2>
@@ -18,6 +18,26 @@
                     <label>{{ 'COMMON.NAME' | translate }} *</label>
                     <input type="text" name="title" ng-model="templateProperties.title" required>
                     <opene-error form="uploadTemplateForm" field="uploadTemplateForm.title"></opene-error>
+                </md-input-container>
+
+                <md-input-container flex="50">
+                    <label>{{ 'COMMON.TYPE' | translate }} *</label>
+                    <md-select name="doc_type" ng-model="templateProperties.doc_type" required>
+                        <md-option ng-repeat="type in documentTypes" ng-value="type.nodeRef">
+                            {{ type.displayName}}
+                        </md-option>
+                    </md-select>
+                    <opene-error form="uploadTemplateForm" field="uploadTemplateForm.doc_type"></opene-error>
+                </md-input-container>
+
+                <md-input-container flex="50">
+                    <label>{{ 'COMMON.CATEGORY' | translate }} *</label>
+                    <md-select name="doc_category" ng-model="templateProperties.doc_category" required>
+                        <md-option ng-repeat="category in documentCategories" ng-value="category.nodeRef">
+                            {{ category.displayName}}
+                        </md-option>
+                    </md-select>
+                    <opene-error form="uploadTemplateForm" field="uploadTemplateForm.doc_category"></opene-error>
                 </md-input-container>
 
                 <md-input-container flex>
