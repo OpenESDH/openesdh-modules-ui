@@ -104,16 +104,22 @@
             });
         }
         
-        function acceptInvite(inviteId, inviteTicket){
-            return inviteResponse(inviteId, inviteTicket, 'accept');
+        function acceptInvite(inviteId, inviteTicket, inviteeUserName){
+            return inviteResponse(inviteId, inviteTicket, 'accept', inviteeUserName);
         }
         
-        function rejectInvite(inviteId, inviteTicket){
-            return inviteResponse(inviteId, inviteTicket, 'reject');
+        function rejectInvite(inviteId, inviteTicket, inviteeUserName){
+            return inviteResponse(inviteId, inviteTicket, 'reject', inviteeUserName);
         }
         
-        function inviteResponse(inviteId, inviteTicket, action){
-            return $http.put('/api/invite/' + inviteId + '/' + inviteTicket + '/' + action).then(function(response){
+        function inviteResponse(inviteId, inviteTicket, action, inviteeUserName){
+            var params = {};
+            if(inviteeUserName != undefined){
+                params.params = {
+                    inviteeUserName: inviteeUserName
+                };
+            }
+            return $http.put('/api/invite/' + inviteId + '/' + inviteTicket + '/' + action, {}, params).then(function(response){
                 return response.data;
             });
         }
@@ -136,8 +142,14 @@
             });
         }
         
-        function getInvitationByTicket(inviteId, inviteTicket){
-            return $http.get('/alfresco/s/api/invite/' + inviteId + '/' + inviteTicket).then(function(response){
+        function getInvitationByTicket(inviteId, inviteTicket, inviteeUserName){
+            var params = {};
+            if(inviteeUserName != undefined){
+                params.params = {
+                    inviteeUserName: inviteeUserName
+                };
+            }
+            return $http.get('/alfresco/s/api/invite/' + inviteId + '/' + inviteTicket, params).then(function(response){
                 return response.data.invite;
             });
         }

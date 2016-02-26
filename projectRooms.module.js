@@ -87,7 +87,7 @@
             }
         }).state('projectRoom.invite', {
             parent: 'site',
-            url: '/project/room/:action/invite?inviteId&inviteTicket',
+            url: '/project/room/:action/invite?inviteId&inviteTicket&inviteeUserName',
             views: {
                 'content@': {
                     templateUrl : 'app/src/modules/projectRooms/view/inviteAcceptReject.html',

@@ -13,7 +13,7 @@
         
         function init(){
             if($stateParams.action === 'reject'){
-                projectRoomsService.getInvitationByTicket($stateParams.inviteId, $stateParams.inviteTicket).then(function(invite){
+                projectRoomsService.getInvitationByTicket($stateParams.inviteId, $stateParams.inviteTicket, $stateParams.inviteeUserName).then(function(invite){
                     vm.invite = invite;
                     vm.reject = true
                 });
@@ -23,7 +23,7 @@
         }
         
         function rejectInvite(){
-            projectRoomsService.rejectInvite($stateParams.inviteId, $stateParams.inviteTicket).then(function(response){
+            projectRoomsService.rejectInvite($stateParams.inviteId, $stateParams.inviteTicket, $stateParams.inviteeUserName).then(function(response){
                 vm.reject = false;
                 vm.rejectSuccess = true;
             }, 
@@ -31,7 +31,7 @@
         }
         
         function acceptInvite(){
-            projectRoomsService.acceptInvite($stateParams.inviteId, $stateParams.inviteTicket).then(function(response){
+            projectRoomsService.acceptInvite($stateParams.inviteId, $stateParams.inviteTicket, $stateParams.inviteeUserName).then(function(response){
                 vm.reject = false;
                 notificationUtilsService.notify($translate.instant('PROJECT_ROOM.INVITATION_ACCEPTED'));
                 $state.go('login');
