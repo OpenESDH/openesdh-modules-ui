@@ -41,9 +41,23 @@
             
             function init(){
                 caseDocumentsService.getCaseDocumentsWithAttachments(caseId).then(function(documents){
-                    vm.documents = documents; 
+                    vm.documents = filterOutLockedDocs(documents); 
                 });
                 vm.init();
+            }
+            
+            function filterOutLockedDocs(docs){
+                var nonLockedDocs = docs.filter(function(doc){
+                    return doc.locked == false;
+                });
+                
+                angular.forEach(nonLockedDocs, function(doc){
+                    doc.attachments = doc.attachments.filter(function(attachment){
+                        return attachment.locked == false;
+                    });
+                });
+                
+                return nonLockedDocs;
             }
             
             function submit(){
