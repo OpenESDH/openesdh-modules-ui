@@ -9,7 +9,6 @@ function OfficeTemplateController($mdDialog, $translate, officeTemplateService, 
     vm.deleteTemplate = deleteTemplate;
     vm.getTemplate = getTemplate;
     vm.getThumbnail = getThumbnail;
-    vm.fillTemplate = fillTemplate;
     vm.getFileExtension = getFileExtension;
     vm.uploadNewTemplate = uploadTemplate;
 
@@ -53,15 +52,6 @@ function OfficeTemplateController($mdDialog, $translate, officeTemplateService, 
     function getTemplate(nodeRef) {
         return officeTemplateService.getTemplate(nodeRef).then(function(template) {
             return template;
-        });
-    }
-
-    function fillTemplate(template, fieldData) {
-        officeTemplateService.fillTemplate(template.nodeRef, fieldData).then(function(blob) {
-            FileSaver.saveAs(
-                    blob,
-                    template.name.split('.').slice(0, -1).join(".") + ".pdf"
-                    );
         });
     }
 

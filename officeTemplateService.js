@@ -12,6 +12,7 @@ function officeTemplateService($http, alfrescoNodeUtils, ALFRESCO_URI) {
         deleteTemplate: deleteTemplate,
         getTemplate: getTemplate,
         fillTemplate: fillTemplate,
+        fillTemplateToCase: fillTemplateToCase,
         uploadTemplate: uploadTemplate,
         getCardViewThumbnail: getCardViewThumbnail
     };
@@ -45,17 +46,30 @@ function officeTemplateService($http, alfrescoNodeUtils, ALFRESCO_URI) {
      * The return value is a promise which returns a Blob containing
      * the filled in template.
      * @param nodeRef
+     * @param caseId
      * @param fieldData
      * @returns {*}
      */
-    function fillTemplate(nodeRef, fieldData) {
-        return $http.post('/api/openesdh/officetemplates/' + alfrescoNodeUtils.processNodeRef(nodeRef).uri + "/fill",
+    function fillTemplate(nodeRef, caseId, fieldData) {
+        return $http.post('/api/openesdh/template/' + alfrescoNodeUtils.processNodeRef(nodeRef).uri + "/case/" + caseId + "/fill",
                 {fieldData: fieldData},
                 {responseType: 'arraybuffer'}
         ).then(function(response) {
-            return new Blob([response.data], {
-                type: response.headers('Content-Type')
-            });
+            return {
+                blob: new Blob([response.data], {
+                    type: response.headers('Content-Type')
+                }),
+                zip: response.headers('Content-Type').indexOf('application/zip') > -1
+            };
+        });
+    }
+
+    function fillTemplateToCase(nodeRef, caseId, fieldData) {
+        return $http.post('/api/openesdh/template/' + alfrescoNodeUtils.processNodeRef(nodeRef).uri + "/case/" + caseId + "/fillToCase",
+                {fieldData: fieldData},
+                {responseType: 'arraybuffer'}
+        ).then(function(response) {
+            return true;
         });
     }
 

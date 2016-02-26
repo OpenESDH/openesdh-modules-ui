@@ -21,23 +21,25 @@ function CreateDocumentFromTemplateDialogService($mdDialog) {
         });
     }
 
-    function CreateDocumentFromTemplateDialogController($scope, $filter, $mdDialog, caseDocumentFileDialogService,
-            casePartiesService, officeTemplateService, sessionService, caseService, contactsService, alfrescoNodeUtils,
-            caseId, docsListCtrl) {
+    function CreateDocumentFromTemplateDialogController($scope, $mdDialog, casePartiesService, officeTemplateService,
+            notificationUtilsService, FileSaver, caseId, docsListCtrl) {
         var vm = this;
 
         $scope.vm = vm;
 
-        vm.caseId = caseId;
         vm.template = null;
-        vm.receiver = null;
         vm.parties = [];
 
         vm.cancel = cancel;
         vm.alert = msg;
+        vm.fillTemplate = fillTemplate;
         vm.fillAndSaveToCase = fillAndSaveToCase;
         vm.fieldData = {};
-        vm.fieldData['case.id'] = caseId;
+        vm.fieldData['receivers'] = [];
+
+        vm.selectedItem = null;
+        vm.searchText = null;
+        vm.querySearch = contactsQuerySearch;
 
         activate();
 
@@ -52,39 +54,54 @@ function CreateDocumentFromTemplateDialogService($mdDialog) {
                 }
             });
 
-            $scope.$watch(function(scope) {
-                return vm.receiver;
-            }, function(newValue, oldValue) {
-                if (newValue) {
-                    vm.fieldData["receiver.nodeRefId"] = newValue.nodeRef;
-                }
-            });
-
             casePartiesService.getCaseParties(caseId).then(function(response) {
-                vm.parties = response;
+                vm.parties = response.map(function(item) {
+                    return angular.extend(item,
+                            {
+                                _displayName: angular.lowercase(item.displayName)
+                            });
+                });
             });
         }
 
-        function fillAndSaveToCase(template, fieldData) {
-            officeTemplateService.fillTemplate(template.nodeRef, fieldData).then(function(blob) {
-                var uniqueStr = new Date().getTime();
-                // Convert the Blob to a File
-                // (http://stackoverflow.com/a/29390393)
-                blob.lastModifiedDate = new Date();
-                blob.name = template.name.split('.').slice(0, -1).join(".") + "-" + uniqueStr + ".pdf";
-                return caseDocumentFileDialogService.uploadCaseDocument(docsListCtrl.docsFolderNodeRef, blob).then(function(result) {
-                    docsListCtrl.reloadDocuments();
-                    $mdDialog.hide(result);
-                });
+        function fillTemplate() {
+            officeTemplateService.fillTemplate(vm.template.nodeRef, caseId, vm.fieldData).then(function(result) {
+                var extension = result.zip ? '.zip' : '.pdf';
+                var fileName = vm.template.name.split('.').slice(0, -1).join('.');
+                FileSaver.saveAs(
+                        result.blob,
+                        fileName + extension
+                        );
+            });
+        }
+
+        function fillAndSaveToCase() {
+            officeTemplateService.fillTemplateToCase(vm.template.nodeRef, caseId, vm.fieldData).then(function(response) {
+                notificationUtilsService.notify("Success!");
+                docsListCtrl.reloadDocuments();
+                $mdDialog.hide();
             });
         }
 
         function cancel() {
             $mdDialog.cancel();
         }
-        
+
         function msg(text) {
             alert(text);
+        }
+
+        function contactsQuerySearch(query) {
+            var results = query ? vm.parties.filter(createFilterFor(query)) : [];
+            return results;
+        }
+
+        function createFilterFor(query) {
+            var lowercaseQuery = angular.lowercase(query);
+            return function filterFn(party) {
+                return (party._displayName.indexOf(lowercaseQuery) > -1 ||
+                        party.contactId.indexOf(lowercaseQuery) > -1);
+            };
         }
     }
 }

@@ -13,12 +13,21 @@
                         <md-option ng-value="template" ng-repeat="template in tempCtrl.templates">{{ template.name}}</md-option>
                     </md-select>
                 </md-input-container>
-                <md-input-container>
-                    <label class="label">{{'DOC_TEMPLATES.TEMPLATE.RECEIVER'| translate}}</label>
-                    <md-select ng-model="vm.receiver">
-                        <md-option ng-value="party" ng-repeat="party in vm.parties">{{party.displayName}}</md-option>
-                    </md-select>
-                </md-input-container>
+                <md-chips ng-model="vm.fieldData['receivers']" md-autocomplete-snap md-require-match="true" layout='column'>
+                    <md-autocomplete md-selected-item="vm.selectedItem" 
+                                     md-search-text="vm.searchText" 
+                                     md-items="item in vm.querySearch(vm.searchText)" 
+                                     md-on-select="vm.receiversChange()"
+                                     placeholder="{{ 'DOC_TEMPLATES.TEMPLATE.RECEIVER'| translate }}">
+                        <span md-highlight-text="vm.searchText">{{item.displayName}} ({{item.contactId}})</span>
+                    </md-autocomplete>
+                    <md-chip-template>
+                        <span>
+                            <strong>{{$chip.displayName}}</strong>
+                            <em>({{$chip.contactId}})</em>
+                        </span>
+                    </md-chip-template>
+                </md-chips>
             </div>
             <div layout="column" ng-repeat="field in vm.currentTemplate.fields">
                 <md-input-container>
@@ -38,11 +47,11 @@
                     </md-button>
                     <md-menu-content>
                         <md-menu-item>
-                            <md-button ng-click="vm.fillAndSaveToCase(vm.template, vm.fieldData)">
+                            <md-button ng-click="vm.fillAndSaveToCase()">
                                 {{ 'DOC_TEMPLATES.SAVE_RENDERED_TEMPLATE_TO_CASE' | translate }}</md-button>
                         </md-menu-item>
                         <md-menu-item>
-                            <md-button ng-click="tempCtrl.fillTemplate(vm.template, vm.fieldData)">
+                            <md-button ng-click="vm.fillTemplate()">
                                 {{ 'DOC_TEMPLATES.DOWNLOAD_RENDERED_FROM_TEMPLATE' | translate }}</md-button>
                         </md-menu-item>
                         <md-menu-item>
