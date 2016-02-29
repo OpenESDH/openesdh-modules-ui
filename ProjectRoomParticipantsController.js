@@ -70,11 +70,26 @@
             vm.isInvalid = isInvalid;
             vm.init();
             
+            projectRoomsService.getPendingInvites($stateParams.shortName).then(function(invites){
+                vm.invites = invites;
+            });
+            
             function participantNotSelected(participant){
                 var result = vm.superParticipantNotSelected(participant);
                 if(result === false){
                     return false;
                 }
+                
+                for(var i=0; i < vm.invites.length; i++){
+                    var invitee = vm.invites[i].invitee;
+                    if(participant.authority != undefined && participant.authority == invitee.userName){
+                        return false;
+                    }
+                    if(participant.contactId != undefined && participant.contactId == invitee.email){
+                        return false;
+                    }
+                }
+                
                 
                 for(var i=0; i < siteMembers.length; i++){
                     var member = siteMembers[i];
@@ -107,7 +122,8 @@
                     return true;
                 }
                 var siteMembers = vm.getSiteMembers();
-                return siteMembers.length == 0;
+                var siteParties = vm.getSiteParties();
+                return siteMembers.length == 0 && siteParties.length == 0;
             }
         }
     }

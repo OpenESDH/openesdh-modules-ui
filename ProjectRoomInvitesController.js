@@ -9,7 +9,6 @@
        
        function init(){
            projectRoomsService.getPendingInvites($stateParams.shortName).then(function(invites){
-               console.log(invites);
                vm.invites = invites;
            });
        }
