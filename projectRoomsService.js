@@ -149,7 +149,7 @@
                     inviteeUserName: inviteeUserName
                 };
             }
-            return $http.get('/api/invite/' + inviteId + '/' + inviteTicket, params).then(function(response){
+            return $http.get('/api/openesdh/invite/' + inviteId + '/' + inviteTicket, params).then(function(response){
                 return response.data.invite;
             });
         }
