@@ -22,7 +22,7 @@ function CreateDocumentFromTemplateDialogService($mdDialog) {
     }
 
     function CreateDocumentFromTemplateDialogController($scope, $mdDialog, casePartiesService, officeTemplateService,
-            notificationUtilsService, FileSaver, caseId, docsListCtrl) {
+            notificationUtilsService, FileSaver, caseId, docsListCtrl, templateToEmailService) {
         var vm = this;
 
         $scope.vm = vm;
@@ -34,6 +34,7 @@ function CreateDocumentFromTemplateDialogService($mdDialog) {
         vm.alert = msg;
         vm.fillTemplate = fillTemplate;
         vm.fillAndSaveToCase = fillAndSaveToCase;
+        vm.fillAndSendToEmail = fillAndSendToEmail;
         vm.fieldData = {};
         vm.fieldData['receivers'] = [];
 
@@ -81,6 +82,14 @@ function CreateDocumentFromTemplateDialogService($mdDialog) {
                 docsListCtrl.reloadDocuments();
                 $mdDialog.hide();
             });
+        }
+
+        function fillAndSendToEmail() {
+            templateToEmailService.showDialog(vm.template.nodeRef, caseId, vm.fieldData)
+                    .then(function(response) {
+                        notificationUtilsService.notify("Success!");
+                        docsListCtrl.reloadDocuments();
+                    });
         }
 
         function cancel() {

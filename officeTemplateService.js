@@ -13,6 +13,7 @@ function officeTemplateService($http, alfrescoNodeUtils, ALFRESCO_URI) {
         getTemplate: getTemplate,
         fillTemplate: fillTemplate,
         fillTemplateToCase: fillTemplateToCase,
+        fillAndSendToEmail: fillAndSendToEmail,
         uploadTemplate: uploadTemplate,
         getCardViewThumbnail: getCardViewThumbnail
     };
@@ -51,26 +52,36 @@ function officeTemplateService($http, alfrescoNodeUtils, ALFRESCO_URI) {
      * @returns {*}
      */
     function fillTemplate(nodeRef, caseId, fieldData) {
-        return $http.post('/api/openesdh/template/' + alfrescoNodeUtils.processNodeRef(nodeRef).uri + "/case/" + caseId + "/fill",
-                {fieldData: fieldData},
-                {responseType: 'arraybuffer'}
-        ).then(function(response) {
-            return {
-                blob: new Blob([response.data], {
-                    type: response.headers('Content-Type')
-                }),
-                zip: response.headers('Content-Type').indexOf('application/zip') > -1
-            };
-        });
+        return _fill("/fill", nodeRef, caseId, fieldData)
+                .then(function(response) {
+                    return {
+                        blob: new Blob([response.data], {
+                            type: response.headers('Content-Type')
+                        }),
+                        zip: response.headers('Content-Type').indexOf('application/zip') > -1
+                    };
+                });
     }
 
     function fillTemplateToCase(nodeRef, caseId, fieldData) {
-        return $http.post('/api/openesdh/template/' + alfrescoNodeUtils.processNodeRef(nodeRef).uri + "/case/" + caseId + "/fillToCase",
+        return _fill("/fillToCase", nodeRef, caseId, fieldData)
+                .then(function(response) {
+                    return true;
+                });
+    }
+
+    function fillAndSendToEmail(nodeRef, caseId, fieldData) {
+        return _fill("/fillToEmail", nodeRef, caseId, fieldData)
+                .then(function(response) {
+                    return true;
+                });
+    }
+
+    function _fill(endpoint, nodeRef, caseId, fieldData) {
+        return $http.post('/api/openesdh/template/' + alfrescoNodeUtils.processNodeRef(nodeRef).uri + "/case/" + caseId + endpoint,
                 {fieldData: fieldData},
                 {responseType: 'arraybuffer'}
-        ).then(function(response) {
-            return true;
-        });
+        );
     }
 
     function uploadTemplate(formData) {
