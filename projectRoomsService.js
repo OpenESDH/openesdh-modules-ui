@@ -137,7 +137,7 @@
                         fullName: authorityFullName
                     }
             };
-            return $http.put('/alfresco/s/api/sites/' + shortName + '/memberships', data).then(function(response){
+            return $http.put('/api/sites/' + shortName + '/memberships', data).then(function(response){
                 return response.data;
             });
         }
@@ -149,7 +149,7 @@
                     inviteeUserName: inviteeUserName
                 };
             }
-            return $http.get('/alfresco/s/api/invite/' + inviteId + '/' + inviteTicket, params).then(function(response){
+            return $http.get('/api/invite/' + inviteId + '/' + inviteTicket, params).then(function(response){
                 return response.data.invite;
             });
         }
