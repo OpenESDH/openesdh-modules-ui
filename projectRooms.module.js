@@ -115,9 +115,19 @@
             position: 'right',
             order: 2
         });
+        dashboardServiceProvider.addExtUserDashlet({
+            templateUrl: 'app/src/modules/projectRooms/view/projectRoomsDashlet.html',
+            position: 'left',
+            order: 1
+        });
         
         modulesMenuServiceProvider.addItem({
             templateUrl: 'app/src/modules/projectRooms/view/menuItem.html',
-            order: 2
+            order: 5
+        });
+        
+        modulesMenuServiceProvider.addExtUserItem({
+            templateUrl: 'app/src/modules/projectRooms/view/menuItem.html',
+            order: 1
         });
     }

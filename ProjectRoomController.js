@@ -2,16 +2,34 @@
         .module('openeApp.projectRooms')
         .controller('ProjectRoomController', ProjectRoomController);
     
-    function ProjectRoomController($stateParams, $mdDialog, projectRoomsService){
+    function ProjectRoomController($stateParams, $mdDialog, projectRoomsService, sessionService){
         var vm = this;
         vm.editProjectRoom = editProjectRoom;
         vm.closeProjectRoom = closeProjectRoom;
+        vm.isManager = false;
+        vm.isExtUser = sessionService.isExternalUser();
         init();
         
         function init(){
             projectRoomsService.getSite($stateParams.shortName).then(function(site){
                 vm.room = site;
             });
+            projectRoomsService.getSiteMembers($stateParams.shortName).then(function(members){
+                vm.members = members;
+                vm.isManager = isUserManager();
+            });
+        }
+        
+        function isUserManager(){
+            var userName = sessionService.getUserInfo().user.userName;
+            var member = null;
+            for(var i=0; i < vm.members.length; i++){
+                member = vm.members[i];
+                if(member.authority.userName == userName){
+                    break;
+                }
+            }
+            return member.role === 'SiteManager';
         }
         
         function editProjectRoom(){

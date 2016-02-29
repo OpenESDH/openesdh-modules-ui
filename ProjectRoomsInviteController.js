@@ -16,7 +16,8 @@
                 projectRoomsService.getInvitationByTicket($stateParams.inviteId, $stateParams.inviteTicket, $stateParams.inviteeUserName).then(function(invite){
                     vm.invite = invite;
                     vm.reject = true
-                });
+                },
+                processError);
             }else if($stateParams.action === 'accept'){
                 acceptInvite();
             }
@@ -41,7 +42,7 @@
         
         function processError(error){
             vm.reject = false;
-            if(error.status == 409){
+            if(error.status == 409 || error.status == 500){
                 vm.rejectAcceptFailure = true;
             }
         }
