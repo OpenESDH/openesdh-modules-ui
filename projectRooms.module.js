@@ -2,7 +2,7 @@
         .config(config);
     
     function config($urlRouterProvider, $stateProvider, languageFilesProvider, caseInfoExtrasServiceProvider, 
-            caseDocumentDetailsExtrasServiceProvider, dashboardServiceProvider, modulesMenuServiceProvider){
+            caseDocumentDetailsExtrasServiceProvider, dashboardServiceProvider, modulesMenuServiceProvider, taskFormConfigServiceProvider){
         
         $urlRouterProvider
         .when('/project/room/:shortName','/project/room/:shortName/info')
@@ -129,5 +129,19 @@
         modulesMenuServiceProvider.addExtUserItem({
             templateUrl: 'app/src/modules/projectRooms/view/menuItem.html',
             order: 1
+        });
+        
+        taskFormConfigServiceProvider.taskForm({
+            taskName: 'inwf:activitiInvitePendingTask',
+            templateUrl: 'app/src/modules/projectRooms/view/inviteReviewTask.html',
+            controller: 'InviteReviewTaskController'
+        }).taskForm({
+            taskName: 'inwf:acceptInviteTask',
+            templateUrl: 'app/src/modules/projectRooms/view/inviteResponseTask.html',
+            controller: 'simpleTaskController'
+        }).taskForm({
+            taskName: 'inwf:rejectInviteTask',
+            templateUrl: 'app/src/modules/projectRooms/view/inviteResponseTask.html',
+            controller: 'simpleTaskController'
         });
     }

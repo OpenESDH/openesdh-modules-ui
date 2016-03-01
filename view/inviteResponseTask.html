@@ -1,0 +1,37 @@
+<md-content layout="column" ng-controller="ctrl.controller as taskCtrl">
+    
+    <md-tabs md-dynamic-height>
+        <md-tab>
+            <md-tab-label>
+                <span>{{ 'TASK.TASK_DETAILS' | translate }}</span>
+            </md-tab-label>
+            <md-tab-body>
+                <md-content layout="row">
+                    <div flex="50" layout="column">
+                        <md-card>
+                            <md-card-content>
+                                <h3>{{ 'COMMON.INFORMATION' | translate }}</h3>
+                            <dl layout="row" layout-wrap>
+
+                              <dt flex="20">{{ 'COMMON.DESCRIPTION' | translate }}</dt>
+                              <dd flex="66">{{ taskCtrl.task.description }}</dd>
+                              
+                              <dt flex="20">{{ 'PROJECT_ROOM.PROJECT_ROOM' | translate }}</dt>
+                              <dd flex="66">{{ taskCtrl.task.properties.inwf_resourceTitle }}</dd>
+                              
+                              <dt flex="20">{{ 'PROJECT_ROOM.INVITEE' | translate }}</dt>
+                              <dd flex="66">{{ taskCtrl.task.properties.inwf_inviteeFirstName + ' ' + taskCtrl.task.properties.inwf_inviteeLastName}}</dd>
+
+                            </dl>
+                          </md-card-content>
+                          <div class="md-actions" layout="row" layout-padding>
+                            <md-button class="md-primary" ng-click="taskCtrl.taskDone()">{{'TASK.TASK_DONE' | translate}}</md-button>
+                          </div>
+                        </md-card>
+                    </div>
+                </md-content>
+            </md-tab-body>
+        </md-tab>
+        <ng-include src="'app/src/tasks/common/view/workflowDetails.html'"></ng-include>
+    </md-tabs>
+</md-content>

@@ -45,6 +45,10 @@
         "REJECT_INVITATION": "Reject invitation",
         "REJECT_INVITE_SUCCESS": "Your invitation to join the \"{{siteTitle}}\" project room has been successfully declined.",
         "INVITE_FAILURE": "Failed to process the invitation. Perhaps it has been already accepted/declined or the inviter canceled it.",
-        "INVITATION_ACCEPTED": "The invitation successfully accepted."
+        "INVITATION_ACCEPTED": "The invitation successfully accepted.",
+        "ACCEPT": "Accept",
+        "INVITE_TASK_DESCRIPTION": "You have been invited to join the \"{{siteTitle}}\" project room.",
+        "INVITE_TASK_ROLE": "Your role will be",
+        "INVITEE": "Invitee"
     }
 }
