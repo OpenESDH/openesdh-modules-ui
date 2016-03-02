@@ -1,116 +1,133 @@
 angular
         .module('openeApp.doctemplates')
-        .factory('createDocumentFromTemplateDialogService', CreateDocumentFromTemplateDialogService);
+//        .factory('createDocumentFromTemplateDialogService', CreateDocumentFromTemplateDialogService)
+        .provider('createDocumentFromTemplateDialogService', CreateDocumentFromTemplateDialogServiceProvider);
 
-function CreateDocumentFromTemplateDialogService($mdDialog) {
-    var service = {
-        showDialog: execute
-    };
-    return service;
+function CreateDocumentFromTemplateDialogServiceProvider() {
+    this.$get = CreateDocumentFromTemplateDialogService;
+    var availableActionItems = [];
+    this.addActionItem = addActionItem;
+    this.getAvailableActionItems = getAvailableActionItems;
 
-    function execute(caseId, docsListCtrl) {
-        return $mdDialog.show({
-            templateUrl: 'app/src/modules/doctemplates/view/createDocumentFromTemplateDialog.html',
-            controller: CreateDocumentFromTemplateDialogController,
-            controllerAs: 'vm',
-            clickOutsideToClose: true,
-            locals: {
-                caseId: caseId,
-                docsListCtrl: docsListCtrl
-            }
+    function addActionItem(labelKey, serviceName, recipientRequired) {
+        availableActionItems.push({
+            labelKey: labelKey,
+            serviceName: serviceName,
+            recipientRequired: recipientRequired || false
         });
+        return this;
     }
 
-    function CreateDocumentFromTemplateDialogController($scope, $mdDialog, casePartiesService, officeTemplateService,
-            notificationUtilsService, FileSaver, caseId, docsListCtrl, templateToEmailService) {
-        var vm = this;
+    function getAvailableActionItems() {
+        return availableActionItems;
+    }
 
-        $scope.vm = vm;
+    function CreateDocumentFromTemplateDialogService($mdDialog) {
+        var service = {
+            showDialog: execute
+        };
+        return service;
 
-        vm.template = null;
-        vm.parties = [];
-
-        vm.cancel = cancel;
-        vm.alert = msg;
-        vm.fillTemplate = fillTemplate;
-        vm.fillAndSaveToCase = fillAndSaveToCase;
-        vm.fillAndSendToEmail = fillAndSendToEmail;
-        vm.fieldData = {};
-        vm.fieldData['receivers'] = [];
-
-        vm.selectedItem = null;
-        vm.searchText = null;
-        vm.querySearch = contactsQuerySearch;
-
-        activate();
-
-        function activate() {
-            $scope.$watch(function(scope) {
-                return vm.template;
-            }, function(newValue, oldValue) {
-                if (newValue) {
-                    officeTemplateService.getTemplate(newValue.nodeRef).then(function(template) {
-                        vm.currentTemplate = template;
-                    });
+        function execute(caseId, docsListCtrl) {
+            return $mdDialog.show({
+                templateUrl: 'app/src/modules/doctemplates/view/createDocumentFromTemplateDialog.html',
+                controller: CreateDocumentFromTemplateDialogController,
+                controllerAs: 'vm',
+                clickOutsideToClose: true,
+                locals: {
+                    caseId: caseId,
+                    docsListCtrl: docsListCtrl
                 }
             });
+        }
 
-            casePartiesService.getCaseParties(caseId).then(function(response) {
-                vm.parties = response.map(function(item) {
-                    return angular.extend(item,
-                            {
-                                _displayName: angular.lowercase(item.displayName)
-                            });
+        function CreateDocumentFromTemplateDialogController($scope, $injector, $q, $mdDialog, casePartiesService,
+                officeTemplateService, notificationUtilsService, caseId, docsListCtrl) {
+            var vm = this;
+
+            $scope.vm = vm;
+
+            vm.template = null;
+            vm.parties = [];
+            vm.actionItems = getAvailableActionItems();
+
+            vm.actionItems.map(function(item) {
+                isActionItemVisible(item).then(function(result) {
+                    item.visible = result;
                 });
             });
-        }
 
-        function fillTemplate() {
-            officeTemplateService.fillTemplate(vm.template.nodeRef, caseId, vm.fieldData).then(function(result) {
-                var extension = result.zip ? '.zip' : '.pdf';
-                var fileName = vm.template.name.split('.').slice(0, -1).join('.');
-                FileSaver.saveAs(
-                        result.blob,
-                        fileName + extension
-                        );
-            });
-        }
+            vm.executeAction = executeAction;
+            vm.cancel = cancel;
+            vm.alert = msg;
+            vm.fieldData = {};
+            vm.fieldData['receivers'] = [];
 
-        function fillAndSaveToCase() {
-            officeTemplateService.fillTemplateToCase(vm.template.nodeRef, caseId, vm.fieldData).then(function(response) {
-                notificationUtilsService.notify("Success!");
-                docsListCtrl.reloadDocuments();
-                $mdDialog.hide();
-            });
-        }
+            vm.selectedItem = null;
+            vm.searchText = null;
+            vm.querySearch = contactsQuerySearch;
 
-        function fillAndSendToEmail() {
-            templateToEmailService.showDialog(vm.template.nodeRef, caseId, vm.fieldData)
-                    .then(function(response) {
-                        notificationUtilsService.notify("Success!");
-                        docsListCtrl.reloadDocuments();
+            activate();
+
+            function activate() {
+                $scope.$watch(function(scope) {
+                    return vm.template;
+                }, function(newValue, oldValue) {
+                    if (newValue) {
+                        officeTemplateService.getTemplate(newValue.nodeRef).then(function(template) {
+                            vm.currentTemplate = template;
+                        });
+                    }
+                });
+
+                casePartiesService.getCaseParties(caseId).then(function(response) {
+                    vm.parties = response.map(function(item) {
+                        return angular.extend(item,
+                                {
+                                    _displayName: angular.lowercase(item.displayName)
+                                });
                     });
-        }
+                });
+            }
 
-        function cancel() {
-            $mdDialog.cancel();
-        }
+            function executeAction(actionItem) {
+                var service = $injector.get(actionItem.serviceName);
+                service.execute(vm.template, caseId, vm.fieldData)
+                        .then(function(response) {
+                            notificationUtilsService.notify("Success!");
+                            docsListCtrl.reloadDocuments();
+                            $mdDialog.hide();
+                        });
+            }
 
-        function msg(text) {
-            alert(text);
-        }
+            function cancel() {
+                $mdDialog.cancel();
+            }
 
-        function contactsQuerySearch(query) {
-            var results = query ? vm.parties.filter(createFilterFor(query)) : [];
-            return results;
-        }
+            function msg(text) {
+                alert(text);
+            }
 
-        function createFilterFor(query) {
-            var lowercaseQuery = angular.lowercase(query);
-            return function filterFn(party) {
-                return (party._displayName.indexOf(lowercaseQuery) > -1 ||
-                        party.contactId.indexOf(lowercaseQuery) > -1);
-            };
+            function contactsQuerySearch(query) {
+                var results = query ? vm.parties.filter(createFilterFor(query)) : [];
+                return results;
+            }
+
+            function createFilterFor(query) {
+                var lowercaseQuery = angular.lowercase(query);
+                return function filterFn(party) {
+                    return (party._displayName.indexOf(lowercaseQuery) > -1 ||
+                            party.contactId.indexOf(lowercaseQuery) > -1);
+                };
+            }
+
+            function isActionItemVisible(menuItem) {
+                var service = $injector.get(menuItem.serviceName);
+                if (service.isVisible) {
+                    return service.isVisible();
+                }
+                return $q.resolve(true);
+            }
         }
     }
 }

@@ -89,10 +89,10 @@ function OfficeTemplateController($mdDialog, $translate, officeTemplateService, 
 
         $scope.templateProperties = {
             majorVersion: "false",
-            title: null,
+            title: '',
             doc_type: null,
             doc_category: null,
-            description: null
+            description: ''
         };
 
         $scope.cancel = function() {

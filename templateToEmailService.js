@@ -4,11 +4,11 @@ angular
 
 function TemplateToEmailService($mdDialog, $translate, APP_CONFIG) {
     var service = {
-        showDialog: execute
+        execute: execute
     };
     return service;
 
-    function execute(templateNodeRef, caseId, fieldData) {
+    function execute(template, caseId, fieldData) {
         return $mdDialog.show({
             templateUrl: 'app/src/modules/doctemplates/view/templateToEmailDialog.html',
             controller: TemplateToEmailController,
@@ -16,7 +16,7 @@ function TemplateToEmailService($mdDialog, $translate, APP_CONFIG) {
             clickOutsideToClose: true,
             locals: {
                 caseId: caseId,
-                templateNodeRef: templateNodeRef,
+                templateNodeRef: template.nodeRef,
                 fieldData: angular.extend(fieldData,
                         {
                             'email.subject': $translate.instant('DOC_TEMPLATES.DEFAULT_EMAIL_SUBJECT', {appName: APP_CONFIG.appName}),
@@ -26,7 +26,7 @@ function TemplateToEmailService($mdDialog, $translate, APP_CONFIG) {
         });
     }
 
-    function TemplateToEmailController(officeTemplateService, caseId, templateNodeRef, fieldData) {
+    function TemplateToEmailController(officeTemplateService, notificationUtilsService, caseId, templateNodeRef, fieldData) {
         var vm = this;
 
         vm.cancel = cancel;
@@ -35,7 +35,11 @@ function TemplateToEmailService($mdDialog, $translate, APP_CONFIG) {
 
         function fillToEmail() {
             officeTemplateService.fillAndSendToEmail(templateNodeRef, caseId, vm.fieldData)
-                    .then($mdDialog.hide);
+                    .then($mdDialog.hide,
+                            function(errResponse) {
+                                notificationUtilsService.alert(errResponse.statusText);
+                                console.log(errResponse);
+                            });
         }
 
         function cancel() {
