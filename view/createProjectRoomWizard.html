@@ -13,7 +13,7 @@
                     <md-input-container>
                         <label>* {{'PROJECT_ROOM.SHORT_NAME' | translate}}</label>
                         <input name="shortName" type="text" ng-model="dlg.caseSite.shortName" required 
-                            ng-pattern="/^[a-zA-Z_0-9]{3,}$/" uniquesite></input>
+                            ng-pattern="/^[a-zA-Z\u00C0-\u1FFF\u2C00-\uD7FF_0-9]{3,}$/" uniquesite></input>
                         <div ng-messages="projectRoomForm.shortName.$error">
                             <div ng-message="pattern">
                                 {{'PROJECT_ROOM.INVALID_SHORT_NAME' | translate}}

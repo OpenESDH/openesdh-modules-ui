@@ -13,8 +13,7 @@
             </form>
         </mt-wz-step>
         <mt-wz-step class="workflowWizardStep">
-            <p>
-                {{'PROJECT_ROOM.READY_TO_CLOSE_PROJECT_ROOM' | translate: {projectRoom:dlg.room.title, case:dlg.room.caseId} }}
+            <p translate="PROJECT_ROOM.READY_TO_CLOSE_PROJECT_ROOM" translate-value-project-room="{{dlg.room.title}}" translate-value-case="{{dlg.room.caseId}}">
             </p>
             <p>
                 {{'PROJECT_ROOM.DOCS_TO_COPY_BACK' | translate}}
