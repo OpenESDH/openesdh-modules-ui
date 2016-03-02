@@ -41,6 +41,14 @@
         "CONFIRM_CANCEL_INVITE": "Er du sikker på at du vil annullere invitationen?",
         "CONFIRM_REMOVE_PARTICIPANT": "Er du sikker på at du vil fjerne denne deltager?",
         "PARTICIPANT_ROLE_UPDATED": "Deltagers rolle er opdateret",
-        "CONFIRM_REJECT_INVITE": "Er du sikker på, at du vil afvise invitation fra {{fromFirstName}} {{fromLastName}} om adgang til \"{{siteTitle}}\" projektrum?"
+        "CONFIRM_REJECT_INVITE": "Er du sikker på, at du vil afvise invitation fra {{fromFirstName}} {{fromLastName}} om adgang til \"{{siteTitle}}\" projektrum?",
+        "REJECT_INVITATION": "Invitation afvist",
+        "REJECT_INVITE_SUCCESS": "Din invitation til at deltage i projektrummet \"siteTitle\" er blevet afvist med success.",
+        "INVITE_FAILURE": "Invitationen kunne ikke behandles. Dette kan skyldes at den allerede er blevet godkendt eller at afsender efterfølgende har annulleret invitationen.",
+        "INVITATION_ACCEPTED": "Invitationen er accepteret med succes.",
+        "ACCEPT": "Accepter",
+        "INVITE_TASK_DESCRIPTION": "Du er blevet inviteret til at deltage i projektrummet, \"siteTitle\".",
+        "INVITE_TASK_ROLE": "Din rolle er",
+        "INVITEE": "Invitereret"
     }
 }
