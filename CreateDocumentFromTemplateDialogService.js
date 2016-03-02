@@ -59,7 +59,6 @@ function CreateDocumentFromTemplateDialogServiceProvider() {
 
             vm.executeAction = executeAction;
             vm.cancel = cancel;
-            vm.alert = msg;
             vm.fieldData = {};
             vm.fieldData['receivers'] = [];
 
@@ -102,10 +101,6 @@ function CreateDocumentFromTemplateDialogServiceProvider() {
 
             function cancel() {
                 $mdDialog.cancel();
-            }
-
-            function msg(text) {
-                alert(text);
             }
 
             function contactsQuerySearch(query) {
