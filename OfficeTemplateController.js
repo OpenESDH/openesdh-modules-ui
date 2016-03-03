@@ -2,7 +2,7 @@ angular
         .module('openeApp.doctemplates')
         .controller('OfficeTemplateController', OfficeTemplateController);
 
-function OfficeTemplateController($mdDialog, $translate, officeTemplateService, FileSaver) {
+function OfficeTemplateController($mdDialog, $translate, officeTemplateService) {
     var vm = this;
 
     vm.getTemplates = getTemplates;

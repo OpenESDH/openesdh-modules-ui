@@ -1,6 +1,5 @@
 angular
         .module('openeApp.doctemplates')
-//        .factory('createDocumentFromTemplateDialogService', CreateDocumentFromTemplateDialogService)
         .provider('createDocumentFromTemplateDialogService', CreateDocumentFromTemplateDialogServiceProvider);
 
 function CreateDocumentFromTemplateDialogServiceProvider() {
@@ -41,8 +40,8 @@ function CreateDocumentFromTemplateDialogServiceProvider() {
             });
         }
 
-        function CreateDocumentFromTemplateDialogController($scope, $injector, $q, $mdDialog, casePartiesService,
-                officeTemplateService, notificationUtilsService, caseId, docsListCtrl) {
+        function CreateDocumentFromTemplateDialogController($scope, $injector, $q, $mdDialog, $translate,
+                casePartiesService, officeTemplateService, notificationUtilsService, caseId, docsListCtrl) {
             var vm = this;
 
             $scope.vm = vm;
@@ -93,7 +92,7 @@ function CreateDocumentFromTemplateDialogServiceProvider() {
                 var service = $injector.get(actionItem.serviceName);
                 service.execute(vm.template, caseId, vm.fieldData)
                         .then(function(response) {
-                            notificationUtilsService.notify("Success!");
+                            notificationUtilsService.notify($translate.instant('COMMON.SUCCESS'));
                             docsListCtrl.reloadDocuments();
                             $mdDialog.hide();
                         });
