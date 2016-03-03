@@ -24,8 +24,8 @@
             var userName = sessionService.getUserInfo().user.userName;
             var member = null;
             for(var i=0; i < vm.members.length; i++){
-                member = vm.members[i];
-                if(member.authority.userName == userName){
+                if(vm.members[i].authority.userName == userName){
+                    member = vm.members[i];
                     break;
                 }
             }
