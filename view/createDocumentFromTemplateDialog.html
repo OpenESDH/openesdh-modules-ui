@@ -38,29 +38,20 @@
         </md-dialog-content>
 
         <md-dialog-actions>
-            <md-button type="submit" class="md-primary oe-menu-button" ng-click="vm.fillAndSaveToCase(vm.template, vm.fieldData)" ng-disabled="form.$invalid">
-                {{ 'DOC_TEMPLATES.SAVE_RENDERED_TEMPLATE_TO_CASE' | translate }}
+            <md-button type="submit" class="md-primary oe-menu-button" 
+                       ng-disabled="form.$invalid"
+                       ng-show="vm.actionItems.length > 0"
+                       ng-click="vm.executeAction(vm.actionItems[0])">
+                {{ vm.actionItems[0].labelKey | translate }}
                 <md-menu>
                     <!-- Trigger element is a md-button with an icon -->
                     <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="More actions" ng-disabled="form.$invalid">
                         <i class="material-icons">expand_more</i>
                     </md-button>
                     <md-menu-content>
-                        <md-menu-item>
-                            <md-button ng-click="vm.fillAndSaveToCase()">
-                                {{ 'DOC_TEMPLATES.SAVE_RENDERED_TEMPLATE_TO_CASE' | translate }}</md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button ng-click="vm.fillTemplate()">
-                                {{ 'DOC_TEMPLATES.DOWNLOAD_RENDERED_FROM_TEMPLATE' | translate }}</md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button ng-click="vm.fillAndSendToEmail()">
-                                {{ 'DOC_TEMPLATES.EMAIL_RENDERED_FROM_TEMPLATE' | translate }}</md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button ng-click="vm.alert('to signing...')">
-                                {{ 'DOC_TEMPLATES.SIGN_RENDERED_FROM_TEMPLATE' | translate }}</md-button>
+                        <md-menu-item ng-repeat="actionItem in vm.actionItems" ng-show="actionItem.visible">
+                            <md-button ng-click="vm.executeAction(actionItem)" ng-disabled="actionItem.recipientRequired && vm.fieldData['receivers'].length === 0">
+                                {{ actionItem.labelKey | translate }}</md-button>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>

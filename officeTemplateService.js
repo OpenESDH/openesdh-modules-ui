@@ -3,7 +3,7 @@ angular
         .module('openeApp.doctemplates')
         .factory('officeTemplateService', officeTemplateService);
 
-function officeTemplateService($http, alfrescoNodeUtils, ALFRESCO_URI) {
+function officeTemplateService($http, alfrescoNodeUtils, ALFRESCO_URI, notificationUtilsService) {
 
     var lastFetch = 0;
 
@@ -14,6 +14,7 @@ function officeTemplateService($http, alfrescoNodeUtils, ALFRESCO_URI) {
         fillTemplate: fillTemplate,
         fillTemplateToCase: fillTemplateToCase,
         fillAndSendToEmail: fillAndSendToEmail,
+        fillAndSendToAddo: fillAndSendToAddo,
         uploadTemplate: uploadTemplate,
         getCardViewThumbnail: getCardViewThumbnail
     };
@@ -72,6 +73,13 @@ function officeTemplateService($http, alfrescoNodeUtils, ALFRESCO_URI) {
 
     function fillAndSendToEmail(nodeRef, caseId, fieldData) {
         return _fill("/fillToEmail", nodeRef, caseId, fieldData)
+                .then(function(response) {
+                    return true;
+                });
+    }
+
+    function fillAndSendToAddo(nodeRef, caseId, fieldData) {
+        return _fill("/fillToAddo", nodeRef, caseId, fieldData)
                 .then(function(response) {
                     return true;
                 });

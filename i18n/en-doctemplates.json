@@ -13,7 +13,6 @@
         "DOWNLOAD_RENDERED_FROM_TEMPLATE": "Download rendered from template",
         "SAVE_RENDERED_TEMPLATE_TO_CASE": "Save rendered template to case",
         "EMAIL_RENDERED_FROM_TEMPLATE": "Email rendered template",
-        "SIGN_RENDERED_FROM_TEMPLATE": "Send rendered template for signing",
         "DEFAULT_EMAIL_SUBJECT": "Document from {{appName}}",
         "DEFAULT_EMAIL_TEXT": "Case ID {{caseId}}"
     }

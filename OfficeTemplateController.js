@@ -2,7 +2,7 @@ angular
         .module('openeApp.doctemplates')
         .controller('OfficeTemplateController', OfficeTemplateController);
 
-function OfficeTemplateController($mdDialog, $translate, officeTemplateService, FileSaver) {
+function OfficeTemplateController($mdDialog, $translate, officeTemplateService) {
     var vm = this;
 
     vm.getTemplates = getTemplates;
@@ -89,10 +89,10 @@ function OfficeTemplateController($mdDialog, $translate, officeTemplateService, 
 
         $scope.templateProperties = {
             majorVersion: "false",
-            title: null,
+            title: '',
             doc_type: null,
             doc_category: null,
-            description: null
+            description: ''
         };
 
         $scope.cancel = function() {
