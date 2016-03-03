@@ -20,6 +20,9 @@
         },
         "ERROR": {
             "REQUIRED_PHONE_EMPTY_FOR_RECEIVERS": "Phone is required by signature template, but is not specified for: {{receivers}}"
+        },
+        "DOC_TEMPLATES": {
+            "SIGN_RENDERED_FROM_TEMPLATE": "Send rendered template for signing"
         }
     }
 }
