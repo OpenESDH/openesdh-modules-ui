@@ -20,6 +20,9 @@
         },
         "ERROR": {
             "REQUIRED_PHONE_EMPTY_FOR_RECEIVERS": "Telefon nummer er påkrævet men mangler for: {{receivers}}"
+        },
+        "DOC_TEMPLATES": {
+            "SIGN_RENDERED_FROM_TEMPLATE": "Indhent underskrifter på dokument"
         }
     }
 }
