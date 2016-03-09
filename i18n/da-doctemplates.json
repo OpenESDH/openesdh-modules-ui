@@ -11,6 +11,9 @@
             }
         },
         "DOWNLOAD_RENDERED_FROM_TEMPLATE": "Download fra skabelon",
-        "SAVE_RENDERED_TEMPLATE_TO_CASE": "Gem til sag"
+        "SAVE_RENDERED_TEMPLATE_TO_CASE": "Gem til sag",
+        "EMAIL_RENDERED_FROM_TEMPLATE": "E-mail dokument",
+        "DEFAULT_EMAIL_SUBJECT": "Dokument fra {{appName}}",
+        "DEFAULT_EMAIL_TEXT": "Sag id {{caseId}}"
     }
 }
