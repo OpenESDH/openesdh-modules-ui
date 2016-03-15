@@ -40,8 +40,8 @@ function GoogleDocsService($http, ALFRESCO_URI, $window, $mdDialog, $translate, 
         }).then(function(response) {
             //do google login
             var authURL = response.data.authURL;
-            var OAUTH_WINDOW_WIDTH = 480;
-            var OAUTH_WINDOW_HEIGHT = 480;
+            var OAUTH_WINDOW_WIDTH = 500;
+            var OAUTH_WINDOW_HEIGHT = 630;
 
             /**
              * google login popup callback function
@@ -56,20 +56,12 @@ function GoogleDocsService($http, ALFRESCO_URI, $window, $mdDialog, $translate, 
             }
             window.Alfresco.GoogleDocs.onOAuthReturn = onLogedIn;
 
-            /*
-             * borrowed from google docs plugin
-             */
-            if (typeof window.showModalDialog == "function" && document.documentMode) {
-                //ie
-                var returnVal = window.showModalDialog(authURL, {onOAuthReturn: onLogedIn}, "dialogwidth:" + OAUTH_WINDOW_WIDTH + ";dialogheight:" + OAUTH_WINDOW_HEIGHT); // only returns on popup close
-            } else {
-                var popup = window.open(authURL, "GDOAuth", "menubar=no,location=no,resizable=no,scrollbars=yes,status=no,width=" + OAUTH_WINDOW_WIDTH + ",height=" + OAUTH_WINDOW_HEIGHT + ",modal=yes"); // returns straight away
-            }
+            var popup = window.open(authURL, "GDOAuth", "menubar=no,location=no,resizable=no,scrollbars=yes,status=no,width=" + OAUTH_WINDOW_WIDTH + ",height=" + OAUTH_WINDOW_HEIGHT + ",modal=yes"); // returns straight away
         });
     }
 
     function getStateUrl() {
-        return $location.$$protocol + "://" + $location.$$host + ($location.$$port ? ':' + $location.$$host : '') + ALFRESCO_URI.webClientServiceProxy + "/";
+        return $location.$$protocol + "://" + $location.$$host + ($location.$$port ? ':' + $location.$$port : '') + ALFRESCO_URI.webClientServiceProxy + "/";
     }
 
     function uploadContent(_scope, nodeRef) {
