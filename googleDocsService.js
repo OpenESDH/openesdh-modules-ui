@@ -94,7 +94,7 @@ function GoogleDocsService($http, ALFRESCO_URI, $window, $mdDialog, $translate, 
 
     function resumeEditing(_scope, file) {
         return _checkGoogleAuth(_scope, function() {
-            $window.open(file.googledocs.editorURL, "_blank");
+            $window.open(file.gd2.editorURL, "_blank");
         });
     }
 
