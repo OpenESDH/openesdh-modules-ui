@@ -1,16 +1,25 @@
-
 angular
         .module('openeApp.google.docs')
         .factory('googleDocsCancelActionService', GoogleDocsCancelActionService);
 function GoogleDocsCancelActionService(googleDocsService) {
 
     var service = {
-        executeFileAction: executeFileAction
+        execute: execute,
+        executeFileAction: executeFileAction,
+        executeCaseDocAction: executeCaseDocAction
     };
     return service;
 
-    function executeFileAction(file, $scope, onSuccess, onError) {
-        googleDocsService.discardContent($scope, file.nodeRef)
+    function execute(nodeRef, $scope, onSuccess, onError) {
+        googleDocsService.discardContent($scope, nodeRef)
                 .then(onSuccess, onError);
+    }
+    
+    function executeFileAction(file, $scope, onSuccess, onError) {
+        execute(file.nodeRef, $scope, onSuccess, onError);
+    }
+    
+    function executeCaseDocAction(doc, $scope, onSuccess, onError) {
+        execute(doc.mainDocNodeRef, $scope, onSuccess, onError);
     }
 }

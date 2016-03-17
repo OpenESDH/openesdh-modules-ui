@@ -92,9 +92,9 @@ function GoogleDocsService($http, ALFRESCO_URI, $window, $mdDialog, $translate, 
         return uplCont.promise;
     }
 
-    function resumeEditing(_scope, file) {
+    function resumeEditing(_scope, editorURL) {
         return _checkGoogleAuth(_scope, function() {
-            $window.open(file.gd2.editorURL, "_blank");
+            $window.open(editorURL, "_blank");
         });
     }
 

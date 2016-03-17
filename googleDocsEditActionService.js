@@ -1,17 +1,26 @@
-
 angular
         .module('openeApp.google.docs')
         .factory('googleDocsEditActionService', GoogleDocsEditActionService);
 function GoogleDocsEditActionService(googleDocsService) {
 
     var service = {
-        executeFileAction: executeFileAction
+        execute: execute,
+        executeFileAction: executeFileAction,
+        executeCaseDocAction: executeCaseDocAction
     };
     return service;
 
-    function executeFileAction(file, $scope, onSuccess, onError) {
+    function execute(nodeRef, $scope, onSuccess, onError) {
         googleDocsService
-                .uploadContent($scope, file.nodeRef)
+                .uploadContent($scope, nodeRef)
                 .then(onSuccess, onError);
     }
+    function executeFileAction(file, $scope, onSuccess, onError) {
+        execute(file.nodeRef, $scope, onSuccess, onError);
+    }
+
+    function executeCaseDocAction(doc, $scope, onSuccess, onError) {
+        execute(doc.mainDocNodeRef, $scope, onSuccess, onError);
+    }
+
 }
