@@ -5,19 +5,18 @@
         </div>
         
         <div class="repeat-table">
-            <div class="repeat-header" layout>
-                <span layout="row" flex="95">
-                    <span class="r" flex="5"></span>
-                    <span class="r" flex="50" sort-table="userName">{{ 'MEMBER.NAME' | translate }}</span>
-                    <span class="r" flex="15" sort-table="firstName">{{ 'MEMBER.ROLE' | translate }}</span>
-                    <span class="r" flex="15">{{ 'COMMON.ACTION' | translate }}</span>
-                </span>
-                <span flex="5"></span>
+            <div class="repeat-header" layout="row">
+                <span class="r icon" flex="none"></span>
+                <span class="r" flex sort-table="userName">{{ 'MEMBER.NAME' | translate }}</span>
+                <!-- <span class="r" flex="15" sort-table="email">{{ 'COMMON.EMAIL' | translate }}</span> -->
+                <span class="r" flex="15" sort-table="firstName">{{ 'MEMBER.ROLE' | translate }}</span>
+                <span class="r" flex="15">{{ 'COMMON.ACTION' | translate }}</span>
             </div>
             <md-virtual-repeat-container md-auto-shrink style="height: 450px;">
                 <div md-virtual-repeat="member in prm.members" layout="row">
-                    <span class="r" flex="5"><i class="material-icons">account_box</i></span>
-                    <span class="r" flex="50">{{member.authority.firstName + " " + member.authority.lastName}}</span>
+                    <span class="r icon" flex="none"><i class="material-icons">account_box</i></span>
+                    <span class="r" flex>{{member.authority.firstName + " " + member.authority.lastName}}</span>
+                    <!-- <span class="r" flex="15">{{ member.email }}</span> -->
                     <span class="r muted" flex="15">
                         <span ng-if="member.authority.fullName == prm.room.creator.userName">{{member.role | participantRole}}</span>
                         
