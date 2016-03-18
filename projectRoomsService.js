@@ -81,7 +81,7 @@
         }
         
         function getSiteMembers(shortName){
-            return $http.get('/api/sites/' + shortName + '/memberships', {authorityType: 'USER'}).then(function(response){
+            return $http.get('/api/openesdh/case/sites/' + shortName + '/members').then(function(response){
                 return response.data;
             });
         }

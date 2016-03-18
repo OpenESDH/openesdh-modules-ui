@@ -8,7 +8,7 @@
             <div class="repeat-header" layout="row">
                 <span class="r icon" flex="none"></span>
                 <span class="r" flex sort-table="userName">{{ 'MEMBER.NAME' | translate }}</span>
-                <!-- <span class="r" flex="15" sort-table="email">{{ 'COMMON.EMAIL' | translate }}</span> -->
+                <span class="r" flex="15" sort-table="email">{{ 'COMMON.EMAIL' | translate }}</span>
                 <span class="r" flex="15" sort-table="firstName">{{ 'MEMBER.ROLE' | translate }}</span>
                 <span class="r" flex="15">{{ 'COMMON.ACTION' | translate }}</span>
             </div>
@@ -16,7 +16,7 @@
                 <div md-virtual-repeat="member in prm.members" layout="row">
                     <span class="r icon" flex="none"><i class="material-icons">account_box</i></span>
                     <span class="r" flex>{{member.authority.firstName + " " + member.authority.lastName}}</span>
-                    <!-- <span class="r" flex="15">{{ member.email }}</span> -->
+                    <span class="r muted" flex="15">{{member.authority.email}}</span>
                     <span class="r muted" flex="15">
                         <span ng-if="member.authority.fullName == prm.room.creator.userName">{{member.role | participantRole}}</span>
                         
