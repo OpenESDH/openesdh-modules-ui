@@ -6,20 +6,27 @@ function GoogleDocsCheckInActionService(googleDocsService) {
     var service = {
         execute: execute,
         executeFileAction: executeFileAction,
-        executeCaseDocAction: executeCaseDocAction
+        executeCaseDocAction: executeCaseDocAction,
+        executeDocAttachmentAction: executeDocAttachmentAction
     };
     return service;
 
-    function execute(nodeRef, $scope, onSuccess, onError) {
-        googleDocsService.saveContent($scope, nodeRef)
-                .then(onSuccess, onError);
+    function execute(nodeRef, mimetype, onSuccess, onError, $scope) {
+        if (googleDocsService.isSupportedFormat(mimetype)) {
+            googleDocsService.saveContent($scope, nodeRef)
+                    .then(onSuccess, onError);
+        }
     }
 
-    function executeFileAction(file, $scope, onSuccess, onError) {
-        execute(file.nodeRef, $scope, onSuccess, onError);
+    function executeFileAction(file, onSuccess, onError, $scope) {
+        execute(file.nodeRef, file.cm.content.mimetype, onSuccess, onError, $scope);
     }
 
-    function executeCaseDocAction(doc, $scope, onSuccess, onError) {
-        execute(doc.mainDocNodeRef, $scope, onSuccess, onError);
+    function executeCaseDocAction(doc, onSuccess, onError, $scope) {
+        execute(doc.mainDocNodeRef, doc.fileMimeType, onSuccess, onError, $scope);
+    }
+
+    function executeDocAttachmentAction(attachment, onSuccess, onError, $scope) {
+        execute(attachment.nodeRef, attachment.mimetype, onSuccess, onError, $scope);
     }
 }
