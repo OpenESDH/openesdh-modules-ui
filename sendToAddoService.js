@@ -2,8 +2,8 @@ angular
         .module('openeApp.addo')
         .factory('sendToAddoService', SendToAddoService);
 
-function SendToAddoService($stateParams, $mdDialog, $filter, $q, $translate, notificationUtilsService,
-        addoService, caseDocumentsService, casePartiesService) {
+function SendToAddoService($stateParams, $mdDialog, $q, $translate, notificationUtilsService,
+        addoService, caseDocumentsService) {
     var service = {
         showDialog: execute,
         isVisible: isVisible
@@ -13,7 +13,14 @@ function SendToAddoService($stateParams, $mdDialog, $filter, $q, $translate, not
     function execute() {
         var data = {
             templates: [],
-            documents: []
+            documents: [],
+            model: {
+                caseId: $stateParams.caseId,
+                template: null,
+                receivers: [],
+                sequential: false,
+                documents: []
+            }
         };
         var pTempl = addoService.getSigningTemplates().then(function(templates) {
             data.templates = templates;
@@ -48,15 +55,9 @@ function SendToAddoService($stateParams, $mdDialog, $filter, $q, $translate, not
         });
     }
 
-    function AddoDialogController($mdDialog, contactsService, templates, documents) {
+    function AddoDialogController($mdDialog, contactsService, personDialogService, templates, documents, model) {
         var addoCtrl = this;
-        addoCtrl.model = {
-            caseId: $stateParams.caseId,
-            template: null,
-            receivers: [],
-            sequential: false,
-            documents: []
-        };
+        addoCtrl.model = model;
         addoCtrl.selectedDocs = [];
         addoCtrl.selectedToSign = [];
         addoCtrl.oneSigningDocSelected = false;
@@ -72,6 +73,7 @@ function SendToAddoService($stateParams, $mdDialog, $filter, $q, $translate, not
         addoCtrl.toggleDocument = toggleDocument;
         addoCtrl.send = send;
         addoCtrl.cancel = cancel;
+        addoCtrl.newContact = newContact;
 
         function send() {
             if (!isValidModel()) {
@@ -144,10 +146,26 @@ function SendToAddoService($stateParams, $mdDialog, $filter, $q, $translate, not
                 }
             }
             if (noPhones.length > 0) {
-                notificationUtilsService.alert($translate.instant('ADDO.ERROR.REQUIRED_PHONE_EMPTY_FOR_RECEIVERS', { 'receivers' : noPhones.join(', ')}));
+                notificationUtilsService.alert($translate.instant('ADDO.ERROR.REQUIRED_PHONE_EMPTY_FOR_RECEIVERS', {'receivers': noPhones.join(', ')}));
                 return false;
             }
             return true;
+        }
+
+        function newContact(ev) {
+            var data = {
+                templates: addoCtrl.templates,
+                documents: addoCtrl.documents,
+                model: addoCtrl.model
+            };
+            personDialogService
+                    .showPersonEdit(ev, null, null, false)
+                    .then(function(response) {
+                        data.model.receivers.push(response);
+                        showDialog(data);
+                    }, function() {
+                        showDialog(data);
+                    });
         }
     }
 }

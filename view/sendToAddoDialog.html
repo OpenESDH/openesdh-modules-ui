@@ -14,20 +14,27 @@
                     <md-option ng-repeat="addoTemplate in addoDialog.templates" ng-value="addoTemplate">{{addoTemplate.FriendlyName}}</md-option>
                 </md-select>
             </md-input-container>
-            <md-chips ng-model="addoDialog.model.receivers" md-autocomplete-snap md-require-match="true" layout='column'>
-                <md-autocomplete md-selected-item="addoDialog.selectedItem" 
-                                 md-search-text="addoDialog.searchText" 
-                                 md-items="item in addoDialog.querySearch(addoDialog.searchText)" 
-                                 placeholder="{{ 'ADDO.DOCUMENT.CHOOSE_RECEIVERS'| translate }}">
-                    <span md-highlight-text="addoDialog.searchText">{{item.firstName + ' ' + item.lastName}} ({{item.cprNumber}}, {{item.email}})</span>
-                </md-autocomplete>
-                <md-chip-template>
-                    <span>
-                        <strong>{{$chip.firstName + ' ' + $chip.lastName}}</strong>
-                        <em>({{$chip.email}})</em>
-                    </span>
-                </md-chip-template>
-            </md-chips>
+            <div layout='row'>
+                <md-chips ng-model="addoDialog.model.receivers" md-autocomplete-snap md-require-match="true" flex>
+                    <md-autocomplete md-selected-item="addoDialog.selectedItem" 
+                                     md-search-text="addoDialog.searchText" 
+                                     md-items="item in addoDialog.querySearch(addoDialog.searchText)" 
+                                     placeholder="{{ 'ADDO.DOCUMENT.CHOOSE_RECEIVERS'| translate }}">
+                        <span md-highlight-text="addoDialog.searchText">{{item.firstName + ' ' + item.lastName}} ({{item.cprNumber}}, {{item.email}})</span>
+                    </md-autocomplete>
+                    <md-chip-template>
+                        <span>
+                            <strong>{{$chip.firstName + ' ' + $chip.lastName}}</strong>
+                            <em>({{$chip.email}})</em>
+                        </span>
+                    </md-chip-template>
+                </md-chips>
+                <md-button 
+                    ng-show="('can_create_contacts' | oeParam)"
+                    ng-click="addoDialog.newContact($event)" 
+                    title="{{ 'CONTACT.CREATE_NEW_CONTACT'| translate }}" 
+                    style='min-width: 15px; max-height: 36px;'>+ {{ 'COMMON.NEW' | translate }}</md-button>
+            </div>
 
             <md-input-container layout='column'>
                 <md-checkbox ng-model="addoDialog.model.sequential" ng-show="addoDialog.model.receivers.length > 1">{{'ADDO.DOCUMENT.SEQUENTIAL_SIGNING'| translate}}</md-checkbox>
@@ -55,28 +62,28 @@
                             </div>
                         </td>
                         <td>
-                            <md-select ng-model="doc.sign" ng-required="doc.selected" ng-disabled="!doc.selected" ng-change="addoDialog.toggleDocument(doc)" style="margin: 0;" aria-label="action">
-                                <md-option ng-value="true">{{'ADDO.DOCUMENT.TO_BE_SIGNED'| translate}}</md-option>
-                                <md-option ng-value="false">{{'ADDO.DOCUMENT.ANEX'| translate}}</md-option>
-                            </md-select>
-                        </td>
-                    </tr>
-                    <tr ng-if="doc.attachments.length > 0 && doc.expanded" ng-repeat-end="" ng-repeat="attachment in doc.attachments">
-                        <td></td>
-                        <td style="padding-left: 30px;">
-                            <div>
-                                <md-checkbox ng-model="attachment.selected" aria-label="select document" ng-change="addoDialog.toggleDocument(attachment)">
-                                    {{attachment.name}}
-                                </md-checkbox>
-                            </div>
-                        </td>
-                        <td>
-                            <md-select ng-model="attachment.sign" ng-required="attachment.selected" ng-disabled="!attachment.selected" ng-change="addoDialog.toggleDocument(attachment)" style="margin: 0;" aria-label="action">
-                                <md-option ng-value="true">{{'ADDO.DOCUMENT.TO_BE_SIGNED'| translate}}</md-option>
-                                <md-option ng-value="false">{{'ADDO.DOCUMENT.ANEX'| translate}}</md-option>
-                            </md-select>
-                        </td>
-                    </tr>       
+                <md-select ng-model="doc.sign" ng-required="doc.selected" ng-disabled="!doc.selected" ng-change="addoDialog.toggleDocument(doc)" style="margin: 0;" aria-label="action">
+                    <md-option ng-value="true">{{'ADDO.DOCUMENT.TO_BE_SIGNED'| translate}}</md-option>
+                    <md-option ng-value="false">{{'ADDO.DOCUMENT.ANEX'| translate}}</md-option>
+                </md-select>
+                </td>
+                </tr>
+                <tr ng-if="doc.attachments.length > 0 && doc.expanded" ng-repeat-end="" ng-repeat="attachment in doc.attachments">
+                    <td></td>
+                    <td style="padding-left: 30px;">
+                        <div>
+                            <md-checkbox ng-model="attachment.selected" aria-label="select document" ng-change="addoDialog.toggleDocument(attachment)">
+                                {{attachment.name}}
+                            </md-checkbox>
+                        </div>
+                    </td>
+                    <td>
+                <md-select ng-model="attachment.sign" ng-required="attachment.selected" ng-disabled="!attachment.selected" ng-change="addoDialog.toggleDocument(attachment)" style="margin: 0;" aria-label="action">
+                    <md-option ng-value="true">{{'ADDO.DOCUMENT.TO_BE_SIGNED'| translate}}</md-option>
+                    <md-option ng-value="false">{{'ADDO.DOCUMENT.ANEX'| translate}}</md-option>
+                </md-select>
+                </td>
+                </tr>       
                 </tbody>
             </table>
         </md-dialog-content>
