@@ -1,0 +1,12 @@
+<div layout>
+    <md-datepicker flex ng-model="vm.template.prop_staff_hireDate" 
+        md-placeholder="{{ 'CASE.STAFF.HIRE_DATE' | translate }}"></md-datepicker>
+    <md-datepicker flex ng-model="vm.template.prop_staff_resignationDate" 
+        md-placeholder="{{ 'CASE.STAFF.RESIGNATION_DATE' | translate }}"></md-datepicker>
+</div>
+<div layout>
+    <md-input-container flex="initial|">
+        <label>{{'CASE.STAFF.SALARY' | translate}}</label>
+        <input type="number" ng-model="vm.template.prop_staff_salary" min="0" />
+    </md-input-container>
+</div>

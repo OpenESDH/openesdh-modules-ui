@@ -1,0 +1,20 @@
+{
+    "STAFF_TEMPLATES": {
+        "ADMIN": {
+            "SYS_SETTINGS": {
+                "STAFF_TEMPLATES": {
+                    "TITLE": "Staff case module",
+                    "STAFF_CASE_TEMPLATES": "Staff case templates",
+                    "NEW_CASE_TEMPLATE": "New case template",
+                    "NEW_STAFF_CASE_TEMPLATE": "New staff case template",
+                    "STAFF_CASE_TEMPLATE": "Staff case template"
+                }
+            }
+        },
+        "PREFILLED":{
+            "staff:hireDate": "Hire date",
+            "staff:resignationDate": "Resignation date",
+            "staff:salary": "Salary" 
+        }
+    }
+}

@@ -1,0 +1,6 @@
+<dt flex="33" ng-show="vm.isPropSet('staff:hireDate')">{{ 'CASE.STAFF.HIRE_DATE' | translate }}</dt>
+<dd flex="66" ng-show="vm.isPropSet('staff:hireDate')">{{ vm.props["staff:hireDate"].value | openeDate}}</dd>
+<dt flex="33" ng-show="vm.isPropSet('staff:resignationDate')">{{ 'CASE.STAFF.RESIGNATION_DATE' | translate }}</dt>
+<dd flex="66" ng-show="vm.isPropSet('staff:resignationDate')">{{ vm.props["staff:resignationDate"].value | openeDate}}</dd>
+<dt flex="33" ng-show="vm.isPropSet('staff:salary')">{{ 'CASE.STAFF.SALARY' | translate }}</dt>
+<dd flex="66" ng-show="vm.isPropSet('staff:salary')">{{ vm.props["staff:salary"].value }}</dd>
