@@ -2,7 +2,7 @@ angular
         .module('openeApp.doctemplates', ['pascalprecht.translate', 'ngMaterial', 'ngFileSaver'])
         .config(config);
 
-function config($stateProvider, languageFilesProvider, caseDocumentActionsServiceProvider,
+function config($stateProvider, USER_ROLES, languageFilesProvider, caseDocumentActionsServiceProvider,
         systemSettingsPagesServiceProvider, createDocumentFromTemplateDialogServiceProvider) {
     //translations
     languageFilesProvider.addFile('app/src/modules/doctemplates/i18n/', '-doctemplates.json');
@@ -24,7 +24,7 @@ function config($stateProvider, languageFilesProvider, caseDocumentActionsServic
             }
         },
         data: {
-            authorizedRoles: ['user']
+            authorizedRoles: [USER_ROLES.admin]
         }
     });
     
