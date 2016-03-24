@@ -1,9 +1,11 @@
     angular
-        .module('openeApp.cases.common')
+        .module('openeApp.cases.staff')
         .controller('StaffCaseDialogController', StaffCaseDialogController);
     
     function StaffCaseDialogController($controller, contactsService, userService, caseInfo) {
         angular.extend(this, $controller('CaseCommonDialogController', {caseInfo: caseInfo}));
+        angular.extend(this, $controller('StaffNodeDialogController', {}));
+        
         var vm = this;
         vm.formTemplateUrl = 'app/src/modules/staff/view/staffCaseCrudForm.html';
         vm.employeeSearchText = '';
@@ -18,13 +20,7 @@
         function initCasePropsForEdit(){
             var vm = this;
             vm.initCommonCasePropsForEdit();
-            var c = vm.caseInfo.properties;
-            angular.extend(vm.case, {
-                prop_staff_hireDate: this.getDateValue(c['staff:hireDate']),
-                prop_staff_resignationDate: this.getDateValue(c['staff:resignationDate']),
-                prop_staff_salary: this.getNumberValue(c['staff:salary']),
-                prop_staff_employeeInfo: this.getValue(c['staff:employeeInfo'])
-            });
+            vm.initStaffPropsForEdit(caseInfo, vm.case);
         }
         
         function searchEmployee(){
