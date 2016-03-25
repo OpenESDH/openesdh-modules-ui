@@ -15,7 +15,7 @@
             },
             views: {
                 'systemsetting-view': {
-                    templateUrl: 'app/src/cases/case_templates/view/caseTemplates.html',
+                    templateUrl: 'app/src/modules/caseTemplates/view/caseTemplates.html',
                     controller: 'StaffTemplatesController',
                     controllerAs: 'vm'
                 }
@@ -27,7 +27,7 @@
             },
             views: {
                 'systemsetting-view': {
-                    templateUrl: 'app/src/cases/case_templates/view/caseTemplateInfo.html',
+                    templateUrl: 'app/src/modules/caseTemplates/view/caseTemplateInfo.html',
                     controller: 'StaffTemplateInfoController',
                     controllerAs: 'vm'
                 }
