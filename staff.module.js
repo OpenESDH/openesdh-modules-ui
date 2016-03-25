@@ -6,7 +6,7 @@
         caseCrudDialogServiceProvider.caseCrudForm({
             type: 'staff:case',
             controller: 'StaffCaseDialogController',
-            caseInfoTemplateUrl: 'app/src/modules/staff/view/caseInfo.html'
+            caseInfoFormUrl: 'app/src/modules/staff/view/caseInfo.html'
         });
         
         languageFilesProvider.addFile('app/src/modules/staff/i18n/','-staff.json');
