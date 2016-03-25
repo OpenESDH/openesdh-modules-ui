@@ -1,0 +1,31 @@
+<div class="login-form" layout="column" layout-align="center center">
+    <md-card flex="initial">
+        <md-toolbar>
+            <h1 layout="row" layout-align="center center">
+                <img src="{{$root.logoSrc}}" class="login-form__logo" alt="{{$root.appName}} {{'LOGIN.LOGIN' | translate}}">
+            </h1>
+        </md-toolbar>
+        <md-card-content>
+            <div ng-show="vm.reject">
+                <h3>{{'PROJECT_ROOM.REJECT_INVITATION' | translate}}</h3>
+                <span translate="PROJECT_ROOM.CONFIRM_REJECT_INVITE" 
+                    translate-value-from-first-name="{{vm.invite.inviter.firstName}}" 
+                    translate-value-from-first-name="{{vm.invite.inviter.lastName}}"
+                    translate-value-site-title="{{vm.invite.site.title}}"></span>
+                <div layout="row" layout-align="start center">
+                    <md-button type="submit" class="md-primary" ng-click="vm.rejectInvite()">{{ 'COMMON.YES' | translate }}</md-button>
+                    <md-button type="button" class="md-primary"  ng-click="vm.acceptInvite()">{{ 'COMMON.NO' | translate }}</md-button>
+                </div>
+            </div>
+            
+            <div ng-show="vm.rejectSuccess">
+                <h3>{{'PROJECT_ROOM.REJECT_INVITATION' | translate}}</h3>
+                <span translate="PROJECT_ROOM.REJECT_INVITE_SUCCESS" 
+                    translate-value-site-title="{{vm.invite.site.title}}"></span>
+            </div>
+            <div ng-show="vm.rejectAcceptFailure">
+                <span translate="PROJECT_ROOM.INVITE_FAILURE"></span>
+            </div>
+        </md-card-content>
+    </md-card>
+</div>

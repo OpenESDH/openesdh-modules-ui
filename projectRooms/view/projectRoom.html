@@ -1,0 +1,50 @@
+<app-header></app-header>
+
+<md-content layout="column">
+
+    <div class="sub-toolbar">
+        <div layout="row" layout-align="space-between center" layout-padding>
+            <div layout="row" layout-align="start center">
+                <md-button ng-href="#/cases/case/{{prCtrl.room.caseId}}" ng-aria="{{ 'CASE.CASE' | translate }}" ng-hide="prCtrl.isExtUser">
+                    <i class="material-icons" style="vertical-align: middle;">arrow_back</i> {{ prCtrl.room.caseId }}
+                </md-button>
+                <h1 class="md-headline" layout-margin>
+                    {{ prCtrl.room.title }}
+                </h1>
+            </div>
+        </div>
+    </div>
+    
+    <md-tabs md-dynamic-height md-selected="currentTab">
+
+        <md-tab ui-sref="projectRoom.info">
+            <md-tab-label>
+                <span><i class="material-icons">thumbs_up_down</i> {{ 'PROJECT_ROOM.PROJECT_ROOM' | translate }}</span>
+            </md-tab-label>
+            <md-tab-body>
+                <div ui-view="projectRoomInfo"></div>
+            </md-tab-body>
+        </md-tab>
+        
+        <md-tab ui-sref="projectRoom.members" ng-if="prCtrl.isManager">
+            <md-tab-label>
+                <span><i class="material-icons">people</i> {{ 'PROJECT_ROOM.PARTICIPANTS' | translate }} </span>
+            </md-tab-label>
+            <md-tab-body layout="column">
+                <div ui-view="projectRoomMembers"></div>
+            </md-tab-body>
+        </md-tab>
+        
+        <md-tab ui-sref="projectRoom.invites" ng-if="prCtrl.isManager">
+            <md-tab-label>
+                <span><i class="material-icons">card_membership</i> {{ 'PROJECT_ROOM.PENDING_INVITES' | translate }}</span>
+            </md-tab-label>
+            <md-tab-body layout="column">
+                <div ui-view="projectRoomInvites"></div>
+            </md-tab-body>
+        </md-tab>
+    </md-tabs>
+
+</md-content>
+
+<app-footer></app-footer>
