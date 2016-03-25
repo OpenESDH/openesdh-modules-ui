@@ -1,0 +1,65 @@
+<md-dialog class="dialog-large" aria-label="{{ 'DOC_TEMPLATES.CREATE_FROM_TEMPLATE' | translate }}}">
+    <form name="form" ng-controller="OfficeTemplateController as tempCtrl">
+        <md-toolbar layout="row">
+            <div class="md-toolbar-tools">
+                <h2>{{ 'DOC_TEMPLATES.CREATE_FROM_TEMPLATE' | translate }}</h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div layout="column">
+                <md-input-container>
+                    <label class="label">{{'DOC_TEMPLATES.CHOOSE_TEMPLATE'| translate}}</label>
+                    <md-select ng-model="vm.template" required>
+                        <md-option ng-value="template" ng-repeat="template in tempCtrl.templates">{{ template.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-chips ng-model="vm.fieldData['receivers']" md-autocomplete-snap md-require-match="true" layout='column'>
+                    <md-autocomplete md-selected-item="vm.selectedItem" 
+                                     md-search-text="vm.searchText" 
+                                     md-items="item in vm.querySearch(vm.searchText)" 
+                                     md-on-select="vm.receiversChange()"
+                                     placeholder="{{ 'DOC_TEMPLATES.TEMPLATE.RECEIVER'| translate }}">
+                        <span md-highlight-text="vm.searchText">{{item.displayName}} ({{item.contactId}})</span>
+                    </md-autocomplete>
+                    <md-chip-template>
+                        <span>
+                            <strong>{{$chip.displayName}}</strong>
+                            <em>({{$chip.contactId}})</em>
+                        </span>
+                    </md-chip-template>
+                </md-chips>
+            </div>
+            <div layout="column" ng-repeat="field in vm.currentTemplate.fields">
+                <md-input-container>
+                    <label>{{field.value}}</label>
+                    <input type="text" ng-model="vm.fieldData[field.name]">
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions>
+            <md-button type="submit" class="md-primary oe-menu-button" 
+                       ng-disabled="form.$invalid"
+                       ng-show="vm.actionItems.length > 0"
+                       ng-click="vm.executeAction(vm.actionItems[0])">
+                {{ vm.actionItems[0].labelKey | translate }}
+                <md-menu>
+                    <!-- Trigger element is a md-button with an icon -->
+                    <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="More actions" ng-disabled="form.$invalid">
+                        <i class="material-icons">expand_more</i>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item ng-repeat="actionItem in vm.actionItems" ng-show="actionItem.visible">
+                            <md-button ng-click="vm.executeAction(actionItem)" ng-disabled="actionItem.recipientRequired && vm.fieldData['receivers'].length === 0">
+                                {{ actionItem.labelKey | translate }}</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </md-button>
+
+            <md-button type="button" ng-click="vm.cancel(form)">
+                {{ 'COMMON.CANCEL' | translate }}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

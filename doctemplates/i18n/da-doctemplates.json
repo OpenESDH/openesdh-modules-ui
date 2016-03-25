@@ -1,0 +1,19 @@
+{
+    "DOC_TEMPLATES": {
+        "CREATE_FROM_TEMPLATE": "Opret fra skabelon",
+        "CHOOSE_TEMPLATE": "Vælg skabelon",
+        "TEMPLATE": {
+            "ARE_YOU_SURE_YOU_WANT_TO_DELETE_TEMPLATE": "Er du sikker på, at du vil slette skabelon '{{title}}' ?",
+            "RECEIVER": "Modtager",
+            "LABELS": {
+                "TEMPLATES": "Skabeloner",
+                "UPLOAD_NEW_TEMPLATE": "Upload ny skabelon"
+            }
+        },
+        "DOWNLOAD_RENDERED_FROM_TEMPLATE": "Download fra skabelon",
+        "SAVE_RENDERED_TEMPLATE_TO_CASE": "Gem til sag",
+        "EMAIL_RENDERED_FROM_TEMPLATE": "E-mail dokument",
+        "DEFAULT_EMAIL_SUBJECT": "Dokument fra {{appName}}",
+        "DEFAULT_EMAIL_TEXT": "Sag id {{caseId}}"
+    }
+}

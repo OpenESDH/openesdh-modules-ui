@@ -1,0 +1,30 @@
+<md-dialog class="dialog-small" aria-label="{{ 'DOC_TEMPLATES.EMAIL_RENDERED_FROM_TEMPLATE' | translate }}">
+    <form name="form" novalidate>
+        <md-toolbar layout>
+            <div class="md-toolbar-tools">
+                <h2>{{ 'DOC_TEMPLATES.EMAIL_RENDERED_FROM_TEMPLATE' | translate }}</h2>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content >
+            <md-input-container layout="column">
+                <label>{{ 'COMMON.SUBJECT' | translate }}</label>
+                <input type="text" name="subject" ng-model="vm.fieldData['email.subject']" required>
+                <opene-error form="form" field="form.subject"></opene-error>
+            </md-input-container>
+            <md-input-container layout="column">
+                <label>{{ 'COMMON.MESSAGE' | translate }}</label>
+                <textarea ng-model="vm.fieldData['email.message']"></textarea>
+            </md-input-container>
+        </md-dialog-content>
+
+        <md-dialog-actions>
+            <md-button type="submit" class="md-primary" ng-click="vm.fillToEmail()" ng-disabled="form.$invalid">
+                {{ 'COMMON.SEND' | translate }}
+            </md-button>
+            <md-button type="button" ng-click="vm.cancel()">
+                {{ 'COMMON.CANCEL' | translate }}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
