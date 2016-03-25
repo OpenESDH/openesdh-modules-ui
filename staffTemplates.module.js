@@ -1,7 +1,7 @@
     angular.module('openeApp.staffTemplates', [])
         .config(config);
     
-    function config($stateProvider, systemSettingsPagesServiceProvider, languageFilesProvider, caseTemplateDialogServiceProvider){
+    function config($stateProvider, systemSettingsPagesServiceProvider, languageFilesProvider, caseTemplateDialogServiceProvider, caseCrudDialogServiceProvider){
         
         languageFilesProvider.addFile('app/src/modules/staffTemplates/i18n/','-staffTemplates.json');
         
@@ -37,5 +37,10 @@
         caseTemplateDialogServiceProvider.dialogConfig({
             type: 'staff:case',
             controller: 'StaffTemplateDialogController'
+        });
+        
+        caseCrudDialogServiceProvider.caseCrudExtra({
+            type: 'staff:case',
+            controller: 'StaffTemplatesSelectorController'
         });
     }
