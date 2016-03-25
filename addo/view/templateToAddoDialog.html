@@ -1,0 +1,27 @@
+<md-dialog class="dialog-small" aria-label="{{ 'ADDO.DOCUMENT.SEND_FOR_SIGNING' | translate }}">
+    <form name="form" novalidate>
+        <md-toolbar layout>
+            <div class="md-toolbar-tools">
+                <h2>{{ 'ADDO.DOCUMENT.SEND_FOR_SIGNING' | translate }}</h2>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content >
+            <md-input-container layout='column'>
+                <label>{{ 'ADDO.DOCUMENT.SIGNATURE_TEMPLATE' | translate }}</label>
+                <md-select ng-model="vm.fieldData['addo.template']" required>
+                    <md-option ng-repeat="addoTemplate in vm.templates" ng-value="addoTemplate">{{addoTemplate.FriendlyName}}</md-option>
+                </md-select>
+            </md-input-container>
+        </md-dialog-content>
+
+        <md-dialog-actions>
+            <md-button type="submit" class="md-primary" ng-click="vm.fillToAddo()" ng-disabled="form.$invalid">
+                {{ 'COMMON.SEND' | translate }}
+            </md-button>
+            <md-button type="button" ng-click="vm.cancel()">
+                {{ 'COMMON.CANCEL' | translate }}
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
