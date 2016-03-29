@@ -1,2 +1,23 @@
 {
+    "CASE_TEMPLATES": {
+        "NEW_CASE_TEMPLATE": "Ny sagsskabelon",
+        "TEMPLATE_NAME": "Skabelon navn",
+        "PREFILLED_PARAMS": "Forudfyld parametre",
+        "ADDED_DOCS": "Tilføjede dokumenter",
+        "AVAILABLE_WORKFLOWS": "Tilgængelige workflows",
+        "DOCUMENTS": "Standarddokumenter",
+        "ARE_YOU_SURE_YOU_WANT_TO_DELETE_THE_DOCUMENT": "Er du sikker på at du vil slette dokumentet, \"{{document_title}}\"?",
+        "ARE_YOU_SURE_YOU_WANT_DELETE_TEMPLATE":  "Er du sikker på at du vil slette skabelonen, \"{{name}}\"?",
+        "PREFILLED": {
+            "oe:owners": "Ejer",
+            "cm:title": "Titel",
+            "cm:description": "Beskrivelse",
+            "base:endDate": "",
+            "base:startDate": "Start dato",
+            "base:endDate": "Forventet slutdato",
+            "oe:journalFacet": "Journalnøgle",
+            "oe:journalKey": "Facet"
+        },
+        "CHOOSE_TEMPLATE": "Vælg skabelon"
+    }
 }
