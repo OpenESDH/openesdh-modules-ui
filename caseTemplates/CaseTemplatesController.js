@@ -2,7 +2,7 @@
         .module('openeApp.caseTemplates')
         .controller('CaseTemplatesController', CaseTemplatesController);
     
-    function CaseTemplatesController($mdDialog, $translate, caseTemplateDialogService, caseTemplatesService, startCaseWorkflowService, alfrescoNodeUtils){
+    function CaseTemplatesController($mdDialog, $translate, $state, caseTemplateDialogService, caseTemplatesService, startCaseWorkflowService, alfrescoNodeUtils){
         var vm = this;
         vm.init = init;
         vm.loadTemplates = loadTemplates;
@@ -91,8 +91,9 @@
         
         function createTemplate(){
             var vm = this;
-            caseTemplateDialogService.createTemplate(vm.caseType).then(function(){
-                vm.loadTemplates();
+            caseTemplateDialogService.createTemplate(vm.caseType).then(function(nodeRef){
+                var tplNodeRef = alfrescoNodeUtils.processNodeRef(nodeRef);
+                $state.go(vm.templateUisref, {storeType: tplNodeRef.storeType, storeId: tplNodeRef.storeId, id: tplNodeRef.id});
             });
         }
         

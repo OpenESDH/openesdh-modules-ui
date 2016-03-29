@@ -54,8 +54,8 @@
             
             if(dlg.isNew){
                 var props = dlg.retrievePropsToSave(dlg.template);
-                caseTemplatesService.createTemplate(template.type, props).then(function(){
-                    $mdDialog.hide();
+                caseTemplatesService.createTemplate(template.type, props).then(function(nodeRef){
+                    $mdDialog.hide(nodeRef);
                 });
             }else{
                 var props = dlg.retrievePropsToSave(dlg.template, dlg.oldTemplate);
