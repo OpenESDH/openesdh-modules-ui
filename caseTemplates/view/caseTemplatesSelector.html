@@ -1,4 +1,4 @@
-<div layout="row">
+<div layout="row" ng-if="vm.caseTemplates.length > 0">
     <md-input-container flex="65">
         <label>{{ 'CASE_TEMPLATES.CHOOSE_TEMPLATE' | translate }} *</label>
         <md-select ng-model="vm.case.prop_cm_template" ng-change="vm.caseTemplateSelected()">
