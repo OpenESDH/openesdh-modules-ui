@@ -101,6 +101,7 @@
         
         function deleteTemplate(){
             var vm = this;
+            var templatesListState = 'administration.systemsettings.' + vm.caseType.replace(':','_') + '_templates';
             var confirm = $mdDialog.confirm()
                 .title($translate.instant('COMMON.CONFIRM'))
                 .textContent($translate.instant('CASE_TEMPLATES.ARE_YOU_SURE_YOU_WANT_DELETE_TEMPLATE', {name: vm.props["cm:name"].value}))
@@ -111,7 +112,7 @@
             $mdDialog.show(confirm).then(function() {
                 var nodeRef = $stateParams.storeType + "://" + $stateParams.storeId + "/" + $stateParams.id
                 alfrescoFolderService.deleteFolder(nodeRef).then(function(result) {
-                    $state.go('administration.systemsettings.stafftemplates');
+                    $state.go(templatesListState);
                 }, function(result) {
                     console.log(result);
                 });

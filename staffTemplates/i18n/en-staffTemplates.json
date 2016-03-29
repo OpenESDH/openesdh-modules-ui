@@ -4,7 +4,8 @@
             "SYS_SETTINGS": {
                 "STAFF_TEMPLATES": {
                     "TITLE": "Staff case module",
-                    "STAFF_CASE_TEMPLATES": "Staff case templates"
+                    "STAFF_CASE_TEMPLATES": "Staff case templates",
+                    "STAFF_CASE_TEMPLATE": "Staff case template"
                 }
             }
         },

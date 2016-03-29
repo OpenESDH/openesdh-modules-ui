@@ -26,6 +26,8 @@
         
         function init(){
             var vm = this;
+            vm.templateUisref = "administration.systemsettings." + vm.caseType.replace(':', '_') + '_template';
+            
             vm.loadTemplates();
             startCaseWorkflowService.getWorkflowDefinitions().then(function(result){
                 vm.workflowDefs = result;

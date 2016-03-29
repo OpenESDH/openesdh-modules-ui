@@ -1,37 +1,16 @@
     angular.module('openeApp.staffTemplates', [])
         .config(config);
     
-    function config($stateProvider, systemSettingsPagesServiceProvider, languageFilesProvider, caseTemplateDialogServiceProvider, caseCrudDialogServiceProvider){
+    function config($stateProvider, systemSettingsPagesServiceProvider, languageFilesProvider, 
+            caseTemplateDialogServiceProvider, caseCrudDialogServiceProvider, caseTemplatesModulesProvider){
         
         languageFilesProvider.addFile('app/src/modules/staffTemplates/i18n/','-staffTemplates.json');
         
-        systemSettingsPagesServiceProvider.addModulePage('STAFF_TEMPLATES.ADMIN.SYS_SETTINGS.STAFF_TEMPLATES.TITLE', 
-                'administration.systemsettings.stafftemplates', 'widgets');
-        
-        $stateProvider.state('administration.systemsettings.stafftemplates', {
-            url: '/stafftemplates',
-            data: {
-                authorizedRoles: []
-            },
-            views: {
-                'systemsetting-view': {
-                    templateUrl: 'app/src/modules/caseTemplates/view/caseTemplates.html',
-                    controller: 'StaffTemplatesController',
-                    controllerAs: 'vm'
-                }
-            }
-        }).state('administration.systemsettings.stafftemplate', {
-            url: '/stafftemplate/:storeType/:storeId/:id',
-            data: {
-                authorizedRoles: []
-            },
-            views: {
-                'systemsetting-view': {
-                    templateUrl: 'app/src/modules/caseTemplates/view/caseTemplateInfo.html',
-                    controller: 'StaffTemplateInfoController',
-                    controllerAs: 'vm'
-                }
-            }
+        caseTemplatesModulesProvider.module({
+            caseType: 'staff:case',
+            moduleTitleKey: 'STAFF_TEMPLATES.ADMIN.SYS_SETTINGS.STAFF_TEMPLATES.TITLE',
+            templatesListController: 'StaffTemplatesController',
+            templateInfoController: 'StaffTemplateInfoController'
         });
         
         caseTemplateDialogServiceProvider.dialogConfig({

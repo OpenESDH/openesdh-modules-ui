@@ -4,7 +4,8 @@
             "SYS_SETTINGS": {
                 "STAFF_TEMPLATES": {
                     "TITLE": "Personalesag modul",
-                    "STAFF_CASE_TEMPLATES": "Personalesag skabeloner"
+                    "STAFF_CASE_TEMPLATES": "Personalesag skabeloner",
+                    "STAFF_CASE_TEMPLATE": "Personalesag skabelon"
                 }
             }
         },
