@@ -80,14 +80,14 @@ function config(languageFilesProvider, fileListItemActionServiceProvider, docume
     function _isDisabled_attachment(attachment, documentEditable) {
         return attachment === undefined
                 || !documentEditable
-                || (attachment.locked && _isUnlockedInGoogleDocs_attachment(attachment, documentEditable));
+                || (attachment.locked && !_isLockedInGoogleDocs_attachment(attachment, documentEditable));
     }
 
     function _isDisabled_attachmentCancel(attachment, documentEditable) {
         return attachment === undefined
                 || !documentEditable
                 || !_isSupportedFormat(attachment.mimetype)
-                || (attachment.locked && _isUnlockedInGoogleDocs_attachment(attachment, documentEditable));
+                || (attachment.locked && !_isLockedInGoogleDocs_attachment(attachment, documentEditable));
     }
 
 }
