@@ -2,14 +2,14 @@ angular
         .module('openeApp.addo', ['pascalprecht.translate'])
         .config(config);
 
-function config(caseDocumentActionsServiceProvider, languageFilesProvider, $injector) {
+function config(sendDocumentsActionsServiceProvider, languageFilesProvider, $injector) {
     initCaseDocumentActionItems();
     initDocTemplateToAddoActionItems();
     initI18n();
 
     function initCaseDocumentActionItems() {
         //case menu item
-        caseDocumentActionsServiceProvider.addMenuItem('ADDO.DOCUMENT.SEND_FOR_SIGNING', 'sendToAddoService', true);
+        sendDocumentsActionsServiceProvider.addMenuItem('ADDO.DOCUMENT.SEND_FOR_SIGNING', 'sendToAddoService', true);
     }
 
     function initDocTemplateToAddoActionItems() {

@@ -1,0 +1,11 @@
+{
+    "OPENE_DOCS": {
+        "CREATE_NEW_DOCUMENT": "Create new document",
+        "CREATE_DOC": {
+            "MS_WORD": "New MS Word document",
+            "MS_EXCEL": "New MS Excel document",
+            "MS_POWERPOINT": "New MS PowerPoint document"
+        },
+        "CHOOSE_TEMPLATE": "Choose template"
+    }
+}

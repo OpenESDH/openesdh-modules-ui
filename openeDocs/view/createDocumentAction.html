@@ -1,0 +1,10 @@
+    <md-menu ng-controller="CreateDocumentActionController as createDocCtrl">
+        <md-button ng-disabled="caseCtrl.caseIsLocked" ng-click="$mdOpenMenu($event)" class="md-primary" aria-label="{{ 'OPENE_DOCS.CREATE_NEW_DOCUMENT' | translate }}">
+            <i class="material-icons">insert_drive_file</i> {{ 'OPENE_DOCS.CREATE_NEW_DOCUMENT' | translate }}
+        </md-button>
+        <md-menu-content>
+            <md-menu-item ng-repeat="item in createDocCtrl.menuItems">
+                <md-button ng-click="createDocCtrl.createDocument(item)">{{ item.labelKey | translate }}</md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
