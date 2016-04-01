@@ -8,7 +8,7 @@ function config($stateProvider, USER_ROLES, languageFilesProvider, caseDocumentA
     languageFilesProvider.addFile('app/src/modules/doctemplates/i18n/', '-doctemplates.json');
 
     //register button "create from template"
-    caseDocumentActionsServiceProvider.addNewButton('DOC_TEMPLATES.CREATE_FROM_TEMPLATE', 'createDocumentFromTemplateDialogService', 'note_add', true);
+    caseDocumentActionsServiceProvider.addAction('app/src/modules/doctemplates/view/createDocFromTemplateAction.html', 1);
 
     //register templates system settings page link
     systemSettingsPagesServiceProvider.addPage('DOC_TEMPLATES.TEMPLATE.LABELS.TEMPLATES', 'administration.systemsettings.templates');
