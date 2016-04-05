@@ -1,1 +1,24 @@
-{}
+{
+    "OPENE_DOCS": {
+        "CREATE_NEW_DOCUMENT": "Opret nyt dokument",
+        "CREATE_DOC": {
+            "MS_WORD": "Nyt MS Word dokument",
+            "MS_EXCEL": "Nyt MS Excel dokument",
+            "MS_POWERPOINT": "Nyt MS PowerPoint dokument"
+        },
+        "CHOOSE_TEMPLATE": "Vælg skabelon",
+        "ADMIN": {
+            "TITLE": "Dokumenter",
+            "TEMPLATES": "Dokumentskabeloner",
+            "TEMPLATE_NAME": "Skabelon navn",
+            "DESCRIPTION": "Beskrivelse",
+            "DOC_TYPE": "Dokumenttype",
+            "DOC_CATEGORY": "Dokumentkategori",
+            "UPLOAD_NEW_TEMPLATE": "Upload ny skabelon",
+            "TEMPLATE_TO_UPLOAD": "Upload skabelon",
+            "ARE_YOU_SURE_YOU_WANT_TO_DELETE_TEMPLATE": "Er du sikker på at du vil slette denne skabelon, \"{{title}}\" ?",
+            "DELETE_TEMPLATE_SUCCESS": "Skabelon slettet.",
+            "DELETE_TEMPLATE_FAILURE": "Sletning af skabelon fejlede."
+        }
+    }
+}
