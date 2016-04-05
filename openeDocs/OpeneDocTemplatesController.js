@@ -25,7 +25,6 @@
         function loadTemplates(){
             openeDocsService.getTemplates().then(function(result){
                 vm.templates = result;
-                console.log("templates", result);
             });
         }
         
