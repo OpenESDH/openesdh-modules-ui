@@ -6,7 +6,8 @@
             "RESUME": "Resume Editing in Google Docs™",
             "CANCEL": "Cancel Editing in Google Docs™",
             "ARE_YOU_SURE_YOU_WANT_TO_CANCEL": "If you cancel the editing then any changes that have been made to this file won't be saved. Are you sure you want to cancel?",
-            "AUTHORIZE_TO_GOOGLE": "Please authorize {{appName}} to connect to your Google Docs™ account in order to continue"
+            "AUTHORIZE_TO_GOOGLE": "Please authorize {{appName}} to connect to your Google Docs™ account in order to continue",
+            "SERVICE_ERROR": "Error in Google Docs™: {{message}}"
         }
     }
 }

@@ -25,7 +25,8 @@ function GoogleDocsServiceProvider() {
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     ];
 
-    function GoogleDocsService($http, ALFRESCO_URI, $window, $mdDialog, $translate, $q, $location, $compile, $rootScope) {
+    function GoogleDocsService($http, ALFRESCO_URI, $window, $mdDialog, $translate, $q, $location, $compile,
+            $rootScope, notificationUtilsService) {
 
         var service = {
             uploadContent: uploadContent,
@@ -92,12 +93,16 @@ function GoogleDocsServiceProvider() {
         function uploadContent(_scope, nodeRef) {
             var uplCont = $q.defer();
             _checkGoogleAuth(_scope, function() {
-                $http.post(ALFRESCO_URI.webClientServiceProxy + '/googledocs/uploadContent?nodeRef=' + nodeRef, {}).then(
+                $http.post(ALFRESCO_URI.webClientServiceProxy + '/googledocs/uploadContent?nodeRef=' + nodeRef, {errorHandler: 'skip'}).then(
                         function(response) {
                             console.log(response);
                             $window.open(response.data.editorUrl, "_blank");
                             uplCont.resolve(response);
-                        }, uplCont.reject);
+                        },
+                        function(response) {
+                            parseGoogleDocsError(response);
+                            uplCont.reject();
+                        });
             });
             return uplCont.promise;
         }
@@ -112,7 +117,15 @@ function GoogleDocsServiceProvider() {
                             removeFromDrive: true,
                             majorVersion: false,
                             description: ''
-                        }).then(uplCont.resolve, uplCont.reject);
+                        },
+                        {
+                            errorHandler: 'skip'
+                        })
+                        .then(uplCont.resolve,
+                                function(response) {
+                                    parseGoogleDocsError(response);
+                                    uplCont.reject();
+                                });
             });
             return uplCont.promise;
         }
@@ -138,10 +151,17 @@ function GoogleDocsServiceProvider() {
                             {
                                 nodeRef: nodeRef,
                                 override: false
+                            },
+                            {
+                                errorHandler: 'skip'
                             })
-                            .then(discard.resolve, discard.reject);
+                            .then(discard.resolve,
+                                    function(response) {
+                                        parseGoogleDocsError(response);
+                                        discard.reject();
+                                    });
                 });
-            }, function (){
+            }, function() {
                 discard.resolve(false);
             });
             return discard.promise;
@@ -149,6 +169,15 @@ function GoogleDocsServiceProvider() {
 
         function isSupportedFormat(mimetype) {
             return mimetype && supportedMimetypes.indexOf(mimetype) > -1;
+        }
+
+        function parseGoogleDocsError(response) {
+            try {
+                var gError = angular.fromJson(response.data.error.message.substr(response.data.error.message.indexOf('\n')));
+                notificationUtilsService.alert($translate.instant('GOOGLE.DOCS.SERVICE_ERROR', gError));
+            } catch (err) {
+                notificationUtilsService.notify($translate.instant('ERROR.UNEXPECTED_ERROR'));
+            }
         }
     }
 }
