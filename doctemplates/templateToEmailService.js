@@ -34,12 +34,9 @@ function TemplateToEmailService($mdDialog, $translate, APP_CONFIG) {
         vm.fieldData = fieldData;
 
         function fillToEmail() {
-            officeTemplateService.fillAndSendToEmail(templateNodeRef, caseId, vm.fieldData)
-                    .then($mdDialog.hide,
-                            function(errResponse) {
-                                notificationUtilsService.alert(errResponse.statusText);
-                                console.log(errResponse);
-                            });
+            officeTemplateService
+                    .fillAndSendToEmail(templateNodeRef, caseId, vm.fieldData)
+                    .then($mdDialog.hide);
         }
 
         function cancel() {

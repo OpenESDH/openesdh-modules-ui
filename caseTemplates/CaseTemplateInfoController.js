@@ -92,9 +92,6 @@
                 alfrescoFolderService.deleteFolder(doc.nodeRef).then(function(result) {
                     notificationUtilsService.notify($translate.instant('DOCUMENT.DELETE_DOC_SUCCESS'));
                     vm.reloadDocuments();
-                }, function(result) {
-                    console.log(result);
-                    notificationUtilsService.alert($translate.instant('DOCUMENT.DELETE_DOC_FAILURE'));
                 });
             });
         }

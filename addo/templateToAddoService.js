@@ -29,9 +29,11 @@ function TemplateToAddoService($mdDialog, $translate, $q, addoService, notificat
             }, function(response){
                 result.reject(response);
             });
-        }, function() {
-            notificationUtilsService.alert($translate.instant('ADDO.DOCUMENT.CANT_INITIALIZE'));
-            result.reject($translate.instant('ADDO.DOCUMENT.CANT_INITIALIZE'));
+        }, function(error) {
+            if (error.domain){
+                notificationUtilsService.alert(error.message);
+            }
+            result.reject(error);
         });
         return result.promise;
     }

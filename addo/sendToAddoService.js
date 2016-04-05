@@ -33,9 +33,13 @@ function SendToAddoService($stateParams, $mdDialog, $q, $translate, notification
         //proceed when all promises are resolved
         $q.all([pTempl, pDocs]).then(function() {
             showDialog(data);
-        }, function() {
-            notificationUtilsService.alert($translate.instant('ADDO.DOCUMENT.CANT_INITIALIZE'));
-        });
+        }, showError);
+    }
+
+    function showError(error) {
+        if (error.domain) {
+            notificationUtilsService.alert($translate.instant(error.message));
+        }
     }
 
     function isVisible() {
@@ -84,9 +88,7 @@ function SendToAddoService($stateParams, $mdDialog, $q, $translate, notification
             addoService.initiateSigning(addoCtrl.model).then(function() {
                 notificationUtilsService.notify($translate.instant('ADDO.DOCUMENT.SENT_SUCCESSFULLY'));
                 $mdDialog.hide();
-            }, function(response) {
-                notificationUtilsService.alert(response.data.message);
-            });
+            }, showError);
         }
 
         function cancel() {
