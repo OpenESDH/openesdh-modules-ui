@@ -1,0 +1,83 @@
+<md-card flex="grow">
+    <md-card-content>
+        <h2>{{ 'OPENE_DOCS.ADMIN.TEMPLATES' | translate}}</h2>
+        <div class="repeat-table">
+            <div class="repeat-header" layout="row">
+                <div layout="row" flex="100">
+                    <div class="r" flex>
+                        <div layout="row" layout-align="space-between center">
+                            <span>
+                                {{ 'OPENE_DOCS.ADMIN.TEMPLATE_NAME' | translate }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="r" flex="20">
+                        <div layout="row" layout-align="space-between center">
+                            <span>
+                                {{ 'OPENE_DOCS.ADMIN.DESCRIPTION' | translate }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="r" flex="15">
+                        <div layout="row" layout-align="space-between center">
+                            <span>
+                                {{ 'OPENE_DOCS.ADMIN.DOC_TYPE' | translate }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="r" flex="15">
+                        <div layout="row" layout-align="space-between center">
+                            <span>
+                                {{ 'OPENE_DOCS.ADMIN.DOC_CATEGORY' | translate }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tlist__cell" flex="10"></div>
+                </div>
+            </div>
+            <md-virtual-repeat-container flex-height style="border-bottom:0">
+                <div md-virtual-repeat="template in vm.templates" class="repeat-item" layout="row">
+                    <span class="r" flex>{{template.cm.title}} ({{template.cm.name}})</span>
+                    <span class="r muted" flex="20">
+                        {{template.cm.description}}
+                    </span>
+                    <span class="r muted" flex="15">
+                        {{vm.docTypeName(template.doc.type)}}
+                    </span>
+                    <span class="r muted" flex="15">
+                        {{vm.docCategoryName(template.doc.category)}}
+                    </span>
+                    <span class="tlist__cell muted tlist__cell__menu" flex="10">
+                        <md-menu style="text-align: left;">
+                            <md-button aria-label="{{ 'MENU.OPEN_MENU' | translate }}" ng-click="$mdOpenMenu($event)">
+                                <i class="material-icons">more_vert</i>
+                            </md-button>
+                            <md-menu-content width="4">
+                                <md-menu-item>
+                                    <md-button ng-click="vm.preview(template)">
+                                        <md-icon>pageview</md-icon>{{ 'DOCUMENT.OPEN_PREVIEW' | translate }}
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="vm.edit(template)">
+                                        <md-icon>edit</md-icon>{{ 'CASE.EDIT_INFORMATION' | translate }}
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item ng-if="vm.canDelete(template)">
+                                    <md-button ng-click="vm.deleteTemplate(template)">
+                                        <md-icon>delete</md-icon>{{ 'COMMON.DELETE' | translate }}
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </span>
+                </div>
+            </md-virtual-repeat-container>
+        </div>
+        
+        <md-button class="md-primary" ng-click="vm.uploadTemplate($event)">
+            <i class="material-icons ng-scope">add</i> 
+            {{ 'OPENE_DOCS.ADMIN.UPLOAD_NEW_TEMPLATE' | translate }}
+        </md-button>
+    </md-card-content>
+</md-card>

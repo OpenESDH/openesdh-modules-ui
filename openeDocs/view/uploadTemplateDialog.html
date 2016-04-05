@@ -1,0 +1,66 @@
+<md-dialog class="dialog-small" aria-label="">
+    <form name="newDocForm">
+        
+        <md-toolbar layout>
+            <div class="md-toolbar-tools">
+                <h2 ng-hide="isEditProperties">{{ 'OPENE_DOCS.ADMIN.UPLOAD_NEW_TEMPLATE' | translate }}</h2>
+                <h2 ng-if="isEditProperties">{{ 'CASE.EDIT_INFORMATION' | translate }}</h2>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div ng-hide="isEditProperties" layout="column">
+                <div>
+                    <label class="label" for="doc-upload">{{ 'OPENE_DOCS.ADMIN.TEMPLATE_TO_UPLOAD' | translate }} *</label>
+                    <input type="file" file-model="fileToUpload" id="doc-upload">
+                </div>
+            </div>
+
+            <div layout layout-wrap>
+                <md-input-container flex="100">
+                    <label>{{ 'COMMON.NAME' | translate }} *</label>
+                    <input type="text" name="title" ng-model="documentProperties.title" required>
+                    <opene-error form="newDocForm" field="newDocForm.title"></opene-error>
+                </md-input-container>
+                
+                <md-input-container flex="50">
+                    <label>{{ 'COMMON.TYPE' | translate }}</label>
+                    <md-select name="doc_type" ng-model="documentProperties.doc_type">
+                        <md-option ng-value="null"></md-option>
+                        <md-option ng-repeat="type in documentConstraints.documentTypes" ng-value="type.nodeRef">
+                            {{ type.displayName}}
+                        </md-option>
+                    </md-select>
+                    <opene-error form="newDocForm" field="newDocForm.doc_type"></opene-error>
+                </md-input-container>
+                
+                <md-input-container flex="50">
+                    <label>{{ 'COMMON.CATEGORY' | translate }}</label>
+                    <md-select name="doc_category" ng-model="documentProperties.doc_category">
+                        <md-option ng-value="null"></md-option>
+                        <md-option ng-repeat="category in documentConstraints.documentCategories" ng-value="category.nodeRef">
+                            {{ category.displayName}}
+                        </md-option>
+                    </md-select>
+                    <opene-error form="newDocForm" field="newDocForm.doc_category"></opene-error>
+                </md-input-container>
+                
+                <md-input-container flex="100">
+                    <label>{{ 'COMMON.DESCRIPTION' | translate }}</label>
+                    <textarea ng-model="documentProperties.description" columns="1"></textarea>
+                </md-input-container>
+            </div>
+
+        </md-dialog-content>
+
+        <md-dialog-actions>
+            <md-button class="md-primary" type="submit" ng-disabled="newDocForm.$invalid" ng-click="upload()">
+                {{ 'COMMON.OK' | translate }}
+            </md-button>
+            <md-button ng-click="cancel()">
+                {{ 'COMMON.CANCEL' | translate }}
+            </md-button>
+        </md-dialog-actions>
+
+    </form>
+</md-dialog>

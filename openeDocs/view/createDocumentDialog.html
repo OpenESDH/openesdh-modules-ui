@@ -11,20 +11,17 @@
             <div layout layout-wrap>
                 <md-input-container flex="100" ng-if="openeDocsTemplates.length > 1">
                     <label>{{ 'OPENE_DOCS.CHOOSE_TEMPLATE' | translate }} *</label>
-                    <md-select name="doc_template" ng-model="selectedOpeneDocTemplate" required>
+                    <md-select name="doc_template" ng-model="selectedOpeneDocTemplate.nodeRef" required ng-change="templateChanged()">
                         <md-option ng-repeat="template in openeDocsTemplates" ng-value="template.nodeRef">
                             {{ template.cm.title }}
                         </md-option>
                     </md-select>
                     <opene-error form="newDocForm" field="newDocForm.doc_template"></opene-error>
                 </md-input-container>
-            </div>
-            
-            <div layout layout-wrap 
-                 ng-include="'app/src/documents/view/caseDocumentCreateProperties.html'">
+                <ng-include  layout layout-wrap src="'app/src/documents/view/caseDocumentCreateProperties.html'" />
             </div>
         </md-dialog-content>
-
+        
         <md-dialog-actions>
             <md-button class="md-primary" type="submit" ng-disabled="newDocForm.$invalid" ng-click="submit()">
                 {{ 'COMMON.OK' | translate }}
@@ -33,6 +30,5 @@
                 {{ 'COMMON.CANCEL' | translate }}
             </md-button>
         </md-dialog-actions>
-
     </form>
 </md-dialog>
