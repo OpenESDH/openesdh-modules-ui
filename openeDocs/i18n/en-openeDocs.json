@@ -6,6 +6,19 @@
             "MS_EXCEL": "New MS Excel document",
             "MS_POWERPOINT": "New MS PowerPoint document"
         },
-        "CHOOSE_TEMPLATE": "Choose template"
+        "CHOOSE_TEMPLATE": "Choose template",
+        "ADMIN": {
+            "TITLE": "Documents",
+            "TEMPLATES": "Document templates",
+            "TEMPLATE_NAME": "Template name",
+            "DESCRIPTION": "Description",
+            "DOC_TYPE": "Document type",
+            "DOC_CATEGORY": "Document category",
+            "UPLOAD_NEW_TEMPLATE": "Upload new template",
+            "TEMPLATE_TO_UPLOAD": "Template to upload",
+            "ARE_YOU_SURE_YOU_WANT_TO_DELETE_TEMPLATE": "Are you sure you want to delete template \"{{title}}\" ?",
+            "DELETE_TEMPLATE_SUCCESS": "Template deleted.",
+            "DELETE_TEMPLATE_FAILURE": "Failed to delete template."
+        }
     }
 }

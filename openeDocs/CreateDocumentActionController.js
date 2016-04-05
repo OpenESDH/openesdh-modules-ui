@@ -18,7 +18,7 @@
                     locals: {
                         templates: templates,
                         docType: docType
-                    }
+                    }  
                 }).then(function(props){
                     var docListCtrl = $scope.docCtrl;
                     props.destination = docListCtrl.docsFolderNodeRef;
@@ -31,10 +31,15 @@
         
         function DocumentFromTemplateDialog($scope, $mdDialog, templates, docType){
             loadDocumentConstraints($scope);
-            $scope.selectedOpeneDocTemplate = templates[0].nodeRef;
+            var blankTemplate = templates[0];
+            $scope.selectedOpeneDocTemplate = {
+                    nodeRef: blankTemplate.nodeRef
+            };
             $scope.openeDocsTemplates = templates;
             $scope.docType = docType;
             $scope.documentProperties = {};
+            
+            initDocProps(blankTemplate)
             
             $scope.cancel = function() {
                 $mdDialog.cancel();
@@ -42,9 +47,30 @@
             
             $scope.submit = function(){
                 var props = angular.copy($scope.documentProperties);
-                props.templateRef = $scope.selectedOpeneDocTemplate;
+                props.templateRef = $scope.selectedOpeneDocTemplate.nodeRef;
                 $mdDialog.hide(props);
             };
+            
+            $scope.templateChanged = function(){
+                var template = getSelectedTemplate();
+                initDocProps(template);
+            };
+            
+            function initDocProps(template){
+                if(template.doc != undefined){
+                    $scope.documentProperties.doc_type = template.doc.type;
+                    $scope.documentProperties.doc_category = template.doc.category;
+                }    
+            }
+            
+            function getSelectedTemplate(){
+                for(var i=0; i<templates.length; i++){
+                    var template = templates[i];
+                    if(template.nodeRef == $scope.selectedOpeneDocTemplate.nodeRef){
+                        return template;
+                    }
+                }
+            }
         }
         
         function loadDocumentConstraints($scope){
