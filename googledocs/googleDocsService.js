@@ -93,7 +93,7 @@ function GoogleDocsServiceProvider() {
         function uploadContent(_scope, nodeRef) {
             var uplCont = $q.defer();
             _checkGoogleAuth(_scope, function() {
-                $http.post(ALFRESCO_URI.webClientServiceProxy + '/googledocs/uploadContent?nodeRef=' + nodeRef, {errorHandler: 'skip'}).then(
+                $http.post(ALFRESCO_URI.webClientServiceProxy + '/googledocs/uploadContent?nodeRef=' + nodeRef, null, {errorHandler: 'skip'}).then(
                         function(response) {
                             console.log(response);
                             $window.open(response.data.editorUrl, "_blank");
