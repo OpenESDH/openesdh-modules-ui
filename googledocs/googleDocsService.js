@@ -193,11 +193,13 @@ function GoogleDocsServiceProvider() {
             return mimetype && supportedMimetypes.indexOf(mimetype) > -1;
         }
 
+        var gAuthErrors = ['authError', 'dailyLimitExceededUnreg'];
+
         function parseGoogleDocsError(response) {
             try {
                 var gError = angular.fromJson(response.data.error.message.substr(response.data.error.message.indexOf('\n')));
-                if (gError.errors[0].reason === 'authError') {
-                    return $q.when(gError.errors[0].reason);
+                if (gAuthErrors.indexOf(gError.errors[0].reason) > -1) {
+                    return $q.when(gError.errors[0]);
                 }
                 notificationUtilsService.alert($translate.instant('GOOGLE.DOCS.SERVICE_ERROR', gError));
             } catch (err) {
