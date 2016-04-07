@@ -44,7 +44,7 @@ function config(languageFilesProvider, fileListItemActionServiceProvider, docume
     }
 
     function _isDisabled_file(file) {
-        return file.cm.lockType && _isUnlockedInGoogleDocs_file(file);
+        return file.cm.lockType && !_isLockedInGoogleDocs_file(file);
     }
     
     //case document

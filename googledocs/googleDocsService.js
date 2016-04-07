@@ -90,44 +90,69 @@ function GoogleDocsServiceProvider() {
             return $location.$$protocol + "://" + $location.$$host + ($location.$$port ? ':' + $location.$$port : '') + ALFRESCO_URI.webClientServiceProxy + "/";
         }
 
+        /*
+         * executes action with double google auth checking
+         * 
+         * @param {type} _scope
+         * @param {type} action - webscript call function to execute
+         * @param {type} nodeRef - nodeRef of document
+         * @param {type} onSuccess
+         * @param {type} onFailure
+         */
+        function _executeWithGLogin(_scope, action, nodeRef, onSuccess, onFailure){
+            //check google auth cookie or do login
+            _checkGoogleAuth(_scope, function() {
+                //try action
+                action(nodeRef).then(onSuccess, function(response) {
+                    //if google authorization error
+                    parseGoogleDocsError(response).then(function() {
+                        //do login
+                        _authurl(function() {
+                            //retry action
+                            action(nodeRef).then(onSuccess, onFailure);
+                        });
+                    }, onFailure); //else reject
+                });
+            });
+        }
+
+
+        /*
+         * uploads document to google docs for editing.
+         */
         function uploadContent(_scope, nodeRef) {
             var uplCont = $q.defer();
-            _checkGoogleAuth(_scope, function() {
-                $http.post(ALFRESCO_URI.webClientServiceProxy + '/googledocs/uploadContent?nodeRef=' + nodeRef, null, {errorHandler: 'skip'}).then(
-                        function(response) {
-                            console.log(response);
-                            $window.open(response.data.editorUrl, "_blank");
-                            uplCont.resolve(response);
-                        },
-                        function(response) {
-                            parseGoogleDocsError(response);
-                            uplCont.reject();
-                        });
-            });
+            var success = function(response) {
+                console.log(response);
+                $window.open(response.data.editorUrl, "_blank");
+                uplCont.resolve(response);
+            };
+            _executeWithGLogin(_scope, _uploadContent, nodeRef, success, uplCont.reject);
             return uplCont.promise;
+        }
+        
+        function _uploadContent(nodeRef) {
+            return $http.post(ALFRESCO_URI.webClientServiceProxy + '/googledocs/uploadContent?nodeRef=' + nodeRef, {}, {errorHandler: 'skip'});
         }
 
         function saveContent(_scope, nodeRef) {
             var uplCont = $q.defer();
-            _checkGoogleAuth(_scope, function() {
-                $http.post(ALFRESCO_URI.webClientServiceProxy + '/googledocs/saveContent',
-                        {
-                            nodeRef: nodeRef,
-                            override: false,
-                            removeFromDrive: true,
-                            majorVersion: false,
-                            description: ''
-                        },
-                        {
-                            errorHandler: 'skip'
-                        })
-                        .then(uplCont.resolve,
-                                function(response) {
-                                    parseGoogleDocsError(response);
-                                    uplCont.reject();
-                                });
-            });
+            _executeWithGLogin(_scope, _saveContent, nodeRef, uplCont.resolve, uplCont.reject);
             return uplCont.promise;
+        }
+
+        function _saveContent(nodeRef) {
+            return $http.post(ALFRESCO_URI.webClientServiceProxy + '/googledocs/saveContent',
+                    {
+                        nodeRef: nodeRef,
+                        override: false,
+                        removeFromDrive: true,
+                        majorVersion: false,
+                        description: ''
+                    },
+                    {
+                        errorHandler: 'skip'
+                    });
         }
 
         function resumeEditing(_scope, editorURL) {
@@ -146,25 +171,22 @@ function GoogleDocsServiceProvider() {
                     .ok($translate.instant('COMMON.YES'))
                     .cancel($translate.instant('COMMON.CANCEL'));
             $mdDialog.show(confirm).then(function() {
-                return _checkGoogleAuth(_scope, function() {
-                    $http.post(ALFRESCO_URI.webClientServiceProxy + '/googledocs/discardContent',
-                            {
-                                nodeRef: nodeRef,
-                                override: false
-                            },
-                            {
-                                errorHandler: 'skip'
-                            })
-                            .then(discard.resolve,
-                                    function(response) {
-                                        parseGoogleDocsError(response);
-                                        discard.reject();
-                                    });
-                });
+                _executeWithGLogin(_scope, _discardContent, nodeRef, discard.resolve, discard.reject);
             }, function() {
                 discard.resolve(false);
             });
             return discard.promise;
+        }
+
+        function _discardContent(nodeRef) {
+            return $http.post(ALFRESCO_URI.webClientServiceProxy + '/googledocs/discardContent',
+                    {
+                        nodeRef: nodeRef,
+                        override: false
+                    },
+                    {
+                        errorHandler: 'skip'
+                    });
         }
 
         function isSupportedFormat(mimetype) {
@@ -174,10 +196,14 @@ function GoogleDocsServiceProvider() {
         function parseGoogleDocsError(response) {
             try {
                 var gError = angular.fromJson(response.data.error.message.substr(response.data.error.message.indexOf('\n')));
+                if (gError.errors[0].reason === 'authError') {
+                    return $q.when(gError.errors[0].reason);
+                }
                 notificationUtilsService.alert($translate.instant('GOOGLE.DOCS.SERVICE_ERROR', gError));
             } catch (err) {
                 notificationUtilsService.notify($translate.instant('ERROR.UNEXPECTED_ERROR'));
             }
+            $q.reject(response);
         }
     }
 }
