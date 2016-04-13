@@ -22,7 +22,10 @@
                    return item.authority != currentUser.userName; 
                 });
                 casePartiesService.getCaseParties(caseId).then(function(parties){
-                    vm.membersParties = members.concat(parties);
+                    var partiesContacts = parties.map(function(party){
+                        return party.contact;
+                    });
+                    vm.membersParties = members.concat(partiesContacts);
                     angular.forEach(vm.membersParties, function(item){
                         delete item.role;
                     });

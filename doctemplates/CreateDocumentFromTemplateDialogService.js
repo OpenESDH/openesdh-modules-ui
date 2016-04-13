@@ -80,9 +80,9 @@ function CreateDocumentFromTemplateDialogServiceProvider() {
 
                 casePartiesService.getCaseParties(caseId).then(function(response) {
                     vm.parties = response.map(function(item) {
-                        return angular.extend(item,
+                        return angular.extend(item.contact,
                                 {
-                                    _displayName: angular.lowercase(item.displayName)
+                                    _displayName: angular.lowercase(item.contact.displayName)
                                 });
                     });
                 });
