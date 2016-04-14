@@ -1,11 +1,9 @@
 {
-    "ERROR": {
-        "INCORECT_ADDO_PASSWORD": "Incorect ADDO username or password"
-    },
     "ADDO": {
         "USER": {
             "USERNAME": "ADDO username",
-            "PASSWORD": "ADDO password"
+            "PASSWORD": "ADDO password",
+            "INCORECT_PASSWORD": "Incorrect ADDO username or password"
         },
         "DOCUMENT": {
             "SEND_FOR_SIGNING": "Send for signing",

@@ -7,7 +7,6 @@ function addoService($http, $q) {
         saveAddoUser: saveAddoUser,
         getSigningTemplates: getSigningTemplates,
         initiateSigning: initiateSigning,
-        getAddoUserProperties: getAddoUserProperties,
         isAddoAccountConfigured: isAddoAccountConfigured
     };
     return service;
@@ -39,11 +38,6 @@ function addoService($http, $q) {
         });
     }
 
-    function getAddoUserProperties(username) {
-        return $http.get('/api/openesdh/addo/' + username + '/props').then(function(response) {
-            return response.data;
-        });
-    }
     function isAddoAccountConfigured() {
         return $http.get('/api/openesdh/addo/props').then(function(response) {
             return response.data.configured;
