@@ -4,7 +4,7 @@ var loginPage = require(util.tests_base + '/login/loginPage.po.js');
 var casePage = require(util.tests_base + '/cases/casePage.po.js');
 var oeUtils = require(util.tests_base + '/common/utils');
 
-fdescribe('staff test', function() {
+describe('staff test', function() {
 
     var casesToDelete = [];
 
