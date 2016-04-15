@@ -1,10 +1,10 @@
 var util = require('../../../test/util.js');
 
 var loginPage = require(util.tests_base + '/login/loginPage.po.js');
-var casesPage = require(util.tests_base + '/cases/casePage.po.js');
+var casePage = require(util.tests_base + '/cases/casePage.po.js');
 var oeUtils = require(util.tests_base + '/common/utils');
 
-describe('staff test', function() {
+fdescribe('staff test', function() {
 
     var casesToDelete = [];
 
@@ -13,13 +13,21 @@ describe('staff test', function() {
     });
 
     afterEach(function() {
-        browser.driver.sleep(4000);//wait for toast message to hide
         loginPage.logout();
+    });
+    
+    //delete all created users
+    afterAll(function() {
+        loginPage.login(true);
+        browser.waitForAngular().then(function() {
+            casePage.deleteCases(casesToDelete);
+            loginPage.logout(0, 0);
+        });
     });
 
     it('should create a staff case', function() {
         console.log('should create a staff case');
-        casesPage.goToCasesPage();
+        casePage.goToCasesPage();
         var createCaseBtn = element(by.id("create-case-btn"));
         createCaseBtn.click();
 
@@ -69,10 +77,4 @@ describe('staff test', function() {
             });
         });
     });
-
-    it('should delete created staff case', function() {
-        console.log('should delete created staff case');
-        casesPage.deleteCases(casesToDelete);
-    });
-
 });
