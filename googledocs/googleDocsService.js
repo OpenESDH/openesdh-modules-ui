@@ -203,7 +203,7 @@ function GoogleDocsServiceProvider() {
                 }
                 notificationUtilsService.alert($translate.instant('GOOGLE.DOCS.SERVICE_ERROR', gError));
             } catch (err) {
-                notificationUtilsService.notify($translate.instant('ERROR.UNEXPECTED_ERROR'));
+                notificationUtilsService.notifyError($translate.instant('ERROR.UNEXPECTED_ERROR'));
             }
             $q.reject(response);
         }
