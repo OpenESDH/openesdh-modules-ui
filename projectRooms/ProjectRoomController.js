@@ -2,15 +2,20 @@
         .module('openeApp.projectRooms')
         .controller('ProjectRoomController', ProjectRoomController);
     
-    function ProjectRoomController($stateParams, $mdDialog, projectRoomsService, sessionService){
+    function ProjectRoomController($scope, $stateParams, $mdDialog, projectRoomsService, sessionService){
         var vm = this;
         vm.editProjectRoom = editProjectRoom;
         vm.closeProjectRoom = closeProjectRoom;
-        vm.isManager = false;
+        vm.isManager = true;
         vm.isExtUser = sessionService.isExternalUser();
+        vm.currentTab = 0; 
         init();
         
         function init(){
+            $scope.$on('$stateChangeSuccess', function(event, toState) {
+                vm.currentTab = toState.data.selectedTab;
+            });
+            
             projectRoomsService.getSite($stateParams.shortName).then(function(site){
                 vm.room = site;
             });

@@ -11,13 +11,13 @@
         vm.includeExtra = false;
         vm.init = init;
         vm.loadTemplate = loadTemplate;
-        vm.reloadDocuments = reloadDocuments;
         vm.isPropSet = isPropSet;
         vm.getWorkflowDisplayName = getWorkflowDisplayName;
         vm.editTemplate = editTemplate;
         vm.deleteDocument = deleteDocument;
         vm.deleteTemplate = deleteTemplate;
         vm.nodeRef = $stateParams.storeType + "/" + $stateParams.storeId + "/" + $stateParams.id;
+        vm.openDocument = openDocument;
         
         function init(){
             var vm = this;
@@ -26,7 +26,7 @@
                 caseDocumentsService.getDocumentsFolderNodeRefByCaseRef(vm.nodeRef).then(function(result){
                     vm.docsFolderNodeRef = result.caseDocsFolderNodeRef;
                     vm.loadTemplate();
-                    vm.reloadDocuments();
+                    vm.initSuperController();
                 })
             });
         }
@@ -39,12 +39,9 @@
             });
         }
         
-        function reloadDocuments(){
+        function openDocument(item){
             var vm = this;
-            caseTemplatesService.getTemplateDocs(vm.nodeRef).then(function(result){
-                vm.documents = result;
-                vm.addThumbnailUrl();
-            });
+            vm.previewDocument(item.mainDocNodeRef);
         }
         
         function isPropSet(prop){

@@ -3,10 +3,12 @@
         <div class="sub-toolbar">
             <div layout="row" layout-align="space-between center" layout-padding>
                 <div layout="row" layout-align="start center">
-                    <md-button ng-href="#/project/room/{{docCtrl.shortName}}">
-                        <i class="material-icons" style="vertical-align: middle;">arrow_back</i>
-                        {{ 'PROJECT_ROOM.BACK_TO_PROJECT_ROOM' | translate}}
-                    </md-button>
+                    <a ui-sref="projectRoom.info({'shortName': docCtrl.shortName, 'subfolder': docCtrl.subfolder})">
+                        <md-button>
+                            <i class="material-icons" style="vertical-align: middle;">arrow_back</i>
+                            {{ 'PROJECT_ROOM.BACK_TO_PROJECT_ROOM' | translate}}
+                        </md-button>
+                    </a>
                     <h1 class="md-headline">
                         {{ docCtrl.doc.title}}
                     </h1>

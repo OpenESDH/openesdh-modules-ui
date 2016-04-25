@@ -21,12 +21,17 @@
             data: {
                 authorizedRoles: [],
                 selectedTab: 0
+            },
+            params: {
+                subfolder: null
             }
         }).state('projectRoom.info', {
             url: '/info',
             views: {
                 'projectRoomInfo': {
                     templateUrl: 'app/src/modules/projectRooms/view/projectRoomInfo.html',
+                    controller: 'ProjectRoomInfoController',
+                    controllerAs: 'prInfoCtrl'
                 }
             },
             data: {
@@ -71,6 +76,9 @@
             },
             data: {
                 authorizedRoles: []
+            },
+            params: {
+                subfolder: null
             }
         }).state('projectRooms', {
             parent: 'site',
