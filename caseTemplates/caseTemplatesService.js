@@ -7,8 +7,7 @@
             getTemplates: getTemplates,
             createTemplate: createTemplate,
             updateTemplate: updateTemplate,
-            getTemplateInfo: getTemplateInfo,
-            getTemplateDocs: getTemplateDocs
+            getTemplateInfo: getTemplateInfo
         };
         
         function getTemplates(caseType){
@@ -19,12 +18,6 @@
         
         function getTemplateInfo(nodeRef){
             return $http.get("/api/openesdh/case/template/" + nodeRef).then(function(result){
-                return result.data;
-            });
-        }
-        
-        function getTemplateDocs(nodeRef){
-            return $http.get("/api/openesdh/case/template/" + nodeRef + "/docs").then(function(result){
                 return result.data;
             });
         }
