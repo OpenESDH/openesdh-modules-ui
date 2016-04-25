@@ -26,8 +26,10 @@ function GoogleDocsServiceProvider() {
     ];
 
     function GoogleDocsService($http, ALFRESCO_URI, $window, $mdDialog, $translate, $q, $location, $compile,
-            $rootScope, notificationUtilsService) {
-
+            notificationUtilsService) {
+        
+        var gAuthErrors = ['authError', 'dailyLimitExceededUnreg'];
+        
         var service = {
             uploadContent: uploadContent,
             saveContent: saveContent,
@@ -192,8 +194,6 @@ function GoogleDocsServiceProvider() {
         function isSupportedFormat(mimetype) {
             return mimetype && supportedMimetypes.indexOf(mimetype) > -1;
         }
-
-        var gAuthErrors = ['authError', 'dailyLimitExceededUnreg'];
 
         function parseGoogleDocsError(response) {
             try {
