@@ -94,20 +94,16 @@
         
         function CloseProjectRoomController($mdDialog, $stateParams, $controller, $location, $translate, notificationUtilsService, projectRoomsService, room){
             angular.extend(this, $controller('GenericWizardController', {}));
-            angular.extend(this, $controller('ProjectRoomDocumentsSelector', {}));
             
             var vm = this;
             vm.room = room;
             vm.submit = submit;
-            
-            projectRoomsService.getSiteDocumentsWithAttachments($stateParams.shortName).then(function(documents){
-                vm.documents = documents;
-            });
+            vm.siteDocuments = [];
             
             function submit(){
                 var site = {
                         shortName: vm.room.shortName,
-                        siteDocuments: vm.getSiteDocuments()
+                        siteDocuments: vm.siteDocuments
                 };
                 projectRoomsService.closeSite(site).then(function(response){
                     $mdDialog.hide();

@@ -1,4 +1,4 @@
-<md-dialog class="dialog-large" aria-label="">
+<md-dialog class="dialog-huge" aria-label="">
     <md-toolbar layout>
         <div class="md-toolbar-tools">
             <h2>{{'PROJECT_ROOM.CREATE_PROJECT_ROOM' | translate}}</h2>
@@ -64,7 +64,8 @@
                     </table>
                 </div>
             </ng-form>
-            <ng-include src="'app/src/cases/view/selectCaseDocuments.html'"></ng-include>
+            <h3>{{'DOCUMENT.DOCUMENTS' | translate}}</h3>
+            <case-docs-selector case-id="dlg.caseId" selected-docs="dlg.siteDocuments"></case-docs-selector>  
         </mt-wz-step>
         
         <mt-wz-step class="workflowWizardStep">
@@ -75,16 +76,7 @@
                 </p>
                 <p>
                     {{'PROJECT_ROOM.DOCS_TO_COPY' | translate}}
-                    <ul>
-                       <li ng-repeat="doc in dlg.selectedDocuments">
-                           {{doc.title}}
-                           <ul>
-                               <li ng-repeat="attachment in doc.selectedAttachments">
-                                   {{attachment.name}}
-                               </li> 
-                           </ul>
-                       </li> 
-                    </ul>
+                    <case-docs-tree ng-model="dlg.siteDocuments"></case-docs-tree>
                 </p>
                 <p>
                     {{'PROJECT_ROOM.PARTICIPANTS_WILL_HAVE_ACCESS' | translate}}
