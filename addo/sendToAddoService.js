@@ -23,9 +23,6 @@ function SendToAddoService($stateParams, $mdDialog, $q, $translate, notification
         };
         var pTempl = addoService.getSigningTemplates().then(function(templates) {
             data.templates = templates;
-        });
-        //proceed when all promises are resolved
-        $q.all([pTempl]).then(function() {
             showDialog(data);
         }, showError);
     }
