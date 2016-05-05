@@ -9,7 +9,7 @@ function templateToCaseService(officeTemplateService) {
         execute: execute
     };
 
-    function execute(template, caseId, fieldData) {
-        return officeTemplateService.fillTemplateToCase(template.nodeRef, caseId, fieldData);
+    function execute(template, caseId, fieldData, targetFolderRef) {
+        return officeTemplateService.fillTemplateToCaseFolder(template.nodeRef, caseId, fieldData, targetFolderRef);
     }
 }

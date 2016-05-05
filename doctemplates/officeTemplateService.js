@@ -12,7 +12,7 @@ function officeTemplateService($http, alfrescoNodeUtils, ALFRESCO_URI, notificat
         deleteTemplate: deleteTemplate,
         getTemplate: getTemplate,
         fillTemplate: fillTemplate,
-        fillTemplateToCase: fillTemplateToCase,
+        fillTemplateToCaseFolder: fillTemplateToCaseFolder,
         fillAndSendToEmail: fillAndSendToEmail,
         fillAndSendToAddo: fillAndSendToAddo,
         uploadTemplate: uploadTemplate,
@@ -64,25 +64,27 @@ function officeTemplateService($http, alfrescoNodeUtils, ALFRESCO_URI, notificat
                 });
     }
 
-    function fillTemplateToCase(nodeRef, caseId, fieldData) {
-        return _fill("/fillToCase", nodeRef, caseId, fieldData)
-                .then(function(response) {
-                    return true;
-                });
+    function fillTemplateToCaseFolder(nodeRef, caseId, fieldData, targetFolderRef) {
+        
+        return _fillToFolder('', nodeRef, caseId, fieldData, targetFolderRef);
     }
 
-    function fillAndSendToEmail(nodeRef, caseId, fieldData) {
-        return _fill("/fillToEmail", nodeRef, caseId, fieldData)
-                .then(function(response) {
-                    return true;
-                });
+    function fillAndSendToEmail(nodeRef, caseId, fieldData, targetFolderRef) {
+        return _fillToFolder('/fillToEmail', nodeRef, caseId, fieldData, targetFolderRef);
     }
 
-    function fillAndSendToAddo(nodeRef, caseId, fieldData) {
-        return _fill("/fillToAddo", nodeRef, caseId, fieldData)
-                .then(function(response) {
-                    return true;
-                });
+    function fillAndSendToAddo(nodeRef, caseId, fieldData, targetFolderRef) {
+        return _fillToFolder('/fillToAddo', nodeRef, caseId, fieldData, targetFolderRef);
+    }
+    
+    function _fillToFolder(endpoint, nodeRef, caseId, fieldData, targetFolderRef){
+        return $http.post('/api/openesdh/template/' + alfrescoNodeUtils.processNodeRef(nodeRef).uri + "/case/" + caseId 
+                    + '/folder/' + alfrescoNodeUtils.processNodeRef(targetFolderRef).uri + endpoint,
+                {fieldData: fieldData},
+                {responseType: 'arraybuffer'}
+        ).then(function(response) {
+            return true;
+        });
     }
 
     function _fill(endpoint, nodeRef, caseId, fieldData) {
