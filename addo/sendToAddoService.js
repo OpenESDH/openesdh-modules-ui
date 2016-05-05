@@ -10,28 +10,22 @@ function SendToAddoService($stateParams, $mdDialog, $q, $translate, notification
     };
     return service;
 
-    function execute() {
+    function execute(caseId, docsCtrl) {
         var data = {
             templates: [],
-            documents: [],
             model: {
                 caseId: $stateParams.caseId,
                 template: null,
                 receivers: [],
                 sequential: false,
-                documents: []
+                docsFolderRef: docsCtrl.rootDocsFolder
             }
         };
         var pTempl = addoService.getSigningTemplates().then(function(templates) {
             data.templates = templates;
         });
-
-        var pDocs = caseDocumentsService.getCaseDocumentsWithAttachments($stateParams.caseId).then(function(documents) {
-            data.documents = documents;
-        });
-
         //proceed when all promises are resolved
-        $q.all([pTempl, pDocs]).then(function() {
+        $q.all([pTempl]).then(function() {
             showDialog(data);
         }, showError);
     }
@@ -59,31 +53,33 @@ function SendToAddoService($stateParams, $mdDialog, $q, $translate, notification
         });
     }
 
-    function AddoDialogController($mdDialog, contactsService, personDialogService, templates, documents, model) {
+    function AddoDialogController($mdDialog, contactsService, personDialogService, templates, model) {
         var addoCtrl = this;
         addoCtrl.model = model;
-        addoCtrl.selectedDocs = [];
-        addoCtrl.selectedToSign = [];
-        addoCtrl.oneSigningDocSelected = false;
-
+        addoCtrl.selectedDocuments = [];
         //persons
         addoCtrl.selectedItem = null;
         addoCtrl.searchText = null;
         addoCtrl.querySearch = contactsQuerySearch;
         //data
         addoCtrl.templates = templates;
-        addoCtrl.documents = documents;
 
-        addoCtrl.toggleDocument = toggleDocument;
         addoCtrl.send = send;
         addoCtrl.cancel = cancel;
         addoCtrl.newContact = newContact;
+        addoCtrl.isSigningDocSelected = isSigningDocSelected; 
 
         function send() {
             if (!isValidModel()) {
                 return;
             }
             addoCtrl.model.sequential = addoCtrl.model.sequential && addoCtrl.model.receivers.length > 1;
+
+            var doc = addoCtrl.selectedDocuments[0];
+            addoCtrl.model.documents = [{
+                nodeRef: doc.mainDocNodeRef ? doc.mainDocNodeRef : doc.nodeRef,
+                sign: doc.sign
+            }];
 
             addoService.initiateSigning(addoCtrl.model).then(function() {
                 notificationUtilsService.notify($translate.instant('ADDO.DOCUMENT.SENT_SUCCESSFULLY'));
@@ -94,27 +90,11 @@ function SendToAddoService($stateParams, $mdDialog, $q, $translate, notification
         function cancel() {
             $mdDialog.cancel();
         }
-
-        function toggleDocument(doc) {
-            //remove old document
-            var index = addoCtrl.selectedDocs.indexOf(doc.nodeRef);
-            if (index > -1) {
-                addoCtrl.selectedDocs.splice(index, 1);
-                addoCtrl.selectedToSign.splice(index, 1);
-                addoCtrl.model.documents.splice(index, 1);
-            }
-            //add document
-            if (doc.selected && typeof doc.sign !== 'undefined') {
-                addoCtrl.selectedDocs.push(doc.nodeRef);
-                addoCtrl.selectedToSign.push(doc.sign);
-                addoCtrl.model.documents.push({
-                    nodeRef: doc.mainDocNodeRef ? doc.mainDocNodeRef : doc.nodeRef,
-                    sign: doc.sign
-                });
-            }
-            addoCtrl.oneSigningDocSelected = addoCtrl.selectedToSign.indexOf(true) > -1;
+        
+        function isSigningDocSelected(){
+            return addoCtrl.selectedDocuments.length == 1 && addoCtrl.selectedDocuments[0].sign !== 'undefined';
         }
-
+        
         function contactsQuerySearch(query) {
             if (!query) {
                 return [];
@@ -157,7 +137,6 @@ function SendToAddoService($stateParams, $mdDialog, $q, $translate, notification
         function newContact(ev) {
             var data = {
                 templates: addoCtrl.templates,
-                documents: addoCtrl.documents,
                 model: addoCtrl.model
             };
             personDialogService
