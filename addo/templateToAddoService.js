@@ -9,7 +9,7 @@ function TemplateToAddoService($mdDialog, $translate, $q, addoService, notificat
     };
     return service;
 
-    function execute(template, caseId, fieldData) {
+    function execute(template, caseId, fieldData, targetFolderRef) {
         var result = $q.defer();
         //preload addo templates, then show dialog
         addoService.getSigningTemplates().then(function(templates) {
@@ -22,7 +22,8 @@ function TemplateToAddoService($mdDialog, $translate, $q, addoService, notificat
                     addoTemplates: templates,
                     caseId: caseId,
                     templateNodeRef: template.nodeRef,
-                    fieldData: fieldData
+                    fieldData: fieldData,
+                    targetFolderRef: targetFolderRef
                 }
             }).then(function(){
                 result.resolve(true);
@@ -42,7 +43,7 @@ function TemplateToAddoService($mdDialog, $translate, $q, addoService, notificat
         return addoService.isAddoAccountConfigured();
     }
 
-    function TemplateToAddoController(officeTemplateService, addoTemplates, caseId, templateNodeRef, fieldData) {
+    function TemplateToAddoController(officeTemplateService, addoTemplates, caseId, templateNodeRef, fieldData, targetFolderRef) {
         var vm = this;
 
         vm.cancel = cancel;
@@ -51,7 +52,7 @@ function TemplateToAddoService($mdDialog, $translate, $q, addoService, notificat
         vm.templates = addoTemplates;
 
         function fillToAddo() {
-            officeTemplateService.fillAndSendToAddo(templateNodeRef, caseId, vm.fieldData)
+            officeTemplateService.fillAndSendToAddo(templateNodeRef, caseId, vm.fieldData, targetFolderRef)
                     .then($mdDialog.hide,
                             function(errResponse) {
                                 notificationUtilsService.alert(errResponse.statusText);

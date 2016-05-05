@@ -90,7 +90,7 @@ function CreateDocumentFromTemplateDialogServiceProvider() {
 
             function executeAction(actionItem) {
                 var service = $injector.get(actionItem.serviceName);
-                service.execute(vm.template, caseId, vm.fieldData)
+                service.execute(vm.template, caseId, vm.fieldData, docsListCtrl.docsFolderNodeRef)
                         .then(function(response) {
                             notificationUtilsService.notify($translate.instant('COMMON.SUCCESS'));
                             docsListCtrl.reloadDocuments();

@@ -8,7 +8,7 @@ function TemplateToEmailService($mdDialog, $translate, APP_CONFIG) {
     };
     return service;
 
-    function execute(template, caseId, fieldData) {
+    function execute(template, caseId, fieldData, targetFolderRef) {
         return $mdDialog.show({
             templateUrl: 'app/src/modules/doctemplates/view/templateToEmailDialog.html',
             controller: TemplateToEmailController,
@@ -21,12 +21,13 @@ function TemplateToEmailService($mdDialog, $translate, APP_CONFIG) {
                         {
                             'email.subject': $translate.instant('DOC_TEMPLATES.DEFAULT_EMAIL_SUBJECT', {appName: APP_CONFIG.appName}),
                             'email.message': $translate.instant('DOC_TEMPLATES.DEFAULT_EMAIL_TEXT', {caseId: caseId})
-                        })
+                        }),
+                targetFolderRef: targetFolderRef
             }
         });
     }
 
-    function TemplateToEmailController(officeTemplateService, notificationUtilsService, caseId, templateNodeRef, fieldData) {
+    function TemplateToEmailController(officeTemplateService, notificationUtilsService, caseId, templateNodeRef, fieldData, targetFolderRef) {
         var vm = this;
 
         vm.cancel = cancel;
@@ -35,7 +36,7 @@ function TemplateToEmailService($mdDialog, $translate, APP_CONFIG) {
 
         function fillToEmail() {
             officeTemplateService
-                    .fillAndSendToEmail(templateNodeRef, caseId, vm.fieldData)
+                    .fillAndSendToEmail(templateNodeRef, caseId, vm.fieldData, targetFolderRef)
                     .then($mdDialog.hide);
         }
 
