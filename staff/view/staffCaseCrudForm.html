@@ -10,7 +10,6 @@
     </div>
 </div>
 
-<div layout>
     <md-autocomplete flex
         md-input-name="employeeInfoField"
         md-min-length="2"
@@ -28,60 +27,60 @@
             {{ 'COMMON.NO_MATCHES' | translate }}
         </md-not-found>
     </md-autocomplete>
-</div>
-
-<div ng-controller="ClassificationController as classCtrl" layout="column">
-    <md-chips flex ng-model="vm.case.prop_oe_journalKey" md-autocomplete-snap md-require-match="true">
-
-        <md-autocomplete
-            md-input-name="journalKey"
-            md-min-length="2"
-            md-input-minlength="2"
-            md-selected-item="selectedItem"
-            md-search-text="searchText"
-            md-items="item in classCtrl.search(searchText, 'oe:journalKey')"
-            md-item-text="item.name + ' ' + item.title"
-            placeholder="{{'CASE.JOURNAL_KEY' | translate}}">
-            <md-item-template>
-                <span md-highlight-text="searchText">{{item.name}}</span>
-                <span md-highlight-text="searchText" class="muted">{{item.title}}</span>
-            </md-item-template>
-            <md-not-found>
-                {{ 'COMMON.NO_MATCHES' | translate }}
-            </md-not-found>
-        </md-autocomplete>
-        <md-chip-template>
-            <span>
-                <strong>{{ $chip.name }}</strong>
-                <em>{{ $chip.title }}</em>
-            </span>
-        </md-chip-template>
-    </md-chips>
-
-    <md-chips flex ng-model="vm.case.prop_oe_journalFacet" md-autocomplete-snap md-require-match="true">
-        <md-autocomplete md-input-name="journalFacet" 
-                        md-min-length="2" 
-                        md-input-minlength="2" 
-                        md-selected-item="selectedItem" 
-                        md-search-text="searchText" 
-                        md-items="item in classCtrl.search(searchText, 'oe:journalFacet')" 
-                        md-item-text="item.name + ' ' + item.title" 
-                        placeholder="{{'CASE.JOURNAL_FACET' | translate}}">
-            <md-item-template>
-                <span md-highlight-text="searchText">{{item.name}}</span>
-                <span md-highlight-text="searchText" class="muted">{{item.title}}</span>
-            </md-item-template>
-            <md-not-found>
-                {{ 'COMMON.NO_MATCHES' | translate }}
-            </md-not-found>
-        </md-autocomplete>
-        <md-chip-template>
-            <span>
-                <strong>{{$chip.name}}</strong>
-                <em>{{$chip.title}}</em>
-            </span>
-        </md-chip-template>
-    </md-chips>
+<div ng-controller="ClassificationController as classCtrl">
+    <div layout>
+        <md-chips flex ng-model="vm.case.prop_oe_journalKey" md-autocomplete-snap md-require-match="true">
+            <md-autocomplete
+                md-input-name="journalKey"
+                md-min-length="2"
+                md-input-minlength="2"
+                md-selected-item="selectedItem"
+                md-search-text="searchText"
+                md-items="item in classCtrl.search(searchText, 'oe:journalKey')"
+                md-item-text="item.name + ' ' + item.title"
+                placeholder="{{'CASE.JOURNAL_KEY' | translate}}">
+                <md-item-template>
+                    <span md-highlight-text="searchText">{{item.name}}</span>
+                    <span md-highlight-text="searchText" class="muted">{{item.title}}</span>
+                </md-item-template>
+                <md-not-found>
+                    {{ 'COMMON.NO_MATCHES' | translate }}
+                </md-not-found>
+            </md-autocomplete>
+            <md-chip-template>
+                <span>
+                    <strong>{{ $chip.name }}</strong>
+                    <em>{{ $chip.title }}</em>
+                </span>
+            </md-chip-template>
+        </md-chips>
+    </div>
+    <div layout>
+        <md-chips flex ng-model="vm.case.prop_oe_journalFacet" md-autocomplete-snap md-require-match="true">
+            <md-autocomplete md-input-name="journalFacet" 
+                            md-min-length="2" 
+                            md-input-minlength="2" 
+                            md-selected-item="selectedItem" 
+                            md-search-text="searchText" 
+                            md-items="item in classCtrl.search(searchText, 'oe:journalFacet')" 
+                            md-item-text="item.name + ' ' + item.title" 
+                            placeholder="{{'CASE.JOURNAL_FACET' | translate}}">
+                <md-item-template>
+                    <span md-highlight-text="searchText">{{item.name}}</span>
+                    <span md-highlight-text="searchText" class="muted">{{item.title}}</span>
+                </md-item-template>
+                <md-not-found>
+                    {{ 'COMMON.NO_MATCHES' | translate }}
+                </md-not-found>
+            </md-autocomplete>
+            <md-chip-template>
+                <span>
+                    <strong>{{$chip.name}}</strong>
+                    <em>{{$chip.title}}</em>
+                </span>
+            </md-chip-template>
+        </md-chips>
+    </div>
 </div>
 
 <div layout>
