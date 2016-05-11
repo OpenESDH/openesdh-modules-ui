@@ -23,6 +23,12 @@
         },
         "DOC_TEMPLATES": {
             "SIGN_RENDERED_FROM_TEMPLATE": "Indhent underskrifter på dokument"
+        },
+        "auditlog": {
+            "INITIATE_1": "Dokumentet \"{{documents}}\" er leveret til underskrivning med Visma Addo.",
+            "INITIATE_n": "Dokumenterne \"{{documents}}\" er leveret til underskrivning med Visma Addo.",
+            "INITIATE_WITH_ATTACHMENTS_1": "Dokumentet \"{{documents}}\" er leveret til underskrivning med Visma Addo. Vedhæftninger: {{attachments}}",
+            "INITIATE_WITH_ATTACHMENTS_n": "Dokumenterne \"{{documents}}\" er leveret til underskrivning med Visma Addo. Vedhæftninger: {{attachments}}"
         }
     }
 }

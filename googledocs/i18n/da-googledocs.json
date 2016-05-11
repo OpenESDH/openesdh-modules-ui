@@ -6,7 +6,10 @@
             "RESUME": "Genoptag redigering | Google Docs",
             "CANCEL": "Annuller rediger | Google Docs",
             "ARE_YOU_SURE_YOU_WANT_TO_CANCEL": "Hvis du annullerer redigering af dokumentet vil ændringer ikke blive gemt. Er du sikker på at du vil annullere?",
-            "SERVICE_ERROR": "Fejl | Google Docs: {{message}}"
+            "SERVICE_ERROR": "Fejl | Google Docs: {{message}}",
+            "auditlog": {
+                "EDIT": "\"{{title}}\" version {{oldVersion}} redigeres i Google Docs™. Ny version er {{newVersion}}"
+            }
         }
     }
 }
