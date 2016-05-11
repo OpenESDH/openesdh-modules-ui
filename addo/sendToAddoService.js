@@ -71,13 +71,12 @@ function SendToAddoService($stateParams, $mdDialog, $q, $translate, notification
                 return;
             }
             addoCtrl.model.sequential = addoCtrl.model.sequential && addoCtrl.model.receivers.length > 1;
-
-            var doc = addoCtrl.selectedDocuments[0];
-            addoCtrl.model.documents = [{
-                nodeRef: doc.mainDocNodeRef ? doc.mainDocNodeRef : doc.nodeRef,
-                sign: doc.sign
-            }];
-
+            addoCtrl.model.documents = addoCtrl.selectedDocuments.map(function(doc){
+                return {
+                    nodeRef: doc.mainDocNodeRef ? doc.mainDocNodeRef : doc.nodeRef,
+                    sign: doc.sign
+                };
+            });
             addoService.initiateSigning(addoCtrl.model).then(function() {
                 notificationUtilsService.notify($translate.instant('ADDO.DOCUMENT.SENT_SUCCESSFULLY'));
                 $mdDialog.hide();
@@ -89,7 +88,15 @@ function SendToAddoService($stateParams, $mdDialog, $q, $translate, notification
         }
         
         function isSigningDocSelected(){
-            return addoCtrl.selectedDocuments.length == 1 && addoCtrl.selectedDocuments[0].sign !== 'undefined';
+            if(addoCtrl.selectedDocuments.length < 1){
+                return false;
+            }
+            for(var i=0; i<addoCtrl.selectedDocuments.length; i++){
+                if(addoCtrl.selectedDocuments[i].sign === undefined){
+                    return false;
+                }
+            }
+            return true;
         }
         
         function contactsQuerySearch(query) {
