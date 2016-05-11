@@ -25,7 +25,7 @@
         "FOR_PROJECT_ROOM": "for collaboration forum",
         "INVALID_SHORT_NAME": "Please enter a valid short name (min 3 letters, underscore allowed)",
         "CLOSE_PROJECT_ROOM": "Close collaboration forum",
-        "EDIT_INFORMATION" : "Edit information",
+        "EDIT_INFORMATION": "Edit information",
         "READY_TO_CLOSE_PROJECT_ROOM": "You are now ready to close the collaboration forum \"{{projectRoom}}\" and return back to the case \"{{case}}\".",
         "SELECT_DOCUMENTS_TO_COPY_BACK_TO_CASE": "Select documents to copy back to the case",
         "DOCS_TO_COPY_BACK": "The following documents will be copied back to the case",
@@ -49,6 +49,13 @@
         "ACCEPT": "Accept",
         "INVITE_TASK_DESCRIPTION": "You have been invited to join the \"{{siteTitle}}\" collaboration forum.",
         "INVITE_TASK_ROLE": "Your role will be",
-        "INVITEE": "Invitee"
+        "INVITEE": "Invitee",
+        "auditlog": {
+            "TYPE": {
+                "SITE": "Collaboration room"
+            },
+            "SITE_CREATED": "Created collaboration room \"{{siteShortName}}\"",
+            "SITE_DELETED": "Closed collaboration room \"{{siteShortName}}\""
+        }
     }
 }

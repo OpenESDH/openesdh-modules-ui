@@ -25,7 +25,7 @@
         "FOR_PROJECT_ROOM": "for samarbejdsforummet",
         "INVALID_SHORT_NAME": "Indtast et kort navn (minimum 3 karakter)",
         "CLOSE_PROJECT_ROOM": "Luk samarbejdsforum",
-        "EDIT_INFORMATION" : "Rediger information",
+        "EDIT_INFORMATION": "Rediger information",
         "READY_TO_CLOSE_PROJECT_ROOM": "Du er nu klar til at lukke samarbejdsforummet, \"{{projectRoom}}\", og returnere dokumenterne tilbage til sagen, \"{{case}}\".",
         "SELECT_DOCUMENTS_TO_COPY_BACK_TO_CASE": "Vælg hvilke dokumenter der skal kopieres tilbage på sagen",
         "DOCS_TO_COPY_BACK": "De følgende dokumenter kopieres tilbage på sagen",
@@ -49,6 +49,13 @@
         "ACCEPT": "Accepter",
         "INVITE_TASK_DESCRIPTION": "Du er blevet inviteret til at deltage i samarbejdsforummet, \"siteTitle\".",
         "INVITE_TASK_ROLE": "Din rolle er",
-        "INVITEE": "Invitereret"
+        "INVITEE": "Invitereret",
+        "auditlog": {
+            "TYPE": {
+                "SITE": "Samarbejdsforum"
+            },
+            "SITE_CREATED": "Samarbejdsforummet \"{{siteShortName}}\" er oprettet",
+            "SITE_DELETED": "Samarbejdsforummet \"{{siteShortName}}\" er lukket"
+        }
     }
 }

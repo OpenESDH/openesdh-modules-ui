@@ -6,7 +6,10 @@
             "RESUME": "Resume Editing in Google Docs™",
             "CANCEL": "Cancel Editing in Google Docs™",
             "ARE_YOU_SURE_YOU_WANT_TO_CANCEL": "If you cancel the editing then any changes that have been made to this file won't be saved. Are you sure you want to cancel?",
-            "SERVICE_ERROR": "Error in Google Docs™: {{message}}"
+            "SERVICE_ERROR": "Error in Google Docs™: {{message}}",
+            "auditlog": {
+                "EDIT": "\"{{title}}\" version {{oldVersion}} edited in Google Docs™. New version is {{newVersion}}"
+            }
         }
     }
 }

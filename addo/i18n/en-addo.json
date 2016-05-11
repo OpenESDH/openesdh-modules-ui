@@ -21,6 +21,12 @@
         },
         "DOC_TEMPLATES": {
             "SIGN_RENDERED_FROM_TEMPLATE": "Send rendered template for signing"
+        },
+        "auditlog": {
+            "INITIATE_1": "Document \"{{documents}}\" was sent to Visma Addo for signing.",
+            "INITIATE_n": "Documents [{{documents}}] were sent to Visma Addo for signing.",
+            "INITIATE_WITH_ATTACHMENTS_1": "Document \"{{documents}}\" was sent to Visma Addo for signing. Attachments: {{attachments}}",
+            "INITIATE_WITH_ATTACHMENTS_n": "Documents [{{documents}}] were sent to Visma Addo for signing. Attachments: {{attachments}}"
         }
     }
 }
