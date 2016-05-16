@@ -61,5 +61,7 @@
     "ACTIVITIES.LIST.dk.openesdh.case.site-close": "Samarbejdsforummet \"{{siteTitle}}\" er oprettet",
     "ACTIVITIES.LIST.dk.openesdh.case.site-create": "Samarbejdsforummet \"{{siteTitle}}\" er lukket",
     "ACTIVITIES.TYPE.dk.openesdh.case.site-close": "Samarbejdsforum",
-    "ACTIVITIES.TYPE.dk.openesdh.case.site-create": "Samarbejdsforum"
+    "ACTIVITIES.TYPE.dk.openesdh.case.site-create": "Samarbejdsforum",
+    "ACTIVITIES.dk.openesdh.case.site-close": "{{user}} created collaboration room \"{{siteTitle}}\"",
+    "ACTIVITIES.dk.openesdh.case.site-create": "{{user}} closed collaboration room \"{{siteTitle}}\""
 }

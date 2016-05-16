@@ -61,5 +61,7 @@
     "ACTIVITIES.LIST.dk.openesdh.case.site-close": "Created collaboration room \"{{siteTitle}}\"",
     "ACTIVITIES.LIST.dk.openesdh.case.site-create": "Closed collaboration room \"{{siteTitle}}\"",
     "ACTIVITIES.TYPE.dk.openesdh.case.site-close": "Collaboration room",
-    "ACTIVITIES.TYPE.dk.openesdh.case.site-create": "Collaboration room"
+    "ACTIVITIES.TYPE.dk.openesdh.case.site-create": "Collaboration room",
+    "ACTIVITIES.dk.openesdh.case.site-close": "{{user}} created collaboration room \"{{siteTitle}}\"",
+    "ACTIVITIES.dk.openesdh.case.site-create": "{{user}} closed collaboration room \"{{siteTitle}}\""
 }
