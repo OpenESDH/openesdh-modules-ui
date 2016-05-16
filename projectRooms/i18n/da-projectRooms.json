@@ -57,5 +57,9 @@
             "SITE_CREATED": "Samarbejdsforummet \"{{siteShortName}}\" er oprettet",
             "SITE_DELETED": "Samarbejdsforummet \"{{siteShortName}}\" er lukket"
         }
-    }
+    },
+    "ACTIVITIES.LIST.dk.openesdh.case.site-close": "Samarbejdsforummet \"{{siteTitle}}\" er oprettet",
+    "ACTIVITIES.LIST.dk.openesdh.case.site-create": "Samarbejdsforummet \"{{siteTitle}}\" er lukket",
+    "ACTIVITIES.TYPE.dk.openesdh.case.site-close": "Samarbejdsforum",
+    "ACTIVITIES.TYPE.dk.openesdh.case.site-create": "Samarbejdsforum"
 }

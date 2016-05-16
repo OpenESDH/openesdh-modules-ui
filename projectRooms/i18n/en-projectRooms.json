@@ -57,5 +57,9 @@
             "SITE_CREATED": "Created collaboration room \"{{siteShortName}}\"",
             "SITE_DELETED": "Closed collaboration room \"{{siteShortName}}\""
         }
-    }
+    },
+    "ACTIVITIES.LIST.dk.openesdh.case.site-close": "Created collaboration room \"{{siteTitle}}\"",
+    "ACTIVITIES.LIST.dk.openesdh.case.site-create": "Closed collaboration room \"{{siteTitle}}\"",
+    "ACTIVITIES.TYPE.dk.openesdh.case.site-close": "Collaboration room",
+    "ACTIVITIES.TYPE.dk.openesdh.case.site-create": "Collaboration room"
 }
