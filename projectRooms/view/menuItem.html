@@ -1,3 +1,10 @@
-<a class="md-button global-tools__link" ng-class="{active: toState == 'projectRooms'}" ui-sref="projectRooms">
-	<i class="material-icons">thumbs_up_down</i> <span hide show-gt-md>{{ 'PROJECT_ROOM.PROJECT_ROOMS' | translate }}</span>
+<a class="md-button global-tools__link" ng-class="{active: toState == 'projectRooms'}" ui-sref="projectRooms" title="{{ 'PROJECT_ROOM.PROJECT_ROOMS' | translate }}">
+    <i class="material-icons" >thumbs_up_down</i>
+    <span class="pr_room" hide show-gt-md ng-bind-html="('PROJECT_ROOM.PROJECT_ROOMS' | translate).replace(' ', '<br/>')"></span>
 </a>
+
+<style>
+    .pr_room {
+        display: inline-block;
+    }
+</style>    
